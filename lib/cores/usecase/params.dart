@@ -1,4 +1,3 @@
-
 /// Params for empty field
 ///
 /// If you want to put `Params` in `UseCase` and in usecase no need param
@@ -6,3 +5,4 @@
 class NoParams {
   const NoParams();
 }
+

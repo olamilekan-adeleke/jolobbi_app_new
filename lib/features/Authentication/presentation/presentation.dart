@@ -1,0 +1,1 @@
+export '../presentation/forms_model/sign_up_forms_model.dart';
