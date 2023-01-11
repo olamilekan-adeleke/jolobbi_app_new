@@ -31,7 +31,7 @@ class TextWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: GoogleFonts.poppins(
+      style: GoogleFonts.openSans(
         // style: TextStyle(
         fontSize: fontSize,
         color: textColor,
@@ -83,7 +83,7 @@ class TwoSpanTextWidget extends StatelessWidget {
     return Text.rich(
       TextSpan(
         text: text,
-        style: GoogleFonts.poppins(
+        style: GoogleFonts.openSans(
           fontSize: fontSize,
           color: textColor,
           fontWeight: fontWeight,
@@ -92,7 +92,7 @@ class TwoSpanTextWidget extends StatelessWidget {
         children: <InlineSpan>[
           TextSpan(
             text: text2,
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.openSans(
               fontSize: fontSize2,
               color: textColor2,
               fontWeight: fontWeight2,

@@ -12,6 +12,7 @@ class RouteGenerator {
 
     switch (settings.name) {
       case IntroScreen.route:
+        return pageRoute(const IntroScreen());
 
       // case LoginView.route:
       //   return materialPage(const LoginView());

@@ -22,6 +22,24 @@ class Button extends StatelessWidget {
     this.active = true,
   })  : busy = false,
         iconData = null,
+        borderColor = null,
+        iconSize = null,
+        iconColor = null;
+
+  const Button.withBorderLine({
+    required this.text,
+    required this.onTap,
+    this.color = Colors.transparent,
+    this.borderColor = kcPrimaryColor,
+    this.textColor,
+    this.textSize = kfsMedium,
+    this.height,
+    this.width,
+    this.textFontWeight = FontWeight.w700,
+    this.circular = false,
+    this.active = true,
+  })  : busy = false,
+        iconData = null,
         iconSize = null,
         iconColor = null;
 
@@ -38,6 +56,7 @@ class Button extends StatelessWidget {
         textFontWeight = null,
         iconSize = null,
         iconColor = null,
+        borderColor = null,
         active = true,
         circular = false;
 
@@ -55,6 +74,7 @@ class Button extends StatelessWidget {
   })  : busy = false,
         iconData = null,
         iconSize = null,
+        borderColor = null,
         iconColor = null;
 
   const Button.icon({
@@ -69,6 +89,7 @@ class Button extends StatelessWidget {
     this.active = true,
   })  : busy = false,
         text = null,
+        borderColor = null,
         textColor = null,
         textSize = kfsMedium,
         textFontWeight = null;
@@ -80,6 +101,7 @@ class Button extends StatelessWidget {
   final bool active;
   final Color? color;
   final Color? textColor;
+  final Color? borderColor;
   final double? textSize;
   final double? height;
   final double? width;
@@ -113,11 +135,17 @@ class Button extends StatelessWidget {
 
     if (circular) {
       shape = MaterialStateProperty.all<RoundedRectangleBorder>(
-        RoundedRectangleBorder(borderRadius: BorderRadius.circular(sp(100.0))),
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(sp(100.0)),
+          side: BorderSide(color: borderColor ?? kcPrimaryColor),
+        ),
       );
     } else {
       shape = MaterialStateProperty.all<RoundedRectangleBorder>(
-        RoundedRectangleBorder(borderRadius: BorderRadius.circular(sp(30.0))),
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(sp(5.0)),
+          side: BorderSide(color: borderColor ?? kcPrimaryColor),
+        ),
       );
     }
 

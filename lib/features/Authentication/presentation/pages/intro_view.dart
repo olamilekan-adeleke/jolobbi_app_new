@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jolobbi_app_new/cores/components/custom_button.dart';
 import 'package:jolobbi_app_new/cores/components/custom_scaffold_widget.dart';
 import 'package:jolobbi_app_new/cores/components/custom_text_widget.dart';
 import 'package:jolobbi_app_new/cores/components/image_widget.dart';
@@ -12,21 +13,18 @@ class IntroScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScaffoldWidget(
+      bg: Colors.orange.shade50,
       useSingleScroll: false,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           horizontalSpace(double.infinity),
           verticalSpace(30),
-          SizedBox(
-            width: w(300),
-            height: h(200),
-            child: const ImageWidget(
-              imageTypes: ImageTypes.svg,
-              imageUrl: "assets/svg/onboarding/intro.svg",
-            ),
+          const ImageWidget(
+            imageTypes: ImageTypes.svg,
+            imageUrl: "assets/svg/onboarding/intro.svg",
           ),
-          verticalSpace(40),
+          verticalSpace(20),
           TextWidget(
             "Find a Restaurant",
             fontWeight: FontWeight.w700,
@@ -34,14 +32,30 @@ class IntroScreen extends StatelessWidget {
           ),
           verticalSpace(5),
           SizedBox(
-            width: sw(30),
+            width: sw(60),
             child: TextWidget(
               "Fastest operation to provide food to your door step in little to no time",
-              fontWeight: FontWeight.w700,
               fontSize: sp(14),
               textAlign: TextAlign.center,
             ),
           ),
+          const Spacer(),
+          Row(
+            children: [
+              Expanded(
+                child: Button(text: "Login", onTap: () {}),
+              ),
+              horizontalSpace(),
+              Expanded(
+                child: Button.withBorderLine(
+                  text: "Create Account",
+                  textColor: Colors.black,
+                  onTap: () {},
+                ),
+              ),
+            ],
+          ),
+          verticalSpace(20),
         ],
       ),
     );
