@@ -4,9 +4,9 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'session_manager.dart';
 
 import 'logger.dart';
+import 'session_manager.dart';
 
 final Map<String, String> headers = {
   'Content-Type': 'application/json',

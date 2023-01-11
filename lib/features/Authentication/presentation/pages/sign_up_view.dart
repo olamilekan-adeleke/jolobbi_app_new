@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jolobbi_app_new/cores/components/custom_scaffold_widget.dart';
+import '../../../../cores/components/custom_scaffold_widget.dart';
 
 import '../../../../cores/constants/color.dart';
 import '../../../../cores/utils/sizer_utils.dart';

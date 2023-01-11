@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+
+import '../constants/color.dart';
+import '../utils/sizer_utils.dart';
 import 'custom_button.dart';
 import 'custom_scaffold_widget.dart';
 import 'custom_text_widget.dart';
-import '../constants/color.dart';
-
-import '../utils/sizer_utils.dart';
 import 'image_widget.dart';
 
 class SuccessViewData {

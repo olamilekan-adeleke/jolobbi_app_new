@@ -80,9 +80,7 @@ class LoginFormWidget extends StatelessWidget {
               return BlocBuilder<LoginBloc, LoginState>(
                 bloc: _bloc,
                 builder: (context, state) {
-                  if (state is LoginLoading) {
-                    return const Button.loading();
-                  }
+                  if (state is LoginLoading) return const Button.loading();
 
                   return Button(
                     active: active,
