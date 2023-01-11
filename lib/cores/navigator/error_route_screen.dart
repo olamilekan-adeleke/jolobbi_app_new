@@ -17,3 +17,12 @@ Route<dynamic> errorRoute() {
     },
   );
 }
+
+Widget noPage() {
+  return Scaffold(
+    appBar: AppBar(title: const TextWidget('Page Not Done')),
+    body: Center(
+      child: TextWidget('Page Still In Production', fontSize: sp(20)),
+    ),
+  );
+}

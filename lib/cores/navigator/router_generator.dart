@@ -1,5 +1,9 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../features/Authentication/presentation/pages/intro_view.dart';
 import 'error_route_screen.dart';
 
 class RouteGenerator {
@@ -7,8 +11,7 @@ class RouteGenerator {
     final Object? args = settings.arguments;
 
     switch (settings.name) {
-      // case IntroScreen.route:
-      //   return materialPage(const IntroScreen());
+      case IntroScreen.route:
 
       // case LoginView.route:
       //   return materialPage(const LoginView());
@@ -21,7 +24,11 @@ class RouteGenerator {
     }
   }
 
-  static MaterialPageRoute materialPage(Widget page) {
+  static PageRoute pageRoute(Widget page) {
+    if (Platform.isIOS) {
+      return CupertinoPageRoute(builder: (_) => page);
+    }
+
     return MaterialPageRoute(builder: (_) => page);
   }
 }
