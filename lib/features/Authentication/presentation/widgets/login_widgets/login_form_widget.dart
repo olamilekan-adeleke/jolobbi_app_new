@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../app/locator.dart';
 import '../../../../../cores/components/components.dart';
 import '../../../../../cores/constants/constants.dart';
 import '../../../../../cores/navigator/navigator.dart';
 import '../../../../../cores/utils/utils.dart';
+import '../../../domain/usecases/login_usecase.dart';
+import '../../bloc/login/login_bloc.dart';
+import '../../cubit/login_form_state_cubit.dart';
+import '../../enum/auth_enum.dart';
+import '../../forms_model/login_forms_model.dart';
 import '../../pages/forgot_password_view.dart';
 
 class LoginFormWidget extends StatelessWidget {
   const LoginFormWidget({super.key});
+
+  static final LoginCubit _loginCubit = getIt();
+  static final LoginBloc _bloc = getIt();
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +41,7 @@ class LoginFormWidget extends StatelessWidget {
           TextFieldWidget(
             title: "Email",
             hintText: 'user@test.com',
-            onChanged: (_) {},
+            onChanged: _loginCubit.onEmailChange,
             validator: emailValidator,
             textInputType: TextInputType.emailAddress,
           ),
@@ -40,7 +50,7 @@ class LoginFormWidget extends StatelessWidget {
             title: 'Password',
             hintText: '********',
             isPassword: true,
-            onChanged: (_) {},
+            onChanged: _loginCubit.onPasswordChange,
             validator: passwordValidator,
             textInputType: TextInputType.visiblePassword,
           ),
@@ -61,7 +71,35 @@ class LoginFormWidget extends StatelessWidget {
             ),
           ),
           verticalSpace(60),
-          Button(text: "Log In", onTap: () {}),
+          BlocBuilder<LoginCubit, LoginFromzModel>(
+            bloc: _loginCubit,
+            builder: (context, cubitState) {
+              final bool active =
+                  cubitState.loginStatus == LoginFormStatus.success;
+
+              return BlocBuilder<LoginBloc, LoginState>(
+                bloc: _bloc,
+                builder: (context, state) {
+                  if (state is LoginLoading) {
+                    return const Button.loading();
+                  }
+
+                  return Button(
+                    active: active,
+                    text: "Log In",
+                    onTap: () {
+                      final LoginDataParams login = LoginDataParams(
+                        email: cubitState.email,
+                        password: cubitState.password,
+                      );
+
+                      _bloc.add(LoginEvent(login));
+                    },
+                  );
+                },
+              );
+            },
+          ),
         ],
       ),
     );
