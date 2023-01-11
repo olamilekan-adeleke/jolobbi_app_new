@@ -3,7 +3,9 @@ import 'package:jolobbi_app_new/cores/components/custom_button.dart';
 import 'package:jolobbi_app_new/cores/components/custom_scaffold_widget.dart';
 import 'package:jolobbi_app_new/cores/components/custom_text_widget.dart';
 import 'package:jolobbi_app_new/cores/components/image_widget.dart';
+import 'package:jolobbi_app_new/cores/navigator/app_router.dart';
 import 'package:jolobbi_app_new/cores/utils/sizer_utils.dart';
+import 'package:jolobbi_app_new/features/Authentication/presentation/pages/login_view.dart';
 
 class IntroScreen extends StatelessWidget {
   static const route = "/";
@@ -43,7 +45,10 @@ class IntroScreen extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: Button(text: "Login", onTap: () {}),
+                child: Button(
+                  text: "Login",
+                  onTap: () => AppRouter.instance.navigateTo(LoginView.route),
+                ),
               ),
               horizontalSpace(),
               Expanded(

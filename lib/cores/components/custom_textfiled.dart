@@ -12,7 +12,7 @@ class TextFieldWidget extends StatefulWidget {
     this.textEditingController,
     this.autoCorrect = true,
     required this.hintText,
-    this.title,
+    required this.title,
     this.validator,
     this.textInputType = TextInputType.text,
     this.isPassword = false,
@@ -27,7 +27,7 @@ class TextFieldWidget extends StatefulWidget {
   final TextEditingController? textEditingController;
   final bool autoCorrect;
   final String hintText;
-  final String? title;
+  final String title;
   final String? Function(String?)? validator;
   final void Function(String)? onChanged;
   final TextInputType textInputType;
@@ -53,13 +53,13 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // TextWidget(
-            //   widget.title,
-            //   fontSize: sp(14),
-            //   fontWeight: FontWeight.w500,
-            //   textColor: kcTextColor.withOpacity(0.5),
-            // ),
-            // verticalSpace(5),
+            TextWidget(
+              widget.title,
+              fontSize: sp(14),
+              fontWeight: FontWeight.w500,
+              textColor: kcTextColor.withOpacity(0.5),
+            ),
+            verticalSpace(5),
             TextFormField(
               maxLines: widget.maxLine,
               enabled: widget.enabled,
@@ -76,8 +76,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                   : null,
               decoration: InputDecoration(
                 filled: true,
-                fillColor: const Color(0xffF4FFFF),
-                // fillColor: const Color(0xffF4FFFF).withOpacity(0.2),
+                fillColor: Colors.orange.withOpacity(0.05),
                 border: OutlineInputBorder(
                   borderSide: const BorderSide(color: kcGrey400),
                   borderRadius: BorderRadius.circular(sp(8.0)),

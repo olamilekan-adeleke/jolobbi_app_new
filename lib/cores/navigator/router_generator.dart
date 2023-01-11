@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../features/Authentication/presentation/pages/intro_view.dart';
+import '../../features/Authentication/presentation/pages/login_view.dart';
 import 'error_route_screen.dart';
 
 class RouteGenerator {
@@ -14,8 +15,8 @@ class RouteGenerator {
       case IntroScreen.route:
         return pageRoute(const IntroScreen());
 
-      // case LoginView.route:
-      //   return materialPage(const LoginView());
+      case LoginView.route:
+        return pageRoute(const LoginView());
 
       // case SignUpView.route:
       //   return materialPage(const SignUpView());
