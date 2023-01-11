@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:jolobbi_app_new/cores/components/custom_button.dart';
 import 'package:jolobbi_app_new/cores/components/custom_textfiled.dart';
 import 'package:jolobbi_app_new/cores/constants/color.dart';
+import 'package:jolobbi_app_new/cores/navigator/app_router.dart';
 
 import '../../../../../cores/components/custom_text_widget.dart';
 import '../../../../../cores/utils/sizer_utils.dart';
 import '../../../../../cores/utils/validator.dart';
+import '../../pages/forgot_password_view.dart';
 
 class LoginFormWidget extends StatelessWidget {
   const LoginFormWidget({super.key});
@@ -47,6 +49,9 @@ class LoginFormWidget extends StatelessWidget {
           ),
           verticalSpace(5),
           GestureDetector(
+            onTap: () => AppRouter.instance.navigateTo(
+              ForgotPasswordView.route,
+            ),
             child: Align(
               alignment: Alignment.centerRight,
               child: TextWidget(

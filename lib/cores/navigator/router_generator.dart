@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../features/Authentication/presentation/pages/forgot_password_view.dart';
 import '../../features/Authentication/presentation/pages/intro_view.dart';
 import '../../features/Authentication/presentation/pages/login_view.dart';
 import '../../features/Authentication/presentation/pages/sign_up_view.dart';
@@ -21,6 +22,9 @@ class RouteGenerator {
 
       case SignUpView.route:
         return pageRoute(const SignUpView());
+
+      case ForgotPasswordView.route:
+        return pageRoute(const ForgotPasswordView());
 
       default:
         return errorRoute();
