@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../../cores/components/custom_scaffold_widget.dart';
-import '../../../../cores/constants/color.dart';
-import '../../../../cores/utils/sizer_utils.dart';
+import '../../../../cores/components/components.dart';
+import '../../../../cores/constants/constants.dart';
+import '../../../../cores/utils/utils.dart';
 import '../widgets/login_widgets/login_form_widget.dart';
 
 class LoginView extends StatelessWidget {
