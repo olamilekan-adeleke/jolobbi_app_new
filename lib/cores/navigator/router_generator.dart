@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../../features/Authentication/presentation/pages/intro_view.dart';
 import '../../features/Authentication/presentation/pages/login_view.dart';
+import '../../features/Authentication/presentation/pages/sign_up_view.dart';
 import 'error_route_screen.dart';
 
 class RouteGenerator {
@@ -18,8 +19,8 @@ class RouteGenerator {
       case LoginView.route:
         return pageRoute(const LoginView());
 
-      // case SignUpView.route:
-      //   return materialPage(const SignUpView());
+      case SignUpView.route:
+        return pageRoute(const SignUpView());
 
       default:
         return errorRoute();

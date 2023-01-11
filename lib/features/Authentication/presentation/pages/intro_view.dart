@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:jolobbi_app_new/cores/components/custom_button.dart';
-import 'package:jolobbi_app_new/cores/components/custom_scaffold_widget.dart';
-import 'package:jolobbi_app_new/cores/components/custom_text_widget.dart';
-import 'package:jolobbi_app_new/cores/components/image_widget.dart';
-import 'package:jolobbi_app_new/cores/navigator/app_router.dart';
-import 'package:jolobbi_app_new/cores/utils/sizer_utils.dart';
-import 'package:jolobbi_app_new/features/Authentication/presentation/pages/login_view.dart';
+
+import '../../../../cores/components/custom_button.dart';
+import '../../../../cores/components/custom_scaffold_widget.dart';
+import '../../../../cores/components/custom_text_widget.dart';
+import '../../../../cores/components/image_widget.dart';
+import '../../../../cores/navigator/app_router.dart';
+import '../../../../cores/utils/sizer_utils.dart';
+import 'login_view.dart';
+import 'sign_up_view.dart';
 
 class IntroScreen extends StatelessWidget {
   static const route = "/";
@@ -55,7 +57,7 @@ class IntroScreen extends StatelessWidget {
                 child: Button.withBorderLine(
                   text: "Create Account",
                   textColor: Colors.black,
-                  onTap: () {},
+                  onTap: () => AppRouter.instance.navigateTo(SignUpView.route),
                 ),
               ),
             ],
