@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:jolobbi_app_new/cores/constants/color.dart';
 
-import '../../../../../cores/components/custom_button.dart';
-import '../../../../../cores/components/custom_text_widget.dart';
-import '../../../../../cores/components/custom_textfiled.dart';
-import '../../../../../cores/navigator/app_router.dart';
-import '../../../../../cores/utils/sizer_utils.dart';
-import '../../../../../cores/utils/validator.dart';
+import '../../../../../cores/components/components.dart';
+import '../../../../../cores/constants/constants.dart';
+import '../../../../../cores/navigator/navigator.dart';
+import '../../../../../cores/utils/utils.dart';
 import '../../pages/login_view.dart';
 
 class SignUpFormWidget extends StatelessWidget {

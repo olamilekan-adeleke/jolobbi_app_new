@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../cores/components/custom_button.dart';
-import '../../../../../cores/components/custom_text_widget.dart';
-import '../../../../../cores/components/custom_textfiled.dart';
-import '../../../../../cores/utils/sizer_utils.dart';
-import '../../../../../cores/utils/validator.dart';
+import '../../../../../cores/components/components.dart';
+import '../../../../../cores/utils/utils.dart';
 
 class ForgotFormWidget extends StatelessWidget {
   const ForgotFormWidget({Key? key}) : super(key: key);
