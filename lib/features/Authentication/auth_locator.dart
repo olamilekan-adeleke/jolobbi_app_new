@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:jolobbi_app_new/app/locator.dart';
+import 'package:jolobbi_app_new/features/Authentication/presentation/bloc/authentication_bloc.dart';
 import 'presentation/bloc/login/login_bloc.dart';
 import 'presentation/cubit/login_form_state_cubit.dart';
 
@@ -58,4 +59,6 @@ void setUpAuthenticationLocators() {
   getIt.registerLazySingleton<LoginBloc>(
     () => LoginBloc(loginUsecase: getIt<LoginUsecase>()),
   );
+
+  getIt.registerLazySingleton<AuthenticationBloc>(() => AuthenticationBloc());
 }

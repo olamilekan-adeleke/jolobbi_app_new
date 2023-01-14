@@ -5,6 +5,7 @@ import '../../../../app/locator.dart';
 import '../../../../cores/components/components.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/utils/utils.dart';
+import '../bloc/authentication_bloc.dart';
 import '../bloc/login/login_bloc.dart';
 import '../widgets/login_widgets/login_form_widget.dart';
 
@@ -14,6 +15,8 @@ class LoginView extends StatelessWidget {
   const LoginView({super.key});
 
   static final LoginBloc _bloc = SetUpLocators.getIt<LoginBloc>();
+  static final AuthenticationBloc _authBloc =
+      SetUpLocators.getIt<AuthenticationBloc>();
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +60,8 @@ class LoginView extends StatelessWidget {
         message: state.message,
       );
     } else if (state is LoginSuccess) {
+      _authBloc.add(const ChangeAuthStateEvent(true));
+
       SnackBarService.showSuccessSnackBar(
         context: context,
         message: 'Login success',
