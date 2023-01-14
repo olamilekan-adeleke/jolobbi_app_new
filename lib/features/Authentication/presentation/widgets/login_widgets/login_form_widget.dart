@@ -16,8 +16,8 @@ import '../../pages/forgot_password_view.dart';
 class LoginFormWidget extends StatelessWidget {
   const LoginFormWidget({super.key});
 
-  static final LoginCubit _loginCubit = getIt();
-  static final LoginBloc _bloc = getIt();
+  static final LoginCubit _loginCubit = SetUpLocators.getIt();
+  static final LoginBloc _bloc = SetUpLocators.getIt();
 
   @override
   Widget build(BuildContext context) {

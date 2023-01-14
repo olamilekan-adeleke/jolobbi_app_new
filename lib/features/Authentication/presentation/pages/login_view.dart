@@ -13,7 +13,7 @@ class LoginView extends StatelessWidget {
 
   const LoginView({super.key});
 
-  static final LoginBloc _bloc = getIt();
+  static final LoginBloc _bloc = SetUpLocators.getIt<LoginBloc>();
 
   @override
   Widget build(BuildContext context) {
