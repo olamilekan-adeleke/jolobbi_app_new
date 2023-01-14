@@ -1,5 +1,5 @@
 import 'package:get_it/get_it.dart';
-import 'package:jolobbi_app_new/features/Authentication/domain/usecases/sign_up_usecase.dart';
+import '../features/Authentication/domain/usecases/sign_up_usecase.dart';
 
 import '../features/Authentication/data/datasources/authentication_remote_data_source.dart';
 import '../features/Authentication/data/repositories/authentication_repository_impl.dart';
