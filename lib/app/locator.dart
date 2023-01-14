@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:jolobbi_app_new/features/Authentication/domain/usecases/sign_up_usecase.dart';
 
 import '../features/Authentication/data/datasources/authentication_remote_data_source.dart';
 import '../features/Authentication/data/repositories/authentication_repository_impl.dart';
@@ -9,7 +10,7 @@ import '../features/Authentication/presentation/cubit/login_form_state_cubit.dar
 
 final getIt = GetIt.instance;
 
-void setUpLocator() {
+void setUpLocators() {
   ///--------------- Authentication --------------------//
   // data
   getIt.registerLazySingleton<AuthenticationRemoteDataSource>(
@@ -22,9 +23,15 @@ void setUpLocator() {
     ),
   );
 
-  // Domain
+  // UseCase
   getIt.registerLazySingleton<LoginUsecase>(
     () => LoginUsecase(
+      authenticationRepository: getIt<AuthenticationRepository>(),
+    ),
+  );
+
+  getIt.registerLazySingleton<SignUpUsecase>(
+    () => SignUpUsecase(
       authenticationRepository: getIt<AuthenticationRepository>(),
     ),
   );

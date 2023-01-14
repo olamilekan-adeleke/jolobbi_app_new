@@ -48,6 +48,12 @@ class AuthenticationRemoteDataSourceImpl
       );
     }
 
+    // Save User Data to Firestore
+    final User user = userCredential.user!;
+    await FirebaseHelper.userCollectionRef()
+        .doc(user.uid)
+        .set(signUpForm.toMap(user.uid));
+
     return const AuthResultModel(
       success: true,
       message: 'Account Successfully Created!',

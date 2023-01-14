@@ -53,8 +53,25 @@ class AuthenticationRepositoryIpml extends AuthenticationRepository {
 
   @override
   Future<Either<Failures, AuthResultEntity>> register(
-      SignUpFormModel signUpForm) {
-    // TODO: implement register
-    throw UnimplementedError();
+    SignUpFormModel signUpForm,
+  ) async {
+    try {
+      final AuthResultModel result =
+          await _authenticationRemoteDataSource.signUp(signUpForm);
+
+      return Either.right(result);
+    } on FirebaseAuthException catch (e) {
+      return Either.left(AuthFirebaseException(e.code));
+    } on SocketException {
+      return const Left(BaseException(message: ErrorText.noInternet));
+    } catch (e, s) {
+      LoggerHelper.log(e, s);
+
+      if (e is BaseException) {
+        return Either.left(BaseException(message: e.message));
+      }
+
+      return Either.left(BaseException(message: e.toString()));
+    }
   }
 }
