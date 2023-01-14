@@ -46,9 +46,24 @@ class AuthenticationRepositoryIpml extends AuthenticationRepository {
   }
 
   @override
-  Future<Either<Failures, bool>> logout() {
-    // TODO: implement logout
-    throw UnimplementedError();
+  Future<Either<Failures, void>> logout() async {
+    try {
+      await _authenticationRemoteDataSource.logOut();
+
+      return Either.right(null);
+    } on FirebaseAuthException catch (e) {
+      return Either.left(AuthFirebaseException(e.code));
+    } on SocketException {
+      return const Left(BaseException(message: ErrorText.noInternet));
+    } catch (e, s) {
+      LoggerHelper.log(e, s);
+
+      if (e is BaseException) {
+        return Either.left(BaseException(message: e.message));
+      }
+
+      return Either.left(BaseException(message: e.toString()));
+    }
   }
 
   @override
@@ -60,6 +75,27 @@ class AuthenticationRepositoryIpml extends AuthenticationRepository {
           await _authenticationRemoteDataSource.signUp(signUpForm);
 
       return Either.right(result);
+    } on FirebaseAuthException catch (e) {
+      return Either.left(AuthFirebaseException(e.code));
+    } on SocketException {
+      return const Left(BaseException(message: ErrorText.noInternet));
+    } catch (e, s) {
+      LoggerHelper.log(e, s);
+
+      if (e is BaseException) {
+        return Either.left(BaseException(message: e.message));
+      }
+
+      return Either.left(BaseException(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failures, void>> forgotPassword(String email) async {
+    try {
+      await _authenticationRemoteDataSource.forgotPassword(email);
+
+      return Either.right(null);
     } on FirebaseAuthException catch (e) {
       return Either.left(AuthFirebaseException(e.code));
     } on SocketException {

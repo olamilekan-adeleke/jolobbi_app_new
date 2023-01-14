@@ -10,6 +10,8 @@ abstract class AuthenticationRemoteDataSource {
 
   Future<AuthResultModel> signUp(SignUpFormModel signUpForm);
 
+  Future<void> forgotPassword(String email);
+
   Future<void> logOut();
 }
 
@@ -58,5 +60,10 @@ class AuthenticationRemoteDataSourceImpl
       success: true,
       message: 'Account Successfully Created!',
     );
+  }
+
+  @override
+  Future<void> forgotPassword(String email) async {
+    return await FirebaseHelper.auth.sendPasswordResetEmail(email: email);
   }
 }

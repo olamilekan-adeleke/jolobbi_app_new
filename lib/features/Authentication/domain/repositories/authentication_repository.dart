@@ -1,4 +1,3 @@
-
 import 'package:fpdart/fpdart.dart';
 
 import '../../../../cores/failures/base.dart';
@@ -15,5 +14,7 @@ abstract class AuthenticationRepository {
     SignUpFormModel signUpForm,
   );
 
-  Future<Either<Failures, bool>> logout();
+  Future<Either<Failures, void>> logout();
+
+  Future<Either<Failures, void>> forgotPassword(String email);
 }

@@ -21,9 +21,9 @@ abstract class UseCaseFuture<Failure, Type, Params> {
   FutureOr<Either<Failure, Type>> call(Params params);
 }
 
-abstract class UseCaseVoid<Params> {
+abstract class UseCaseVoid<Failure, Params> {
   /// Method to calling this useCase
-  FutureOr<void> call(Params params);
+  FutureOr<Either<Failure, void>> call(Params params);
 }
 
 /// `UseCase` for getting data with Stream.
@@ -43,4 +43,3 @@ abstract class UseCaseStream<Failure, Type, Params> {
   /// Method to calling this useCase
   Stream<Either<Failure, Type>> call(Params params);
 }
-
