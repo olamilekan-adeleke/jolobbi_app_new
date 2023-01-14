@@ -1,9 +1,6 @@
 import 'package:get_it/get_it.dart';
-import 'package:jolobbi_app_new/app/locator.dart';
-import 'package:jolobbi_app_new/features/Authentication/presentation/bloc/authentication_bloc.dart';
-import 'presentation/bloc/login/login_bloc.dart';
-import 'presentation/cubit/login_form_state_cubit.dart';
 
+import '../../app/locator.dart';
 import 'data/datasources/authentication_remote_data_source.dart';
 import 'data/repositories/authentication_repository_impl.dart';
 import 'domain/domain.dart';
@@ -11,6 +8,11 @@ import 'domain/usecases/forgot_password_usecase.dart';
 import 'domain/usecases/login_usecase.dart';
 import 'domain/usecases/logout_usecase.dart';
 import 'domain/usecases/sign_up_usecase.dart';
+import 'presentation/bloc/authentication_bloc.dart';
+import 'presentation/bloc/forgot_password/forgot_password_bloc.dart';
+import 'presentation/bloc/log_out/log_out_bloc.dart';
+import 'presentation/bloc/login/login_bloc.dart';
+import 'presentation/cubit/login_form_state_cubit.dart';
 
 void setUpAuthenticationLocators() {
   final GetIt getIt = SetUpLocators.getIt;
@@ -61,4 +63,13 @@ void setUpAuthenticationLocators() {
   );
 
   getIt.registerLazySingleton<AuthenticationBloc>(() => AuthenticationBloc());
+
+  getIt.registerLazySingleton<ForgotPasswordBloc>(
+    () => ForgotPasswordBloc(
+        forgotPasswordUsecase: getIt<ForgotPasswordUsecase>()),
+  );
+
+  getIt.registerLazySingleton<LogOutBloc>(
+    () => LogOutBloc(logOutUsecase: getIt<LogOutUsecase>()),
+  );
 }
