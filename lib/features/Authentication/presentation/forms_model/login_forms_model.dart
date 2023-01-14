@@ -33,7 +33,7 @@ class LoginFromzModel extends Equatable {
     String email,
     String password,
   ) {
-    if (email.isEmpty && password.isEmpty) {
+    if (email.isEmpty || password.isEmpty) {
       return LoginFormStatus.error;
     }
 
