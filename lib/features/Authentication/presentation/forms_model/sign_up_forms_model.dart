@@ -23,8 +23,10 @@ class SignUpFormModel with FormzMixin {
   Map<String, dynamic> toMap(String userId) {
     List<String> searchKey = [];
 
+    String lastSearchKey = '';
     fullName.value.split("").forEach((element) {
-      searchKey.add(element.toLowerCase());
+      lastSearchKey += element.toLowerCase();
+      searchKey.add(lastSearchKey);
     });
 
     return <String, dynamic>{
@@ -35,7 +37,7 @@ class SignUpFormModel with FormzMixin {
       'phoneNumber': phoneNumber.value,
       'username': username.value,
       "createdAt": DateTime.now().toIso8601String(),
-      "displayPicture": "",
+      "displayPicture": null,
       "searchKey": searchKey,
     };
   }
