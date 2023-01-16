@@ -38,8 +38,8 @@ String? passwordValidator(String? value) {
 String? passwordMatchValidator(String? value, String password) {
   if (value == '' || value == null) {
     return 'Password must not be empty!';
-  } else if (value.trim().length < 6) {
-    return 'Password Must be minimum of 6 characters long!';
+  } else if (value.trim().length < 8) {
+    return 'Password Must be minimum of 8 characters long!';
   } else if (value.trim() != password.trim()) {
     return 'Password Does Not Match!';
   }
@@ -61,9 +61,22 @@ String? emailValidator(String? value) {
 
 String? nameValidator(String? value) {
   if (value == '' || value == null) {
-    return 'Username must not be empty!';
+    return 'Name must not be empty!';
   } else if (value.trim().length <= 2) {
-    return 'Username must be min 3 characters long!';
+    return 'Name must be min 3 characters long!';
+  }
+  return null;
+}
+
+String? usernameValidator(String? value) {
+  final usernameRegExp = RegExp(r'^[A-Za-z][A-Za-z0-9_]{3,29}$');
+
+  if (value == '' || value == null) {
+    return 'Username must not be empty!';
+  } else if (value.trim().length <= 4) {
+    return 'Username must be min 5 characters long!';
+  } else if (usernameRegExp.hasMatch(value) != true) {
+    return 'Username must be at least 5 characters, and can only contain letters, numbers, and underscores.';
   }
   return null;
 }

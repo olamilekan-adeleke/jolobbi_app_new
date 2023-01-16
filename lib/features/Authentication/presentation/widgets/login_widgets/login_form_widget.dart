@@ -12,6 +12,7 @@ import '../../cubit/login_form_state_cubit.dart';
 import '../../enum/auth_enum.dart';
 import '../../forms_model/login_forms_model.dart';
 import '../../pages/forgot_password_view.dart';
+import '../../pages/pages.dart';
 
 class LoginFormWidget extends StatelessWidget {
   const LoginFormWidget({super.key});
@@ -97,6 +98,22 @@ class LoginFormWidget extends StatelessWidget {
                 },
               );
             },
+          ),
+          verticalSpace(),
+          GestureDetector(
+            onTap: () {
+              AppRouter.instance.navigateToAndReplace(SignUpView.route);
+            },
+            child: Center(
+              child: TwoSpanTextWidget(
+                'New here? ',
+                'Create an account',
+                fontSize: sp(11),
+                fontSize2: sp(11),
+                textColor2: kcPrimaryColor,
+                fontWeight2: FontWeight.w700,
+              ),
+            ),
           ),
         ],
       ),

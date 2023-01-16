@@ -75,6 +75,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                   ? AutovalidateMode.onUserInteraction
                   : null,
               decoration: InputDecoration(
+                errorMaxLines: 2,
                 filled: true,
                 fillColor: Colors.orange.withOpacity(0.05),
                 border: OutlineInputBorder(

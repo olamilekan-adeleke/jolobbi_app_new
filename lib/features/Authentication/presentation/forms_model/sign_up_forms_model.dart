@@ -1,5 +1,3 @@
-// ignore_for_file: no_leading_underscores_for_local_identifiers
-
 import 'package:formz/formz.dart';
 
 import '../../../../cores/utils/formz_validator/email_formz_validator.dart';
@@ -23,10 +21,10 @@ class SignUpFormModel with FormzMixin {
   final Username username;
 
   Map<String, dynamic> toMap(String userId) {
-    List<String> _searchKey = [];
+    List<String> searchKey = [];
 
     fullName.value.split("").forEach((element) {
-      _searchKey.add(element.toLowerCase());
+      searchKey.add(element.toLowerCase());
     });
 
     return <String, dynamic>{
@@ -38,7 +36,7 @@ class SignUpFormModel with FormzMixin {
       'username': username.value,
       "createdAt": DateTime.now().toIso8601String(),
       "displayPicture": "",
-      "searchKey": _searchKey,
+      "searchKey": searchKey,
     };
   }
 
@@ -50,4 +48,20 @@ class SignUpFormModel with FormzMixin {
         phoneNumber,
         username,
       ];
+
+  SignUpFormModel copyWith({
+    Email? email,
+    Password? password,
+    Required? fullName,
+    Required? phoneNumber,
+    Username? username,
+  }) {
+    return SignUpFormModel(
+      email: email ?? this.email,
+      password: password ?? this.password,
+      fullName: fullName ?? this.fullName,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
+      username: username ?? this.username,
+    );
+  }
 }

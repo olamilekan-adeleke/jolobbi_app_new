@@ -12,7 +12,9 @@ import 'presentation/bloc/authentication_bloc.dart';
 import 'presentation/bloc/forgot_password/forgot_password_bloc.dart';
 import 'presentation/bloc/log_out/log_out_bloc.dart';
 import 'presentation/bloc/login/login_bloc.dart';
+import 'presentation/bloc/sign_up/sign_up_bloc.dart';
 import 'presentation/cubit/login_form_state_cubit.dart';
+import 'presentation/cubit/sign_up_form_state_cubit.dart';
 
 void setUpAuthenticationLocators() {
   final GetIt getIt = SetUpLocators.getIt;
@@ -56,10 +58,15 @@ void setUpAuthenticationLocators() {
   /// Presentation
   // Cubit
   getIt.registerLazySingleton<LoginCubit>(() => LoginCubit());
+  getIt.registerLazySingleton<SignUpFormCubit>(() => SignUpFormCubit());
 
   //Bloc
   getIt.registerLazySingleton<LoginBloc>(
     () => LoginBloc(loginUsecase: getIt<LoginUsecase>()),
+  );
+
+  getIt.registerLazySingleton<SignUpBloc>(
+    () => SignUpBloc(signUpUsecase: getIt<SignUpUsecase>()),
   );
 
   getIt.registerLazySingleton<AuthenticationBloc>(() => AuthenticationBloc());
