@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -95,7 +97,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                   borderRadius: BorderRadius.circular(sp(8.0)),
                 ),
                 hintText: widget.hintText,
-                hintStyle: TextStyle(
+                hintStyle: GoogleFonts.openSans(
                   color: kcTextColor.withOpacity(0.5),
                   fontWeight: FontWeight.w300,
                   fontSize: sp(13),

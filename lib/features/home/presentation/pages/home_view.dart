@@ -11,8 +11,8 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScaffoldWidget(
       body: Column(
-        children: [
-          Center(child: const Text("Home")),
+        children: const [
+          Center(child: Text("Home")),
         ],
       ),
     );

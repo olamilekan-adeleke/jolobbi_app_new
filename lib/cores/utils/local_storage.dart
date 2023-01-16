@@ -25,7 +25,7 @@ class LocalStorage {
   }
 
   Future<Map<String, dynamic>> getSavedUser() async {
-    Map<String, dynamic> _loginModel;
+    Map<String, dynamic> loginModel;
 
     try {
       final String? value = await storage.read(key: loginDetailsKey);
@@ -36,12 +36,12 @@ class LocalStorage {
 
       final Map<String, dynamic> data = json.decode(value);
 
-      _loginModel = data;
+      loginModel = data;
     } catch (e) {
       throw e.toString();
     }
 
-    return _loginModel;
+    return loginModel;
   }
 
   Future<String> getSavedUsername() async {

@@ -11,7 +11,6 @@ import '../../bloc/login/login_bloc.dart';
 import '../../cubit/login_form_state_cubit.dart';
 import '../../enum/auth_enum.dart';
 import '../../forms_model/login_forms_model.dart';
-import '../../pages/forgot_password_view.dart';
 import '../../pages/pages.dart';
 
 class LoginFormWidget extends StatelessWidget {

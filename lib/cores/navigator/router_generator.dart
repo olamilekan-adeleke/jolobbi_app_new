@@ -13,7 +13,7 @@ import 'error_route_screen.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    final Object? args = settings.arguments;
+    // final Object? args = settings.arguments;
 
     switch (settings.name) {
       case AuthStateView.route:

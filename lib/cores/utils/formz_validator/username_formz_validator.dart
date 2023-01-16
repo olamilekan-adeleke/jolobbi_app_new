@@ -18,11 +18,3 @@ class Username extends FormzInput<String, UsernameValidationError> {
   }
 }
 
-extension on UsernameValidationError {
-  String text() {
-    switch (this) {
-      case UsernameValidationError.invalid:
-        return '''Username must be at least 5 characters, and can only contain letters, numbers, and underscores.''';
-    }
-  }
-}

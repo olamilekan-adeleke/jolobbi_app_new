@@ -11,19 +11,10 @@ import 'session_manager.dart';
 final Map<String, String> headers = {
   'Content-Type': 'application/json',
   'Accept': 'application/json',
-  "Token": "adebamm",
   'Authorization': 'Bearer ${SessionManager.instance.token}',
 };
 
-final Map<String, String> payStackHeader = {
-  'Content-Type': 'application/json',
-  'Accept': 'application/json',
-  "Authorization": "Bearer sk_test_5ac9845a49e8b5c5d821a9948cbe63937cc6c32f"
-};
-
 class HttpHelper {
-  static final SessionManager _sessionManager = SessionManager.instance;
-
   static Future<Map<String, dynamic>> get(
     String url, {
     Map<String, dynamic>? query,

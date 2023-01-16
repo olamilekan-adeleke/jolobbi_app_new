@@ -15,12 +15,3 @@ class Required extends FormzInput<String, RequiredValidationError> {
     }
   }
 }
-
-extension on RequiredValidationError {
-  String text() {
-    switch (this) {
-      case RequiredValidationError.invalid:
-        return '''Required must be at least 3 characters''';
-    }
-  }
-}
