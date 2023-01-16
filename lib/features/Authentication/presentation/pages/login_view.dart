@@ -4,10 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../app/locator.dart';
 import '../../../../cores/components/components.dart';
 import '../../../../cores/constants/constants.dart';
+import '../../../../cores/navigator/navigator.dart';
 import '../../../../cores/utils/utils.dart';
 import '../bloc/authentication_bloc.dart';
 import '../bloc/login/login_bloc.dart';
 import '../widgets/login_widgets/login_form_widget.dart';
+import 'auth_state_view.dart';
 
 class LoginView extends StatelessWidget {
   static const String route = "/login";
@@ -61,6 +63,7 @@ class LoginView extends StatelessWidget {
       );
     } else if (state is LoginSuccess) {
       _authBloc.add(const ChangeAuthStateEvent(true));
+      AppRouter.instance.clearRouteAndPush(AuthStateView.route);
 
       SnackBarService.showSuccessSnackBar(
         context: context,

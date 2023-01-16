@@ -4,10 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../app/locator.dart';
 import '../../../../cores/components/custom_scaffold_widget.dart';
 import '../../../../cores/constants/color.dart';
+import '../../../../cores/navigator/navigator.dart';
 import '../../../../cores/utils/utils.dart';
 import '../bloc/authentication_bloc.dart';
 import '../bloc/sign_up/sign_up_bloc.dart';
 import '../widgets/sign_up_widgets/sign_up_form_widget.dart';
+import 'auth_state_view.dart';
 
 class SignUpView extends StatelessWidget {
   static const String route = "/sign_up";
@@ -61,6 +63,7 @@ class SignUpView extends StatelessWidget {
       );
     } else if (state is SignUpSuccess) {
       _authBloc.add(const ChangeAuthStateEvent(true));
+      AppRouter.instance.clearRouteAndPush(AuthStateView.route);
 
       SnackBarService.showSuccessSnackBar(
         context: context,

@@ -10,7 +10,7 @@ import 'login_view.dart';
 import 'sign_up_view.dart';
 
 class IntroScreen extends StatelessWidget {
-  static const route = "/";
+  static const route = "/IntroScreen";
 
   const IntroScreen({super.key});
 

@@ -24,6 +24,13 @@ class AppRouter {
     return navigatorKey.currentState!.pushReplacementNamed(routeName);
   }
 
+  Future<dynamic> clearRouteAndPush(String routeName) {
+    return navigatorKey.currentState!.pushNamedAndRemoveUntil(
+      routeName,
+      ModalRoute.withName('/'),
+    );
+  }
+
   void goBack() {
     return navigatorKey.currentState!.pop();
   }
