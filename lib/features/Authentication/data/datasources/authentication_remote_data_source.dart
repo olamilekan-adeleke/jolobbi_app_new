@@ -40,8 +40,8 @@ class AuthenticationRemoteDataSourceImpl
   Future<AuthResultModel> signUp(SignUpFormModel signUpForm) async {
     final UserCredential userCredential =
         await FirebaseHelper.auth.createUserWithEmailAndPassword(
-      email: signUpForm.email,
-      password: signUpForm.password,
+      email: signUpForm.email.value,
+      password: signUpForm.password.value,
     );
 
     if (userCredential.user == null) {
