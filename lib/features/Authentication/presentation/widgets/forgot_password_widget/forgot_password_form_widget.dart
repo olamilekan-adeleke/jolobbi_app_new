@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../app/locator.dart';
 import '../../../../../cores/components/components.dart';
 import '../../../../../cores/utils/utils.dart';
+import '../../bloc/forgot_password/forgot_password_bloc.dart';
 
 class ForgotFormWidget extends StatelessWidget {
   const ForgotFormWidget({Key? key}) : super(key: key);
+
+  static final TextEditingController emailTextEditingController =
+      TextEditingController();
+  static final ForgotPasswordBloc _bloc =
+      SetUpLocators.getIt<ForgotPasswordBloc>();
 
   @override
   Widget build(BuildContext context) {
@@ -33,22 +41,25 @@ class ForgotFormWidget extends StatelessWidget {
             title: "Email",
             hintText: 'test@user.con',
             onChanged: (_) {},
+            textEditingController: emailTextEditingController,
             validator: emailValidator,
           ),
           verticalSpace(60),
-          // BlocBuilder<ForgotPasswordCubit, ForgotPasswordModel>(
-          //   builder: (context, state) {
-          //     if (state.forgotPasswordStatus == ForgotPasswordStatus.busy) {
-          //       return const CustomButton.loading();
-          //     }
+          BlocBuilder<ForgotPasswordBloc, ForgotPasswordState>(
+            bloc: _bloc,
+            builder: (context, state) {
+              if (state is ForgotPasswordLoading) {
+                return const Button.loading();
+              }
 
-          //     return CustomButton(
-          //       text: 'Submit',
-          //       onTap: context.read<ForgotPasswordCubit>().onSubmitFom,
-          //     );
-          //   },
-          // ),
-          Button(text: 'Get Reset Link', onTap: () {}),
+              return Button(
+                text: 'Get Reset Link',
+                onTap: () => _bloc.add(
+                  ForgotPasswordEvent(emailTextEditingController.text),
+                ),
+              );
+            },
+          ),
           verticalSpace(20),
         ],
       ),

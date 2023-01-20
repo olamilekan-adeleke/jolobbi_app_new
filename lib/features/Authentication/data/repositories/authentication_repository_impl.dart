@@ -96,7 +96,9 @@ class AuthenticationRepositoryIpml extends AuthenticationRepository {
       await _authenticationRemoteDataSource.forgotPassword(email);
 
       return Either.right(null);
-    } on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException catch (e, s) {
+      LoggerHelper.log(e, s);
+
       return Either.left(AuthFirebaseException(e.code));
     } on SocketException {
       return const Left(BaseException(message: ErrorText.noInternet));
