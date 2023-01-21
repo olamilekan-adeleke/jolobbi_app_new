@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'app/app.dart';
 import 'app/locator.dart';
+import 'cores/push_notification/push_nofication_helper.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -10,5 +11,7 @@ Future<void> main() async {
   SetUpLocators.init();
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  SetUpLocators.getIt<PushNotificationHelper>().initNotification();
+
   runApp(const MyApp());
 }

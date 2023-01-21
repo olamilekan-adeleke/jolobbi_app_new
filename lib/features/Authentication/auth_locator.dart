@@ -1,6 +1,8 @@
 import 'package:get_it/get_it.dart';
 
 import '../../app/locator.dart';
+import '../../cores/firebase_helper/firebase_helper.dart';
+import '../../cores/push_notification/push_nofication_helper.dart';
 import 'data/datasources/authentication_remote_data_source.dart';
 import 'data/repositories/authentication_repository_impl.dart';
 import 'domain/domain.dart';
@@ -21,7 +23,10 @@ void setUpAuthenticationLocators() {
 
   // data
   getIt.registerLazySingleton<AuthenticationRemoteDataSource>(
-    () => AuthenticationRemoteDataSourceImpl(),
+    () => AuthenticationRemoteDataSourceImpl(
+      firebaseHelper: FirebaseHelper(),
+      pushNotificationHelper: getIt<PushNotificationHelper>(),
+    ),
   );
 
   getIt.registerLazySingleton<AuthenticationRepository>(

@@ -20,7 +20,7 @@ class SignUpFormModel with FormzMixin {
   final Required phoneNumber;
   final Username username;
 
-  Map<String, dynamic> toMap(String userId) {
+  Map<String, dynamic> toMap({required String userId, String? fcmToken}) {
     List<String> searchKey = [];
 
     String lastSearchKey = '';
@@ -39,6 +39,7 @@ class SignUpFormModel with FormzMixin {
       "createdAt": DateTime.now().toIso8601String(),
       "displayPicture": null,
       "isBlocked": false,
+      "fcmToken": fcmToken,
       "searchKey": searchKey,
     };
   }
