@@ -38,6 +38,7 @@ class SignUpFormModel with FormzMixin {
       'username': username.value,
       "createdAt": DateTime.now().toIso8601String(),
       "displayPicture": null,
+      "isBlocked": false,
       "searchKey": searchKey,
     };
   }
