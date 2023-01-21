@@ -36,7 +36,6 @@ dependencies:
   formz: ^0.4.1
   intl: ^0.17.0
   http: ^0.13.5
-  
 
 dev_dependencies:
   flutter_test:
@@ -50,5 +49,6 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/icons/home/
     - assets/svg/
     - assets/svg/onboarding/

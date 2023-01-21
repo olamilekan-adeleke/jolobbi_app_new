@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../app/locator.dart';
-import '../../../home/presentation/pages/home_view.dart';
+import '../../../home/presentation/pages/home_tab_view.dart';
 import '../bloc/authentication_bloc.dart';
 import 'pages.dart';
 
@@ -20,7 +20,7 @@ class AuthStateView extends StatelessWidget {
       bloc: _authBloc,
       builder: (context, state) {
         if (state is AuthenticatedState) {
-          return const HomeView();
+          return const HomeTabScreen();
         }
         return const IntroScreen();
       },

@@ -8,6 +8,7 @@ import '../../features/Authentication/presentation/pages/forgot_password_view.da
 import '../../features/Authentication/presentation/pages/intro_view.dart';
 import '../../features/Authentication/presentation/pages/login_view.dart';
 import '../../features/Authentication/presentation/pages/sign_up_view.dart';
+import '../../features/home/presentation/pages/home_tab_view.dart';
 import '../../features/home/presentation/pages/home_view.dart';
 import 'error_route_screen.dart';
 
@@ -30,6 +31,9 @@ class RouteGenerator {
 
       case ForgotPasswordView.route:
         return pageRoute(const ForgotPasswordView());
+
+      case HomeTabScreen.route:
+        return pageRoute(const HomeTabScreen());
 
       case HomeView.route:
         return pageRoute(const HomeView());
