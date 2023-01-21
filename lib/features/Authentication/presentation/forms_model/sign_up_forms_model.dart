@@ -40,6 +40,7 @@ class SignUpFormModel with FormzMixin {
       "displayPicture": null,
       "isBlocked": false,
       "fcmToken": fcmToken,
+      "role": "USER",
       "searchKey": searchKey,
     };
   }
