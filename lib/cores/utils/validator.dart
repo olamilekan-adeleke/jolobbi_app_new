@@ -74,9 +74,9 @@ String? usernameValidator(String? value) {
   if (value == '' || value == null) {
     return 'Username must not be empty!';
   } else if (value.trim().length <= 4) {
-    return 'Username must be min 5 characters long!';
+    return 'Username must be min 4 characters long!';
   } else if (usernameRegExp.hasMatch(value) != true) {
-    return 'Username must be at least 5 characters, and can only contain letters, numbers, and underscores.';
+    return 'Username must be at least 4 characters, and can only contain letters, numbers, and underscores.';
   }
   return null;
 }

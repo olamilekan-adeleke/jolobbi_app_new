@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../../cores/exception/base_exception.dart';
@@ -50,6 +51,8 @@ class AuthenticationRemoteDataSourceImpl
 
   @override
   Future<AuthResultModel> signUp(SignUpFormModel signUpForm) async {
+    await _checkIfUsernameAlreadyExist(signUpForm.username.value);
+
     final UserCredential userCredential =
         await _firebaseHelper.auth.createUserWithEmailAndPassword(
       email: signUpForm.email.value,
@@ -89,5 +92,19 @@ class AuthenticationRemoteDataSourceImpl
         .userCollectionRef()
         .doc(userId)
         .update({"fcmToken": fcmToken ?? ""});
+  }
+
+  Future<void> _checkIfUsernameAlreadyExist(String username) async {
+    final AggregateQuerySnapshot aggregateQuerySnapshot = await _firebaseHelper
+        .userCollectionRef()
+        .where("username", isEqualTo: username)
+        .count()
+        .get(source: AggregateSource.server);
+
+    final int count = aggregateQuerySnapshot.count;
+
+    if (count > 0) {
+      throw const BaseException(message: "Username already exist!");
+    }
   }
 }
