@@ -35,7 +35,7 @@ class SignUpFormModel with FormzMixin {
       'password': password.value,
       'fullName': fullName.value,
       'phoneNumber': phoneNumber.value,
-      'username': username.value,
+      'username': username.value.toLowerCase(),
       "createdAt": DateTime.now().toIso8601String(),
       "displayPicture": null,
       "isBlocked": false,
