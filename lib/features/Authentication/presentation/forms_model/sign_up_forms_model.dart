@@ -32,7 +32,6 @@ class SignUpFormModel with FormzMixin {
     return <String, dynamic>{
       "userId": userId,
       'email': email.value,
-      'password': password.value,
       'fullName': fullName.value,
       'phoneNumber': phoneNumber.value,
       'username': username.value.toLowerCase(),
