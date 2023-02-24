@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jolobbi_app_new/cores/navigator/navigator.dart';
+import '../../../../cores/navigator/navigator.dart';
 
 import '../../../../app/locator.dart';
 import '../../../../cores/components/custom_scaffold_widget.dart';

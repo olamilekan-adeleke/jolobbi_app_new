@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:jolobbi_app_new/cores/components/components.dart';
+import '../../../../cores/components/components.dart';
 
 import '../../../../cores/constants/color.dart';
 
