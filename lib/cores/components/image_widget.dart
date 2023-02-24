@@ -9,23 +9,35 @@ import '../constants/color.dart';
 class ImageWidget extends StatelessWidget {
   const ImageWidget({
     Key? key,
-    required this.imageUrl,
     required this.imageTypes,
+    this.imageUrl,
     this.useIconColor = false,
     this.fit = BoxFit.fill,
+    this.height,
+    this.width,
   }) : super(key: key);
 
-  final String imageUrl;
+  final String? imageUrl;
   final ImageTypes imageTypes;
   final bool useIconColor;
   final BoxFit fit;
+  final double? height;
+  final double? width;
 
   @override
   Widget build(BuildContext context) {
-    if (imageUrl.isEmpty || imageUrl == 'null') {
+    if (imageUrl == null || imageUrl!.isEmpty) {
       return Container(
-        color: kcGrey400,
-        child: const Center(child: Icon(Icons.broken_image_rounded)),
+        height: height,
+        width: width,
+        color: kcGrey200,
+        child: Center(
+          child: Icon(
+            imageTypes == ImageTypes.profile
+                ? Icons.person
+                : Icons.broken_image_rounded,
+          ),
+        ),
       );
     }
 
@@ -34,65 +46,87 @@ class ImageWidget extends StatelessWidget {
     switch (imageTypes) {
       case ImageTypes.network:
         return Container(
+          height: height,
+          width: width,
           color: Colors.black,
           child: CachedNetworkImage(
-            imageUrl: imageUrl,
+            imageUrl: imageUrl!,
             fit: fit,
             errorWidget: (_, __, ___) => Container(
-              color: kcGrey400,
+              color: kcGrey200,
               child: const Center(
                 child: Icon(Icons.error),
               ),
             ),
-            placeholder: (_, __) =>
-                const Center(child: CircularProgressIndicator()),
+            placeholder: (_, __) => const Center(
+              child: CircularProgressIndicator(),
+            ),
           ),
         );
 
       case ImageTypes.file:
-        return Image.file(
-          File(imageUrl),
-          fit: fit,
-          errorBuilder: (_, __, ___) => Container(
-            color: kcGrey400,
-            child: const Center(
-              child: Icon(Icons.error),
+        return SizedBox(
+          height: height,
+          width: width,
+          child: Image.file(
+            File(imageUrl!),
+            fit: fit,
+            errorBuilder: (_, __, ___) => Container(
+              color: kcGrey200,
+              child: const Center(
+                child: Icon(Icons.error),
+              ),
             ),
           ),
         );
       case ImageTypes.asset:
-        return Image.asset(
-          imageUrl,
-          fit: fit,
-          errorBuilder: (_, __, ___) {
-            // log(e.toString());
-            return Container(
-              color: kcGrey400,
-              child: const Center(
-                child: Icon(Icons.error),
-              ),
-            );
-          },
+        return SizedBox(
+          height: height,
+          width: width,
+          child: Image.asset(
+            imageUrl!,
+            fit: fit,
+            errorBuilder: (_, __, ___) {
+              // log(e.toString());
+              return Container(
+                color: kcGrey200,
+                child: const Center(
+                  child: Icon(Icons.error),
+                ),
+              );
+            },
+          ),
         );
 
       case ImageTypes.none:
-        return const Placeholder();
+        return SizedBox(
+          height: height,
+          width: width,
+          child: const Placeholder(),
+        );
 
       case ImageTypes.profile:
         return CachedNetworkImage(
-          imageUrl: imageUrl,
+          height: height,
+          width: width,
+          imageUrl: imageUrl!,
           fit: fit,
           errorWidget: (_, __, ___) => Container(
-            color: kcGrey400,
+            color: kcGrey200,
             child: const Center(child: Icon(Icons.person)),
           ),
-          placeholder: (_, __) =>
-              const Center(child: CircularProgressIndicator()),
+          placeholder: (_, __) => const Center(
+            child: CircularProgressIndicator(),
+          ),
         );
       case ImageTypes.svg:
-        return SvgPicture.asset(
-          imageUrl,
-          color: useIconColor ? kcPrimaryColor.withOpacity(0.6) : null,
+        return SizedBox(
+          height: height,
+          width: width,
+          child: SvgPicture.asset(
+            imageUrl!,
+            color: useIconColor ? kcPrimaryColor.withOpacity(0.6) : null,
+          ),
         );
     }
   }

@@ -14,3 +14,5 @@ const Color kcDarkBackground = Color(0xFF121212);
 const Color kcWhite = Color(0xFFFFFFFF);
 const Color kcSuccessColor = Color(0xff15DC71);
 const Color kcErrorColor = Color(0xffFF0202);
+const Color kcSoftTextColor = Color(0xff2C2C2C);
+

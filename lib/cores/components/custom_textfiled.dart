@@ -14,7 +14,7 @@ class TextFieldWidget extends StatefulWidget {
     this.textEditingController,
     this.autoCorrect = true,
     required this.hintText,
-    required this.title,
+    this.title,
     this.validator,
     this.textInputType = TextInputType.text,
     this.isPassword = false,
@@ -24,12 +24,13 @@ class TextFieldWidget extends StatefulWidget {
     this.prefix,
     this.onChanged,
     this.boldHintText = false,
+    this.prefixWidget,
   }) : super(key: key);
 
   final TextEditingController? textEditingController;
   final bool autoCorrect;
   final String hintText;
-  final String title;
+  final String? title;
   final String? Function(String?)? validator;
   final void Function(String)? onChanged;
   final TextInputType textInputType;
@@ -39,6 +40,7 @@ class TextFieldWidget extends StatefulWidget {
   final int? maxLine;
   final IconData? suffix;
   final IconData? prefix;
+  final Widget? prefixWidget;
 
   @override
   _TextFieldWidgetState createState() => _TextFieldWidgetState();
@@ -55,12 +57,13 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TextWidget(
-              widget.title,
-              fontSize: sp(14),
-              fontWeight: FontWeight.w500,
-              textColor: kcTextColor.withOpacity(0.5),
-            ),
+            if (widget.title != null)
+              TextWidget(
+                widget.title!,
+                fontSize: sp(14),
+                fontWeight: FontWeight.w500,
+                textColor: kcTextColor.withOpacity(0.5),
+              ),
             verticalSpace(5),
             TextFormField(
               maxLines: widget.maxLine,
@@ -102,9 +105,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                   fontWeight: FontWeight.w300,
                   fontSize: sp(13),
                 ),
-                // prefix: widget.prefix != null
-                //     ? Icon(widget.prefix, color: kcTextColor)
-                //     : const SizedBox.shrink(),
+                prefixIcon: widget.prefixWidget,
                 suffixIcon: widget.isPassword == true
                     ? suffixWidget(value)
                     : widget.suffix != null

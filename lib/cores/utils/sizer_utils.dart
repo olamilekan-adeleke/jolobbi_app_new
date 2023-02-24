@@ -14,6 +14,8 @@ double h(double value) => value.h;
 
 double w(double value) => value.w;
 
+double sr(double value) => value.r;
+
 SizedBox verticalSpace([double value = 10]) => SizedBox(height: value.sp);
 
 SizedBox horizontalSpace([double value = 10]) => SizedBox(width: value.sp);

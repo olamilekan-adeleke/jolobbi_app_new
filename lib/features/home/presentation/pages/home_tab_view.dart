@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../../../cores/components/components.dart';
 
+import '../../../../cores/components/components.dart';
 import '../../../../cores/constants/color.dart';
+import 'home_view.dart';
 
 class HomeTabScreen extends StatefulWidget {
   static const String route = '/home-tab';
@@ -45,7 +46,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
   ];
 
   static List<Widget> pages = const <Widget>[
-    SizedBox(),
+    const HomeView(),
     SizedBox(),
     SizedBox(),
     SizedBox(),

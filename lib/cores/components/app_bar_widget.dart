@@ -10,12 +10,14 @@ class AppBarWidget extends StatelessWidget {
     Key? key,
     this.showBackButton = true,
     this.trilling,
+    this.leading,
     this.useSpacer = false,
   }) : super(key: key);
 
   final String title;
   final bool showBackButton;
   final Widget? trilling;
+  final Widget? leading;
   final bool useSpacer;
 
   @override
@@ -35,7 +37,8 @@ class AppBarWidget extends StatelessWidget {
             ),
           )
         else
-          const SizedBox.shrink(),
+          leading ?? const SizedBox.shrink(),
+        if (useSpacer && leading != null) const Spacer(),
         TextWidget(title, fontSize: sp(24)),
         if (useSpacer) const Spacer(),
         trilling ?? SizedBox(height: sp(20), width: sp(40)),
