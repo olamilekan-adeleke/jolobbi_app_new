@@ -29,14 +29,15 @@ class HomeNearByFastFoodWidget extends StatelessWidget {
                       borderRadius: BorderRadius.circular(sr(15)),
                       child: ImageWidget(
                         imageTypes: ImageTypes.network,
-                        imageUrl: "https://picsum.photos/200",
+                        imageUrl:
+                            "https://pbs.twimg.com/media/EgwobjpXYAAbBE7?format=jpg&name=large",
                         height: h(85),
                         width: w(85),
                       ),
                     ),
                     verticalSpace(3),
                     TextWidget(
-                      "Restaurant Name",
+                      "Item 7",
                       fontSize: sp(14),
                       fontWeight: FontWeight.w400,
                       maxLines: 2,

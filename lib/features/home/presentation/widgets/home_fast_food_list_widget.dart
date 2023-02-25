@@ -51,7 +51,7 @@ class HomeFastFoodListWidget extends StatelessWidget {
         children: <Widget>[
           ImageWidget(
             imageTypes: ImageTypes.network,
-            imageUrl: "https://picsum.photos/200",
+            imageUrl: "https://wallpaperaccess.com/full/1727353.jpg",
             height: h(95),
             width: w(95),
           ),
@@ -66,7 +66,7 @@ class HomeFastFoodListWidget extends StatelessWidget {
                   SizedBox(
                     width: sw(56),
                     child: TextWidget(
-                      "Item & Restaurant",
+                      "Burger King",
                       fontSize: sp(18),
                       fontWeight: FontWeight.w600,
                     ),
