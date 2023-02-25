@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../../../cores/components/components.dart';
 import '../../../../cores/constants/color.dart';
-import 'tab_options/menu_item_list_widget.dart';
+import 'tab_options/vendor_about_info_widget.dart';
+import 'tab_options/vendor_menu_item_list_widget.dart';
 
 class VendorOptionTabWidget extends StatelessWidget {
   const VendorOptionTabWidget({super.key});
@@ -27,9 +28,9 @@ class VendorOptionTabWidget extends StatelessWidget {
             const Flexible(
               child: TabBarView(
                 children: <Widget>[
-                  MenuItemListWidget(),
+                  VendorMenuItemListWidget(),
                   SizedBox(),
-                  SizedBox(),
+                  VendorAboutInfoWidget(),
                 ],
               ),
             )

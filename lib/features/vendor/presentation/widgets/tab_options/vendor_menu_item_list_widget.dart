@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:jolobbi_app_new/cores/constants/constants.dart';
 
 import '../../../../../cores/components/components.dart';
+import '../../../../../cores/constants/constants.dart';
+import '../../../../../cores/navigator/navigator.dart';
 import '../../../../../cores/utils/utils.dart';
+import '../../pages/menu_item_details_view.dart';
 
-class MenuItemListWidget extends StatelessWidget {
-  const MenuItemListWidget({super.key});
+class VendorMenuItemListWidget extends StatelessWidget {
+  const VendorMenuItemListWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,12 @@ class MenuItemListWidget extends StatelessWidget {
       shrinkWrap: true,
       itemCount: 10,
       itemBuilder: (context, index) {
-        return _buildMenItem();
+        return GestureDetector(
+          onTap: () => AppRouter.instance.navigateTo(
+            MenuItemDetailsView.route,
+          ),
+          child: _buildMenItem(),
+        );
       },
     );
   }

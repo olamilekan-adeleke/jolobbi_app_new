@@ -10,6 +10,7 @@ import '../../features/Authentication/presentation/pages/login_view.dart';
 import '../../features/Authentication/presentation/pages/sign_up_view.dart';
 import '../../features/home/presentation/pages/home_tab_view.dart';
 import '../../features/home/presentation/pages/home_view.dart';
+import '../../features/vendor/presentation/pages/menu_item_details_view.dart';
 import '../../features/vendor/presentation/pages/vendor_details_view.dart';
 import 'error_route_screen.dart';
 
@@ -41,6 +42,9 @@ class RouteGenerator {
 
       case VendorDetailsView.route:
         return pageRoute(const VendorDetailsView());
+
+      case MenuItemDetailsView.route:
+        return pageRoute(const MenuItemDetailsView());
 
       default:
         return errorRoute();
