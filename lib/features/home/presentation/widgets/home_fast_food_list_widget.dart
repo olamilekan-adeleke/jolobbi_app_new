@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:jolobbi_app_new/cores/constants/constants.dart';
+import 'package:jolobbi_app_new/cores/navigator/navigator.dart';
 
+import '../../../../cores/components/box_shadow.dart';
 import '../../../../cores/components/components.dart';
 import '../../../../cores/utils/sizer_utils.dart';
+import '../../../vendor/presentation/pages/vendor_details_view.dart';
 
 class HomeFastFoodListWidget extends StatelessWidget {
   const HomeFastFoodListWidget({super.key});
@@ -21,7 +24,12 @@ class HomeFastFoodListWidget extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             itemCount: 10,
             itemBuilder: (context, index) {
-              return _buildFastFoodItem();
+              return GestureDetector(
+                onTap: () => AppRouter.instance.navigateTo(
+                  VendorDetailsView.route,
+                ),
+                child: _buildFastFoodItem(),
+              );
             },
           ),
         ),
@@ -37,14 +45,7 @@ class HomeFastFoodListWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
-            spreadRadius: 3,
-            blurRadius: 5,
-            offset: const Offset(0, 3),
-          ),
-        ],
+        boxShadow: boxShadowHelper,
       ),
       child: Row(
         children: <Widget>[
