@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:jolobbi_app_new/cores/utils/utils.dart';
+import '../../../../cores/utils/utils.dart';
 
 import '../../../../cores/components/components.dart';
 import '../widgets/vendor_option_tab_widget.dart';

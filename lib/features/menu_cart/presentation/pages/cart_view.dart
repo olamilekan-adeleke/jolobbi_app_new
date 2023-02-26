@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:jolobbi_app_new/cores/navigator/navigator.dart';
-import 'package:jolobbi_app_new/cores/utils/utils.dart';
+import '../../../../cores/navigator/navigator.dart';
+import '../../../../cores/utils/utils.dart';
 import '../../../../cores/components/components.dart';
 import '../widgets/cart_widget/food_cart_header_widget.dart';
 import '../widgets/cart_widget/food_cart_list_widget.dart';

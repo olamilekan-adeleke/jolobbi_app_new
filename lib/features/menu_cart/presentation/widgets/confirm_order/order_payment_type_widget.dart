@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:jolobbi_app_new/cores/components/components.dart';
-import 'package:jolobbi_app_new/cores/constants/constants.dart';
-import 'package:jolobbi_app_new/cores/utils/utils.dart';
+import '../../../../../cores/components/components.dart';
+import '../../../../../cores/constants/constants.dart';
+import '../../../../../cores/utils/utils.dart';
 
 class OrderPaymentTypeWidget extends StatelessWidget {
   const OrderPaymentTypeWidget({super.key});

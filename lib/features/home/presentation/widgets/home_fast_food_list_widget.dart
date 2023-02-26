@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:jolobbi_app_new/cores/constants/constants.dart';
-import 'package:jolobbi_app_new/cores/navigator/navigator.dart';
+import '../../../../cores/constants/constants.dart';
+import '../../../../cores/navigator/navigator.dart';
 
 import '../../../../cores/components/box_shadow.dart';
 import '../../../../cores/components/components.dart';

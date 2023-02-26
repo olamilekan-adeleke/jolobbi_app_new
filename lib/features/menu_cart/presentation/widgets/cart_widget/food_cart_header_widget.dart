@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jolobbi_app_new/cores/constants/constants.dart';
+import '../../../../../cores/constants/constants.dart';
 
 import '../../../../../cores/components/components.dart';
 import '../../../../../cores/utils/utils.dart';

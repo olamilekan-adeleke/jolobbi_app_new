@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:jolobbi_app_new/cores/components/components.dart';
-import 'package:jolobbi_app_new/cores/utils/utils.dart';
+import '../../../../../cores/components/components.dart';
+import '../../../../../cores/utils/utils.dart';
 
 import 'menu_item_description_and_review_widget.dart';
 import 'menu_item_name_and_price_widget.dart';

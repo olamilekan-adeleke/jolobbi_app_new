@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jolobbi_app_new/cores/navigator/navigator.dart';
+import '../../../../../cores/navigator/navigator.dart';
 
 import '../../../../../cores/components/components.dart';
 import '../../../../../cores/constants/color.dart';

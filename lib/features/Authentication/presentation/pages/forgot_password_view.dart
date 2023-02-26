@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../cores/navigator/navigator.dart';
 
 import '../../../../app/locator.dart';
 import '../../../../cores/components/custom_scaffold_widget.dart';
 import '../../../../cores/constants/color.dart';
+import '../../../../cores/navigator/navigator.dart';
 import '../../../../cores/utils/utils.dart';
 import '../bloc/forgot_password/forgot_password_bloc.dart';
 import '../widgets/forgot_password_widget/forgot_password_form_widget.dart';
