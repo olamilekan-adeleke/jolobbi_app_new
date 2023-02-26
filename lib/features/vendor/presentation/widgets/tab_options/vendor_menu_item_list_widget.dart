@@ -27,7 +27,7 @@ class VendorMenuItemListWidget extends StatelessWidget {
         );
       },
     );
-  }
+  } 
 
   Widget _buildMenItem() {
     return Row(

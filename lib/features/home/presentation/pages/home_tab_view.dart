@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../cores/components/components.dart';
 import '../../../../cores/constants/color.dart';
+import '../../../menu_cart/presentation/pages/cart_view.dart';
 import 'home_view.dart';
 
 class HomeTabScreen extends StatefulWidget {
@@ -18,20 +19,20 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
   static final ValueNotifier<int> _currentIndex = ValueNotifier<int>(0);
 
   static List<BottomNavigationBarItem> navBarItem = <BottomNavigationBarItem>[
-    const BottomNavigationBarItem(
-      icon: Icon(CupertinoIcons.home),
-      activeIcon: Icon(CupertinoIcons.home, color: kcPrimaryColor),
-      label: 'Home',
-    ),
+    // const BottomNavigationBarItem(
+    //   icon: Icon(CupertinoIcons.home),
+    //   activeIcon: Icon(CupertinoIcons.home, color: kcPrimaryColor),
+    //   label: 'Home',
+    // ),
     const BottomNavigationBarItem(
       icon: Icon(Icons.fastfood_outlined),
       activeIcon: Icon(Icons.fastfood_outlined, color: kcPrimaryColor),
       label: 'Food',
     ),
     const BottomNavigationBarItem(
-      icon: Icon(Icons.shopping_basket_outlined),
-      activeIcon: Icon(Icons.shopping_basket_outlined, color: kcPrimaryColor),
-      label: 'Grocery',
+      icon: Icon(CupertinoIcons.shopping_cart),
+      activeIcon: Icon(CupertinoIcons.shopping_cart, color: kcPrimaryColor),
+      label: 'Cart',
     ),
     const BottomNavigationBarItem(
       icon: Icon(Icons.wallet),
@@ -46,11 +47,11 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
   ];
 
   static List<Widget> pages = const <Widget>[
-    const HomeView(),
+    HomeView(),
+    CartView(),
     SizedBox(),
     SizedBox(),
-    SizedBox(),
-    SizedBox(),
+    // SizedBox(),
   ];
 
   @override
