@@ -37,6 +37,7 @@ dependencies:
   intl: ^0.17.0
   http: ^0.13.5
   geoflutterfire2: ^2.3.14
+  geolocator: ^9.0.2
 
 dependency_overrides:
   rxdart: ^0.27.7

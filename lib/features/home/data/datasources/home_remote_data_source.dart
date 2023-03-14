@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geoflutterfire2/geoflutterfire2.dart';
-import 'package:location/location.dart';
+import 'package:jolobbi_app_new/cores/utils/utils.dart';
 
 import '../../../../cores/entity/base_entity.dart';
 import '../../../../cores/firebase_helper/firebase_helper.dart';
@@ -32,42 +32,44 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
 
   @override
   Future<List<ShopDetailsModel>> getNearByRestaurants() async {
-    final LocationData? location =
-        await locationHelper.getUserCurrentLocation();
+    // final LocationData? location =
+    //     await locationHelper.getUserCurrentLocation();
 
-    if (location == null) {
-      throw Exception(
-        'Unable to get your current location, please try again later',
-      );
-    }
+    // if (location == null) {
+    //   throw Exception(
+    //     'Unable to get your current location, please try again later',
+    //   );
+    // }
+
+    //8.4813, 4.6115
 
     final GeoFlutterFire geo = GeoFlutterFire();
-    final double latitude = location.latitude ?? 0;
-    final double longitude = location.longitude ?? 0;
+    const double latitude = 8.4813; // location.latitude ?? 0;
+    const double longitude = 4.6115; // location.longitude ?? 0;
 
     final GeoFirePoint center =
         geo.point(latitude: latitude, longitude: longitude);
     final Query<Map<String, dynamic>> collectionReference = firebaseHelper
         .shopCollectionRef()
-        .where('type', isEqualTo: 'FOOD')
+        .where('type', isEqualTo: 'Food')
         .limit(10);
 
     String field = 'position';
 
-    Stream<List<DocumentSnapshot>> stream = geo
+    Stream<List<DocumentSnapshot<Object?>>> stream = geo
         .collection(collectionRef: collectionReference)
-        .within(center: center, radius: 50, field: field);
+        .within(center: center, radius: 50000, field: field);
 
-    return stream.first.then(
-      (value) {
-        return value.map(
-          (e) {
-            final Map<String, dynamic> data = e.data() as Map<String, dynamic>;
-            return ShopDetailsModel.fromMap(data);
-          },
-        ).toList();
-      },
-    );
+    stream.listen((event) => LoggerHelper.log(event.toString()));
+
+    var data = await stream.first;
+
+    LoggerHelper.log(data);
+
+    return data.map((e) {
+      final Map<String, dynamic> data = e.data() as Map<String, dynamic>;
+      return ShopDetailsModel.fromMap(data);
+    }).toList();
   }
 
   @override

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../cores/components/custom_text_widget.dart';
 import '../../cores/components/retry_button.dart';
-import '../constants/color.dart';
 import '../utils/sizer_utils.dart';
 import 'image_widget.dart';
 
@@ -67,7 +66,7 @@ class CustomErrorWidget extends StatelessWidget {
               imageUrl: assetPath!,
             ),
           ),
-        TextWidget(message, textColor: kcWhite, textAlign: TextAlign.center),
+        TextWidget(message, textAlign: TextAlign.center, maxLines: 4),
         const SizedBox(height: 10.0),
         if (showButton) RetryButtonWidget(callback: () => callback!.call()),
       ],

@@ -1,14 +1,33 @@
 import 'package:flutter/material.dart';
-import '../../../../cores/constants/constants.dart';
-import '../../../../cores/navigator/navigator.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../app/locator.dart';
 import '../../../../cores/components/box_shadow.dart';
 import '../../../../cores/components/components.dart';
+import '../../../../cores/constants/constants.dart';
+import '../../../../cores/location_helper/location_helper.dart';
+import '../../../../cores/navigator/navigator.dart';
 import '../../../../cores/utils/sizer_utils.dart';
 import '../../../vendor/presentation/pages/vendor_details_view.dart';
+import '../../domain/entities/shop_details_entity.dart';
+import '../bloc/get_popular_restaurant/get_popular_restaurant_bloc.dart';
 
-class HomeFastFoodListWidget extends StatelessWidget {
+class HomeFastFoodListWidget extends StatefulWidget {
   const HomeFastFoodListWidget({super.key});
+
+  @override
+  State<HomeFastFoodListWidget> createState() => _HomeFastFoodListWidgetState();
+}
+
+class _HomeFastFoodListWidgetState extends State<HomeFastFoodListWidget> {
+  static final GetPopularRestaurantBloc _getPopularRestaurantBloc =
+      SetUpLocators.getIt<GetPopularRestaurantBloc>();
+
+  @override
+  void initState() {
+    _getPopularRestaurantBloc.add(const GetPopularRestaurantEvent());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,26 +37,48 @@ class HomeFastFoodListWidget extends StatelessWidget {
       children: <Widget>[
         TextWidget("Top Rated Restaurant", fontSize: sp(20)),
         verticalSpace(),
-        Flexible(
-          child: ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: 10,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () => AppRouter.instance.navigateTo(
-                  VendorDetailsView.route,
+        BlocBuilder<GetPopularRestaurantBloc, GetPopularRestaurantState>(
+          bloc: _getPopularRestaurantBloc,
+          builder: (context, state) {
+            if (state is GetPopularRestaurantLoading) {
+              return const Center(child: LoadingIndicatorWidget());
+            } else if (state is GetPopularRestaurantError) {
+              return CustomErrorWidget(
+                message: state.message,
+                callback: () => _getPopularRestaurantBloc.add(
+                  const GetPopularRestaurantEvent(),
                 ),
-                child: _buildFastFoodItem(),
               );
-            },
-          ),
+            } else if (state is GetPopularRestaurantSuccess) {
+              final List<ShopDetailsEntity> shops = state.shops;
+
+              return Flexible(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: shops.length,
+                  itemBuilder: (context, index) {
+                    final ShopDetailsEntity shop = shops[index];
+
+                    return GestureDetector(
+                      onTap: () => AppRouter.instance.navigateTo(
+                        VendorDetailsView.route,
+                      ),
+                      child: _buildFastFoodItem(shop),
+                    );
+                  },
+                ),
+              );
+            } else {
+              return const SizedBox.shrink();
+            }
+          },
         ),
       ],
     );
   }
 
-  Widget _buildFastFoodItem() {
+  Widget _buildFastFoodItem(ShopDetailsEntity shop) {
     return Container(
       height: h(95),
       margin: EdgeInsets.only(bottom: h(10)),
@@ -51,7 +92,7 @@ class HomeFastFoodListWidget extends StatelessWidget {
         children: <Widget>[
           ImageWidget(
             imageTypes: ImageTypes.network,
-            imageUrl: "https://wallpaperaccess.com/full/1727353.jpg",
+            imageUrl: shop.imageUrl,
             height: h(95),
             width: w(95),
           ),
@@ -66,7 +107,7 @@ class HomeFastFoodListWidget extends StatelessWidget {
                   SizedBox(
                     width: sw(56),
                     child: TextWidget(
-                      "Burger King",
+                      shop.name,
                       fontSize: sp(18),
                       fontWeight: FontWeight.w600,
                     ),
@@ -90,7 +131,7 @@ class HomeFastFoodListWidget extends StatelessWidget {
                   SizedBox(
                     width: sw(55),
                     child: TextWidget(
-                      "452 Grafton St, Boston, MA 02130, USA",
+                      shop.address,
                       fontSize: sp(14),
                       fontWeight: FontWeight.w300,
                       maxLines: 1,
@@ -107,8 +148,8 @@ class HomeFastFoodListWidget extends StatelessWidget {
                     Icon(Icons.star, color: kcPrimaryColor, size: sp(15)),
                     horizontalSpace(2),
                     TwoSpanTextWidget(
-                      "4.5 ",
-                      "(1256 Reviews)",
+                      "",
+                      "${shop.numberOfLikes} Likes",
                       fontSize: sp(13),
                       fontSize2: sp(12),
                       fontWeight: FontWeight.w400,
@@ -118,10 +159,22 @@ class HomeFastFoodListWidget extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                     const Spacer(),
-                    TextWidget(
-                      "30 Mins • 1.2km",
-                      fontSize: sp(14),
-                      fontWeight: FontWeight.w400,
+                    FutureBuilder(
+                      future: LocationHelper().getDistanceFromLatLonInKm(
+                        shop.coordinate.latitude,
+                        shop.coordinate.longitude,
+                      ),
+                      builder: (context, AsyncSnapshot<double> snaphot) {
+                        double distance = 0;
+
+                        if (snaphot.hasData) distance = snaphot.data ?? 0;
+
+                        return TextWidget(
+                          "30 Mins • $distance km",
+                          fontSize: sp(14),
+                          fontWeight: FontWeight.w400,
+                        );
+                      },
                     ),
                   ],
                 ),
