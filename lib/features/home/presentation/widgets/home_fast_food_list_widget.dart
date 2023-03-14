@@ -43,10 +43,14 @@ class _HomeFastFoodListWidgetState extends State<HomeFastFoodListWidget> {
             if (state is GetPopularRestaurantLoading) {
               return const Center(child: LoadingIndicatorWidget());
             } else if (state is GetPopularRestaurantError) {
-              return CustomErrorWidget(
-                message: state.message,
-                callback: () => _getPopularRestaurantBloc.add(
-                  const GetPopularRestaurantEvent(),
+              return SizedBox(
+                height: sh(40),
+                child: CustomErrorWidget(
+                  useFlex: false,
+                  message: state.message,
+                  callback: () => _getPopularRestaurantBloc.add(
+                    const GetPopularRestaurantEvent(),
+                  ),
                 ),
               );
             } else if (state is GetPopularRestaurantSuccess) {

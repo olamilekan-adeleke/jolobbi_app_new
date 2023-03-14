@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geoflutterfire2/geoflutterfire2.dart';
-import 'package:jolobbi_app_new/cores/utils/utils.dart';
 
 import '../../../../cores/entity/base_entity.dart';
 import '../../../../cores/firebase_helper/firebase_helper.dart';
 import '../../../../cores/location_helper/location_helper.dart';
+import '../../../../cores/utils/utils.dart';
 import '../models/menu_item_model.dart';
 import '../models/shop_details_model.dart';
 
@@ -40,8 +40,6 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
     //     'Unable to get your current location, please try again later',
     //   );
     // }
-
-    //8.4813, 4.6115
 
     final GeoFlutterFire geo = GeoFlutterFire();
     const double latitude = 8.4813; // location.latitude ?? 0;
@@ -96,7 +94,8 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
     var collectionReference = firebaseHelper
         .menuCollectionRef()
         .where('type', isEqualTo: "FOOD")
-        .where('searchKey', arrayContains: query);
+        .where('searchKey', arrayContains: query)
+        .orderBy("searchKey");
 
     if (lastDocId != null) {
       collectionReference = collectionReference.startAfter([lastDocId]);
