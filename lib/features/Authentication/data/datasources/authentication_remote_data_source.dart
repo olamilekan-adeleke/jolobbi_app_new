@@ -39,7 +39,7 @@ class AuthenticationRemoteDataSourceImpl
         .signInWithEmailAndPassword(email: email, password: password);
 
     if (userCredential.user == null) {
-      throw const BaseException(
+      throw const BaseFailures(
         message: "Unable to login user with this credential",
       );
     }
@@ -60,7 +60,7 @@ class AuthenticationRemoteDataSourceImpl
     );
 
     if (userCredential.user == null) {
-      throw const BaseException(
+      throw const BaseFailures(
         message: "Unable to create account with this credential",
       );
     }
@@ -104,7 +104,7 @@ class AuthenticationRemoteDataSourceImpl
     final int count = aggregateQuerySnapshot.count;
 
     if (count > 0) {
-      throw const BaseException(message: "Username already exist!");
+      throw const BaseFailures(message: "Username already exist!");
     }
   }
 }

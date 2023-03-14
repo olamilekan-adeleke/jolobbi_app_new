@@ -1,6 +1,6 @@
 import 'base_exception.dart';
 
-class AuthFirebaseException extends BaseException {
+class AuthFirebaseException extends BaseFailures {
   const AuthFirebaseException(this.errorCode, [this.stackTrack])
       : super(message: "");
 

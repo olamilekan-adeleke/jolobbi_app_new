@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../../../cores/components/components.dart';
 import '../../../../../cores/utils/utils.dart';
 
 import 'menu_item_description_and_review_widget.dart';

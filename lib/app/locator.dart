@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:jolobbi_app_new/features/home/home_locator.dart';
 
 import '../cores/push_notification/push_nofication_helper.dart';
 import '../features/Authentication/auth_locator.dart';
@@ -17,6 +18,7 @@ class SetUpLocators {
     setUpAuthenticationLocators();
 
     ///--------------- Home --------------------//
+    setUpHomeLocator();
   }
 
   static void _setUp() {

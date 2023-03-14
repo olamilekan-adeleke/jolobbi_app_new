@@ -33,15 +33,15 @@ class AuthenticationRepositoryIpml extends AuthenticationRepository {
     } on FirebaseAuthException catch (e) {
       return Either.left(AuthFirebaseException(e.code));
     } on SocketException {
-      return const Left(BaseException(message: ErrorText.noInternet));
+      return const Left(BaseFailures(message: ErrorText.noInternet));
     } catch (e, s) {
       LoggerHelper.log(e, s);
 
-      if (e is BaseException) {
-        return Either.left(BaseException(message: e.message));
+      if (e is BaseFailures) {
+        return Either.left(BaseFailures(message: e.message));
       }
 
-      return Either.left(BaseException(message: e.toString()));
+      return Either.left(BaseFailures(message: e.toString()));
     }
   }
 
@@ -54,15 +54,15 @@ class AuthenticationRepositoryIpml extends AuthenticationRepository {
     } on FirebaseAuthException catch (e) {
       return Either.left(AuthFirebaseException(e.code));
     } on SocketException {
-      return const Left(BaseException(message: ErrorText.noInternet));
+      return const Left(BaseFailures(message: ErrorText.noInternet));
     } catch (e, s) {
       LoggerHelper.log(e, s);
 
-      if (e is BaseException) {
-        return Either.left(BaseException(message: e.message));
+      if (e is BaseFailures) {
+        return Either.left(BaseFailures(message: e.message));
       }
 
-      return Either.left(BaseException(message: e.toString()));
+      return Either.left(BaseFailures(message: e.toString()));
     }
   }
 
@@ -78,15 +78,15 @@ class AuthenticationRepositoryIpml extends AuthenticationRepository {
     } on FirebaseAuthException catch (e) {
       return Either.left(AuthFirebaseException(e.code));
     } on SocketException {
-      return const Left(BaseException(message: ErrorText.noInternet));
+      return const Left(BaseFailures(message: ErrorText.noInternet));
     } catch (e, s) {
       LoggerHelper.log(e, s);
 
-      if (e is BaseException) {
-        return Either.left(BaseException(message: e.message));
+      if (e is BaseFailures) {
+        return Either.left(BaseFailures(message: e.message));
       }
 
-      return Either.left(BaseException(message: e.toString()));
+      return Either.left(BaseFailures(message: e.toString()));
     }
   }
 
@@ -101,15 +101,15 @@ class AuthenticationRepositoryIpml extends AuthenticationRepository {
 
       return Either.left(AuthFirebaseException(e.code));
     } on SocketException {
-      return const Left(BaseException(message: ErrorText.noInternet));
+      return const Left(BaseFailures(message: ErrorText.noInternet));
     } catch (e, s) {
       LoggerHelper.log(e, s);
 
-      if (e is BaseException) {
-        return Either.left(BaseException(message: e.message));
+      if (e is BaseFailures) {
+        return Either.left(BaseFailures(message: e.message));
       }
 
-      return Either.left(BaseException(message: e.toString()));
+      return Either.left(BaseFailures(message: e.toString()));
     }
   }
 }
