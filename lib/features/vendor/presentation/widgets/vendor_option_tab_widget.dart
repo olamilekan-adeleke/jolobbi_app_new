@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 
 import '../../../../cores/components/components.dart';
 import '../../../../cores/constants/color.dart';
+import '../../../home/domain/entities/shop_details_entity.dart';
 import 'tab_options/vendor_about_info_widget.dart';
 import 'tab_options/vendor_menu_item_list_widget.dart';
 
 class VendorOptionTabWidget extends StatelessWidget {
-  const VendorOptionTabWidget({super.key});
+  final ShopDetailsEntity shop;
+
+  const VendorOptionTabWidget(this.shop, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,12 +28,12 @@ class VendorOptionTabWidget extends StatelessWidget {
                 Tab(child: TextWidget('About')),
               ],
             ),
-            const Flexible(
+            Flexible(
               child: TabBarView(
                 children: <Widget>[
-                  VendorMenuItemListWidget(),
-                  SizedBox(),
-                  VendorAboutInfoWidget(),
+                  VendorMenuItemListWidget(shop.id),
+                  const SizedBox(),
+                  VendorAboutInfoWidget(shop),
                 ],
               ),
             )

@@ -9,6 +9,7 @@ class ShopDetailsEntity extends Equatable {
   final String name;
   final String address;
   final int numberOfLikes;
+  final int numberOfReviews;
   final List<OpeningHoursEntity> openingHours;
   final bool isAvailable;
   final String geoHash;
@@ -26,6 +27,7 @@ class ShopDetailsEntity extends Equatable {
     required this.geoHash,
     required this.coordinate,
     required this.numberOfLikes,
+    required this.numberOfReviews,
     required this.isAvailable,
   });
 
@@ -42,6 +44,7 @@ class ShopDetailsEntity extends Equatable {
         geoHash,
         coordinate,
         numberOfLikes,
+        numberOfReviews,
         isAvailable,
       ];
 }

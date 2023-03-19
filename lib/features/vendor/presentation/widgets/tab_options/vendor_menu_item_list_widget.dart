@@ -7,7 +7,8 @@ import '../../../../../cores/utils/utils.dart';
 import '../../pages/menu_item_details_view.dart';
 
 class VendorMenuItemListWidget extends StatelessWidget {
-  const VendorMenuItemListWidget({super.key});
+  final String shopId;
+  const VendorMenuItemListWidget(this.shopId, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class VendorMenuItemListWidget extends StatelessWidget {
         );
       },
     );
-  } 
+  }
 
   Widget _buildMenItem() {
     return Row(

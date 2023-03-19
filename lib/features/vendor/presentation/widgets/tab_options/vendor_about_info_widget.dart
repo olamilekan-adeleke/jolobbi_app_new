@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import '../../../../../cores/components/components.dart';
 import '../../../../../cores/constants/constants.dart';
 import '../../../../../cores/utils/utils.dart';
+import '../../../../home/domain/entities/shop_details_entity.dart';
 
 class VendorAboutInfoWidget extends StatelessWidget {
-  const VendorAboutInfoWidget({super.key});
+  final ShopDetailsEntity shop;
+  const VendorAboutInfoWidget(this.shop, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,15 +24,14 @@ class VendorAboutInfoWidget extends StatelessWidget {
           verticalSpace(),
           Row(
             children: [
-              Icon(
-                Icons.location_on,
-                color: kcPrimaryColor,
-                size: w(20),
-              ),
+              Icon(Icons.location_on, color: kcPrimaryColor, size: w(20)),
               horizontalSpace(),
-              TextWidget(
-                "542 5th Ave, New York, NY 10036, USA",
-                fontSize: sp(14),
+              Flexible(
+                child: TextWidget(
+                  shop.address,
+                  fontSize: sp(14),
+                  textAlign: TextAlign.left,
+                ),
               ),
             ],
           ),
@@ -41,49 +42,29 @@ class VendorAboutInfoWidget extends StatelessWidget {
             fontSize: sp(16),
           ),
           verticalSpace(),
-          Row(
-            children: [
-              Icon(
-                Icons.access_time,
-                color: kcPrimaryColor,
-                size: w(20),
-              ),
-              horizontalSpace(),
-              TextWidget(
-                "Monday 10:00 AM - 10:00 PM",
-                fontSize: sp(14),
-              ),
-            ],
-          ),
-          verticalSpace(),
-          Row(
-            children: [
-              Icon(
-                Icons.access_time,
-                color: kcPrimaryColor,
-                size: w(20),
-              ),
-              horizontalSpace(),
-              TextWidget(
-                "Tuesday 10:00 AM - 10:00 PM",
-                fontSize: sp(14),
-              ),
-            ],
-          ),
-          verticalSpace(),
-          Row(
-            children: [
-              Icon(
-                Icons.access_time,
-                color: kcPrimaryColor,
-                size: w(20),
-              ),
-              horizontalSpace(),
-              TextWidget(
-                "Wednesday 10:00 AM - 10:00 PM",
-                fontSize: sp(14),
-              ),
-            ],
+          ListView.separated(
+            separatorBuilder: (context, index) => verticalSpace(),
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: shop.openingHours.length,
+            itemBuilder: (context, index) {
+              final OpeningHoursEntity openingHours = shop.openingHours[index];
+
+              return Row(
+                children: [
+                  Icon(
+                    Icons.access_time,
+                    color: kcPrimaryColor,
+                    size: w(20),
+                  ),
+                  horizontalSpace(),
+                  TextWidget(
+                    "${openingHours.day} ${openingHours.openTime} - ${openingHours.closeTime}",
+                    fontSize: sp(14),
+                  ),
+                ],
+              );
+            },
           ),
           verticalSpace(20),
           TextWidget(
@@ -94,16 +75,9 @@ class VendorAboutInfoWidget extends StatelessWidget {
           verticalSpace(),
           Row(
             children: [
-              Icon(
-                Icons.phone,
-                color: kcPrimaryColor,
-                size: w(20),
-              ),
+              Icon(Icons.phone, color: kcPrimaryColor, size: w(20)),
               horizontalSpace(),
-              TextWidget(
-                "+1 234 567 890",
-                fontSize: sp(14),
-              ),
+              TextWidget(shop.contact.phoneNumber, fontSize: sp(14)),
             ],
           ),
           verticalSpace(20),
@@ -115,16 +89,9 @@ class VendorAboutInfoWidget extends StatelessWidget {
           verticalSpace(),
           Row(
             children: [
-              Icon(
-                Icons.email,
-                color: kcPrimaryColor,
-                size: w(20),
-              ),
+              Icon(Icons.email, color: kcPrimaryColor, size: w(20)),
               horizontalSpace(),
-              TextWidget(
-                "shop@gmail.com",
-                fontSize: sp(14),
-              ),
+              TextWidget(shop.contact.email, fontSize: sp(14)),
             ],
           ),
           verticalSpace(40),

@@ -8,6 +8,7 @@ import '../../features/Authentication/presentation/pages/forgot_password_view.da
 import '../../features/Authentication/presentation/pages/intro_view.dart';
 import '../../features/Authentication/presentation/pages/login_view.dart';
 import '../../features/Authentication/presentation/pages/sign_up_view.dart';
+import '../../features/home/domain/entities/shop_details_entity.dart';
 import '../../features/home/presentation/pages/all_fast_food_view.dart';
 import '../../features/home/presentation/pages/home_tab_view.dart';
 import '../../features/home/presentation/pages/home_view.dart';
@@ -45,7 +46,8 @@ class RouteGenerator {
         return pageRoute(const HomeView());
 
       case VendorDetailsView.route:
-        return pageRoute(const VendorDetailsView());
+        final ShopDetailsEntity shop = settings.arguments as ShopDetailsEntity;
+        return pageRoute(VendorDetailsView(shop));
 
       case MenuItemDetailsView.route:
         return pageRoute(const MenuItemDetailsView());
@@ -58,7 +60,7 @@ class RouteGenerator {
 
       case AllFastFoodView.route:
         return pageRoute(const AllFastFoodView());
-      
+
       case SearchRestaurantView.route:
         return pageRoute(const SearchRestaurantView());
 

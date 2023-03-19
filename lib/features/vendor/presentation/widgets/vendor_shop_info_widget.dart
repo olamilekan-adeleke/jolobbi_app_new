@@ -4,9 +4,12 @@ import '../../../../cores/components/box_shadow.dart';
 import '../../../../cores/components/components.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/utils/sizer_utils.dart';
+import '../../../home/domain/entities/shop_details_entity.dart';
 
 class VendorShopInfoWidget extends StatelessWidget {
-  const VendorShopInfoWidget({super.key});
+  final ShopDetailsEntity shop;
+
+  const VendorShopInfoWidget(this.shop, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +22,10 @@ class VendorShopInfoWidget extends StatelessWidget {
             alignment: Alignment.topCenter,
             child: ImageWidget(
               imageTypes: ImageTypes.network,
-              imageUrl:
-                  'https://businessday.ng/wp-content/uploads/2021/03/Burger-King.jpeg',
+              imageUrl: shop.imageUrl,
               height: h(200),
               width: sw(100),
+              fit: BoxFit.cover,
             ),
           ),
           Align(
@@ -40,14 +43,15 @@ class VendorShopInfoWidget extends StatelessWidget {
                 children: [
                   horizontalSpace(double.infinity),
                   TextWidget(
-                    'Burger King',
+                    shop.name,
                     fontSize: sp(22),
                     fontWeight: FontWeight.w600,
                   ),
                   TextWidget(
-                    '542 5th Ave, New York, NY 10036, USA',
+                    shop.address,
                     fontSize: sp(14),
                     textColor: kcSoftTextColor.withOpacity(0.5),
+                    textAlign: TextAlign.center,
                   ),
                   verticalSpace(5),
                   TextWidget(
@@ -57,7 +61,7 @@ class VendorShopInfoWidget extends StatelessWidget {
                   ),
                   verticalSpace(5),
                   TextWidget(
-                    'Chinese • Fast Food • Burger • Pizza',
+                    'Fast Food • Drinks',
                     fontSize: sp(14),
                   ),
                   verticalSpace(),
@@ -67,7 +71,7 @@ class VendorShopInfoWidget extends StatelessWidget {
                       Icon(Icons.star, color: kcPrimaryColor, size: w(15)),
                       horizontalSpace(3),
                       TextWidget(
-                        '4.5',
+                        shop.numberOfLikes.toString(),
                         fontSize: sp(14),
                         fontWeight: FontWeight.w600,
                       ),
@@ -80,7 +84,7 @@ class VendorShopInfoWidget extends StatelessWidget {
                       Icon(Icons.people, color: kcPrimaryColor, size: w(15)),
                       horizontalSpace(3),
                       TextWidget(
-                        '2975 Reviews',
+                        '${shop.numberOfReviews} Reviews',
                         fontSize: sp(14),
                         fontWeight: FontWeight.w600,
                       ),

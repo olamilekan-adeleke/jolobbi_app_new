@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../app/locator.dart';
 import '../../../../cores/components/components.dart';
+import '../../../../cores/navigator/app_router.dart';
 import '../../../../cores/utils/utils.dart';
+import '../../../vendor/presentation/pages/vendor_details_view.dart';
 import '../../domain/entities/shop_details_entity.dart';
 import '../bloc/get_nearby_restaurant/get_nearby_restaurant_bloc.dart';
 
@@ -69,31 +71,37 @@ class _HomeNearByFastFoodWidgetState extends State<HomeNearByFastFoodWidget> {
       itemBuilder: (context, index) {
         final ShopDetailsEntity shop = shops[index];
 
-        return Container(
-          width: w(90),
-          margin: EdgeInsets.only(right: w(10)),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(sr(15)),
-                child: ImageWidget(
-                  imageTypes: ImageTypes.network,
-                  imageUrl: shop.imageUrl,
-                  height: h(85),
-                  width: w(85),
+        return GestureDetector(
+          onTap: () => AppRouter.instance.navigateTo(
+            VendorDetailsView.route,
+            arguments: shop,
+          ),
+          child: Container(
+            width: w(90),
+            margin: EdgeInsets.only(right: w(10)),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(sr(15)),
+                  child: ImageWidget(
+                    imageTypes: ImageTypes.network,
+                    imageUrl: shop.imageUrl,
+                    height: h(85),
+                    width: w(85),
+                  ),
                 ),
-              ),
-              verticalSpace(3),
-              TextWidget(
-                shop.name,
-                fontSize: sp(14),
-                fontWeight: FontWeight.w400,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                textAlign: TextAlign.center,
-              ),
-            ],
+                verticalSpace(3),
+                TextWidget(
+                  shop.name,
+                  fontSize: sp(14),
+                  fontWeight: FontWeight.w400,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
           ),
         );
       },

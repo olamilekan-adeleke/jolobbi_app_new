@@ -83,6 +83,7 @@ class _HomeFastFoodListWidgetState extends State<HomeFastFoodListWidget> {
                     return GestureDetector(
                       onTap: () => AppRouter.instance.navigateTo(
                         VendorDetailsView.route,
+                        arguments: shop,
                       ),
                       child: BuildFastFoodItem(shop: shop),
                     );

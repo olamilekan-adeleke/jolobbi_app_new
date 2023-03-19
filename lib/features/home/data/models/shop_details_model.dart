@@ -15,6 +15,7 @@ class ShopDetailsModel extends ShopDetailsEntity {
     required super.geoHash,
     required super.coordinate,
     required super.numberOfLikes,
+    required super.numberOfReviews,
     required super.isAvailable,
   });
 
@@ -33,6 +34,7 @@ class ShopDetailsModel extends ShopDetailsEntity {
       name: map['name'] as String,
       address: map['address'] as String,
       numberOfLikes: map['numberOfLikes'] as int,
+      numberOfReviews: (map['numberOfReviews'] ?? 0) as int,
       openingHours: List<OpeningHoursModel>.from(
         (map['openingHours'] as List<dynamic>).map<OpeningHoursModel>(
           (x) => OpeningHoursModel.fromMap(x as Map<String, dynamic>),
