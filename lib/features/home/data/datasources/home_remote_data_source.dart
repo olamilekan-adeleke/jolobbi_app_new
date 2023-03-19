@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geoflutterfire2/geoflutterfire2.dart';
+import 'package:geolocator/geolocator.dart';
 
 import '../../../../cores/entity/base_entity.dart';
 import '../../../../cores/firebase_helper/firebase_helper.dart';
@@ -39,18 +40,19 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
 
   @override
   Future<List<ShopDetailsModel>> getNearByRestaurants() async {
-    // final LocationData? location =
-    //     await locationHelper.getUserCurrentLocation();
+    final Position? location = await locationHelper.getUserCurrentLocation();
 
-    // if (location == null) {
-    //   throw Exception(
-    //     'Unable to get your current location, please try again later',
-    //   );
-    // }
+    if (location == null) {
+      throw Exception(
+        'Unable to get your current location, please try again later',
+      );
+    }
 
     final GeoFlutterFire geo = GeoFlutterFire();
-    const double latitude = 8.4813; // location.latitude ?? 0;
-    const double longitude = 4.6115; // location.longitude ?? 0;
+    // const double latitude = 8.4813;
+    // const double longitude = 4.6115;
+    final double latitude = location.latitude;
+    final double longitude = location.longitude;
 
     final GeoFirePoint center =
         geo.point(latitude: latitude, longitude: longitude);

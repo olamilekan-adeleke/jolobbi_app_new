@@ -1,37 +1,39 @@
 import 'package:geolocator/geolocator.dart';
 import 'package:jolobbi_app_new/cores/utils/utils.dart';
-import 'package:location/location.dart';
 
 class LocationHelper {
-  static final Location location = Location();
-
-  Future<LocationData?> getUserCurrentLocation() async {
+  Future<Position?> getUserCurrentLocation() async {
     bool serviceEnabled;
-    PermissionStatus permissionGranted;
+    LocationPermission permission;
 
-    serviceEnabled = await location.serviceEnabled();
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      serviceEnabled = await location.requestService();
-      if (!serviceEnabled) {
-        return null;
+      throw Exception('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        throw Exception('Location permissions are denied');
       }
     }
 
-    permissionGranted = await location.hasPermission();
-    if (permissionGranted == PermissionStatus.denied) {
-      permissionGranted = await location.requestPermission();
-      if (permissionGranted != PermissionStatus.granted) {
-        return null;
-      }
+    if (permission == LocationPermission.deniedForever) {
+      throw Exception(
+        'Location permissions are permanently denied, we cannot request permissions.',
+      );
     }
 
-    final LocationData data = await location.getLocation();
-    LoggerHelper.log(data.toString());
-    return data;
+    final Position position = await Geolocator.getCurrentPosition();
+
+    LoggerHelper.log("${position.latitude} ${position.longitude}");
+
+    return position;
   }
 
   Future<double> getDistanceFromLatLonInKm(double lat, double lon) async {
-    final LocationData? data = await getUserCurrentLocation();
+    final Position? data = await getUserCurrentLocation();
 
     if (data?.latitude == null && data?.longitude == null) return 0;
 

@@ -5,10 +5,8 @@ import 'package:jolobbi_app_new/cores/components/components.dart';
 import 'package:jolobbi_app_new/cores/navigator/navigator.dart';
 import 'package:jolobbi_app_new/cores/utils/utils.dart';
 import 'package:jolobbi_app_new/features/home/presentation/pages/search_restaurant_view.dart';
-
 import 'package:jolobbi_app_new/features/home/presentation/widgets/all_restaurant/all_restaurant_list_view_widget.dart';
-
-import '../bloc/get_all_restaurant/get_all_restaurant_bloc.dart';
+import 'package:jolobbi_app_new/features/home/presentation/bloc/get_all_restaurant/get_all_restaurant_bloc.dart';
 
 class AllFastFoodView extends StatelessWidget {
   static const String route = "/all_fast_food";

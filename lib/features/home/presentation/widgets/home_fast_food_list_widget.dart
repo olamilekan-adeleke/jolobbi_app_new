@@ -228,7 +228,7 @@ class BuildFastFoodItem extends StatelessWidget {
                           if (snaphot.hasData) distance = snaphot.data ?? 0;
 
                           return TextWidget(
-                            "30 Mins • $distance km",
+                            "30 Mins • ${distance.toStringAsFixed(2)} km",
                             fontSize: sp(14),
                             fontWeight: FontWeight.w400,
                           );
