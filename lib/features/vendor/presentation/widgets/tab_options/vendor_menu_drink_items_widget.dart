@@ -7,33 +7,35 @@ import '../../../../../cores/constants/constants.dart';
 import '../../../../../cores/navigator/navigator.dart';
 import '../../../../../cores/utils/utils.dart';
 import '../../../../home/domain/entities/menu_item_entity.dart';
-import '../../bloc/get_restaurant_food_item/get_restaurant_food_item_bloc.dart';
+// import '../../bloc/get_restaurant_Drink_item/get_restaurant_drink_item_bloc.dart';
+import '../../bloc/get_restaurant_Drink_item/get_restaurant_drink_item_bloc.dart';
 import '../../pages/menu_item_details_view.dart';
 
-class VendorMenuItemListWidget extends StatefulWidget {
+class VendorMenuDrinkItemListWidget extends StatefulWidget {
   final String shopId;
-  const VendorMenuItemListWidget(this.shopId, {super.key});
+  const VendorMenuDrinkItemListWidget(this.shopId, {super.key});
 
   @override
-  State<VendorMenuItemListWidget> createState() =>
-      _VendorMenuItemListWidgetState();
+  State<VendorMenuDrinkItemListWidget> createState() =>
+      _VendorMenuDrinkItemListWidgetState();
 }
 
-class _VendorMenuItemListWidgetState extends State<VendorMenuItemListWidget> {
+class _VendorMenuDrinkItemListWidgetState
+    extends State<VendorMenuDrinkItemListWidget> {
   late final ScrollController _scrollController = ScrollController();
 
-  final GetRestaurantFoodItemBloc _getRestaurantFoodItemBloc =
-      SetUpLocators.getIt<GetRestaurantFoodItemBloc>();
+  final GetRestaurantDrinkItemBloc _getRestaurantDrinkItemBloc =
+      SetUpLocators.getIt<GetRestaurantDrinkItemBloc>();
 
   @override
   void initState() {
-    _getRestaurantFoodItemBloc.add(GetRestaurantFoodItemEvent(widget.shopId));
+    _getRestaurantDrinkItemBloc.add(GetRestaurantDrinkItemEvent(widget.shopId));
 
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
-        _getRestaurantFoodItemBloc.add(
-          GetRestaurantFoodItemEvent(widget.shopId, shouldGetFreshData: false),
+        _getRestaurantDrinkItemBloc.add(
+          GetRestaurantDrinkItemEvent(widget.shopId, shouldGetFreshData: false),
         );
       }
     });
@@ -42,16 +44,16 @@ class _VendorMenuItemListWidgetState extends State<VendorMenuItemListWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GetRestaurantFoodItemBloc, GetRestaurantFoodItemState>(
-      bloc: _getRestaurantFoodItemBloc,
+    return BlocBuilder<GetRestaurantDrinkItemBloc, GetRestaurantDrinkItemState>(
+      bloc: _getRestaurantDrinkItemBloc,
       builder: (context, state) {
-        if (state is GetRestaurantFoodItemLoading) {
+        if (state is GetRestaurantDrinkItemLoading) {
           return const Center(child: LoadingIndicatorWidget());
-        } else if (state is GetRestaurantFoodItemError) {
+        } else if (state is GetRestaurantDrinkItemError) {
           return CustomErrorWidget(
             message: state.message,
-            onRetry: () => _getRestaurantFoodItemBloc.add(
-              GetRestaurantFoodItemEvent(widget.shopId),
+            onRetry: () => _getRestaurantDrinkItemBloc.add(
+              GetRestaurantDrinkItemEvent(widget.shopId),
             ),
             useFlex: false,
           );
@@ -64,9 +66,10 @@ class _VendorMenuItemListWidgetState extends State<VendorMenuItemListWidget> {
             color: kcSoftTextColor.withOpacity(0.3),
           ),
           shrinkWrap: true,
-          itemCount: _getRestaurantFoodItemBloc.menuItemEntities.length,
+          itemCount: _getRestaurantDrinkItemBloc.menuItemEntities.length,
           itemBuilder: (context, index) {
-            final menuItem = _getRestaurantFoodItemBloc.menuItemEntities[index];
+            final menuItem =
+                _getRestaurantDrinkItemBloc.menuItemEntities[index];
 
             return GestureDetector(
               onTap: () => AppRouter.instance.navigateTo(

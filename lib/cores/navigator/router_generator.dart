@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:jolobbi_app_new/features/home/domain/entities/menu_item_entity.dart';
 
 import '../../features/Authentication/presentation/pages/auth_state_view.dart';
 import '../../features/Authentication/presentation/pages/forgot_password_view.dart';
@@ -50,7 +51,8 @@ class RouteGenerator {
         return pageRoute(VendorDetailsView(shop));
 
       case MenuItemDetailsView.route:
-        return pageRoute(const MenuItemDetailsView());
+        final MenuItemEntity menuItem = settings.arguments as MenuItemEntity;
+        return pageRoute(MenuItemDetailsView(menuItem));
 
       case ConfirmFoodOrderView.route:
         return pageRoute(const ConfirmFoodOrderView());

@@ -23,12 +23,16 @@ class MenuItemModel extends MenuItemEntity {
   factory MenuItemModel.fromMap(Map<String, dynamic> json) {
     return MenuItemModel(
       id: json['id'],
-      addOns: (json['addOns'] as List<dynamic>)
-          .map((e) => MenuAddOnModel.fromMap(e as Map<String, dynamic>))
-          .toList(),
-      extras: (json['extras'] as List<dynamic>)
-          .map((e) => MenuExtraModel.fromMap(e as Map<String, dynamic>))
-          .toList(),
+      addOns: json['addOns'] != null
+          ? (json['addOns'] as List<dynamic>)
+              .map((e) => MenuAddOnModel.fromMap(e as Map<String, dynamic>))
+              .toList()
+          : [],
+      extras: json['extras'] != null
+          ? (json['extras'] as List<dynamic>)
+              .map((e) => MenuExtraModel.fromMap(e as Map<String, dynamic>))
+              .toList()
+          : [],
       rating: (json['rating'] as num).toDouble(),
       description: json['description'],
       name: json['name'],

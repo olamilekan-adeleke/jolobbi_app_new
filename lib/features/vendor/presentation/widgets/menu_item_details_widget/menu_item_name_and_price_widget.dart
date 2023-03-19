@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import '../../../../../../cores/components/components.dart';
 import '../../../../../../cores/constants/constants.dart';
 import '../../../../../../cores/utils/utils.dart';
+import '../../../../home/domain/entities/menu_item_entity.dart';
 
 class MenuItemNameAndPriceWidget extends StatelessWidget {
-  // final MenuItemEntity menuItem;
-  const MenuItemNameAndPriceWidget({super.key});
+  final MenuItemEntity menuItem;
+  const MenuItemNameAndPriceWidget(this.menuItem, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,7 @@ class MenuItemNameAndPriceWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextWidget(
-                    "Cheese Burger",
+                    menuItem.name,
                     fontSize: sp(20),
                     fontWeight: FontWeight.w500,
                   ),
@@ -31,7 +32,7 @@ class MenuItemNameAndPriceWidget extends StatelessWidget {
                     children: [
                       Icon(Icons.star, color: kcPrimaryColor, size: sp(15)),
                       TwoSpanTextWidget(
-                        " 4.5 (2983) ",
+                        " ${menuItem.rating} (${menuItem.ratingCount}) ",
                         "Burger King",
                         fontSize: sp(16),
                         fontSize2: sp(14),
@@ -44,7 +45,7 @@ class MenuItemNameAndPriceWidget extends StatelessWidget {
               ),
             ),
             TextWidget(
-              currencyFormatter(2300),
+              currencyFormatter(menuItem.price),
               fontSize: sp(24),
               fontWeight: FontWeight.w600,
             ),
