@@ -112,4 +112,53 @@ class HomeRepositoryImpl implements HomeRepository {
       return Left(BaseFailures(message: e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failures, List<ShopDetailsEntity>>> getRestaurants(
+    String? lastDocId,
+  ) async {
+    try {
+      final List<ShopDetailsEntity> result =
+          await homeRemoteDataSource.getRestaurants(lastDocId);
+
+      return Right(result);
+    } on FirebaseAuthException catch (e) {
+      return Left(AuthFirebaseException(e.code));
+    } on SocketException {
+      return const Left(BaseFailures(message: ErrorText.noInternet));
+    } catch (e, s) {
+      LoggerHelper.log(e, s);
+
+      if (e is BaseFailures) {
+        return Left(BaseFailures(message: e.message));
+      }
+
+      return Left(BaseFailures(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failures, List<ShopDetailsEntity>>> searchRestaurantByQuery(
+    String query,
+    String? lastDocId,
+  ) async {
+    try {
+      final List<ShopDetailsEntity> result =
+          await homeRemoteDataSource.searchRestaurantByQuery(query, lastDocId);
+
+      return Right(result);
+    } on FirebaseAuthException catch (e) {
+      return Left(AuthFirebaseException(e.code));
+    } on SocketException {
+      return const Left(BaseFailures(message: ErrorText.noInternet));
+    } catch (e, s) {
+      LoggerHelper.log(e, s);
+
+      if (e is BaseFailures) {
+        return Left(BaseFailures(message: e.message));
+      }
+
+      return Left(BaseFailures(message: e.toString()));
+    }
+  }
 }

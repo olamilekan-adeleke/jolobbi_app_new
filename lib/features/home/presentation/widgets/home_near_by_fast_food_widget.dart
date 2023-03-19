@@ -45,7 +45,7 @@ class _HomeNearByFastFoodWidgetState extends State<HomeNearByFastFoodWidget> {
                   child: CustomErrorWidget(
                     useFlex: false,
                     message: state.message,
-                    callback: () => getNearbyRestaurantBloc.add(
+                    onRetry: () => getNearbyRestaurantBloc.add(
                       const GetNearbyRestaurantEvent(),
                     ),
                   ),

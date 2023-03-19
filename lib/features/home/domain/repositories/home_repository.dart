@@ -18,4 +18,13 @@ abstract class HomeRepository {
     String query,
     String? lastDocId,
   );
+
+   Future<Either<Failures, List<ShopDetailsEntity>>> getRestaurants(
+    String? lastDocId,
+  );
+
+   Future<Either<Failures, List<ShopDetailsEntity>>> searchRestaurantByQuery(
+    String query,
+    String? lastDocId,
+  );
 }

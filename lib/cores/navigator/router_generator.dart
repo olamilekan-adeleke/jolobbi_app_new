@@ -8,9 +8,11 @@ import '../../features/Authentication/presentation/pages/forgot_password_view.da
 import '../../features/Authentication/presentation/pages/intro_view.dart';
 import '../../features/Authentication/presentation/pages/login_view.dart';
 import '../../features/Authentication/presentation/pages/sign_up_view.dart';
+import '../../features/home/presentation/pages/all_fast_food_view.dart';
 import '../../features/home/presentation/pages/home_tab_view.dart';
 import '../../features/home/presentation/pages/home_view.dart';
 import '../../features/home/presentation/pages/search_food_view.dart';
+import '../../features/home/presentation/pages/search_restaurant_view.dart';
 import '../../features/menu_cart/presentation/pages/confirm_food_order_view.dart';
 import '../../features/vendor/presentation/pages/menu_item_details_view.dart';
 import '../../features/vendor/presentation/pages/vendor_details_view.dart';
@@ -50,9 +52,15 @@ class RouteGenerator {
 
       case ConfirmFoodOrderView.route:
         return pageRoute(const ConfirmFoodOrderView());
-      
+
       case SearchFoodMenuView.route:
         return pageRoute(const SearchFoodMenuView());
+
+      case AllFastFoodView.route:
+        return pageRoute(const AllFastFoodView());
+      
+      case SearchRestaurantView.route:
+        return pageRoute(const SearchRestaurantView());
 
       default:
         return errorRoute();

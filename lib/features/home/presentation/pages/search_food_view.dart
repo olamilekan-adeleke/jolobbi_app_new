@@ -44,7 +44,7 @@ class SearchFoodMenuView extends StatelessWidget {
                   child: CustomErrorWidget(
                     useFlex: false,
                     message: state.message,
-                    callback: () => _searchMenuItemBloc.add(
+                    onRetry: () => _searchMenuItemBloc.add(
                       const SearchMenuItemEvent(''),
                     ),
                   ),

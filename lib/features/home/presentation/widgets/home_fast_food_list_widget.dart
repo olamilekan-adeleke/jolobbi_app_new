@@ -12,6 +12,7 @@ import '../../../vendor/presentation/pages/vendor_details_view.dart';
 import '../../domain/entities/shop_details_entity.dart';
 import '../bloc/bookmark_restaurant/bookmark_restaurant_bloc.dart';
 import '../bloc/get_popular_restaurant/get_popular_restaurant_bloc.dart';
+import '../pages/all_fast_food_view.dart';
 
 class HomeFastFoodListWidget extends StatefulWidget {
   const HomeFastFoodListWidget({super.key});
@@ -36,7 +37,21 @@ class _HomeFastFoodListWidgetState extends State<HomeFastFoodListWidget> {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        TextWidget("Top Rated Restaurant", fontSize: sp(20)),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            TextWidget("Top Rated Restaurant", fontSize: sp(20)),
+            GestureDetector(
+              onTap: () => AppRouter.instance.navigateTo(AllFastFoodView.route),
+              child: TextWidget(
+                "See All",
+                fontSize: sp(16),
+                textColor: kcSoftTextColor,
+                decoration: TextDecoration.underline,
+              ),
+            ),
+          ],
+        ),
         verticalSpace(),
         BlocBuilder<GetPopularRestaurantBloc, GetPopularRestaurantState>(
           bloc: _getPopularRestaurantBloc,
@@ -49,7 +64,7 @@ class _HomeFastFoodListWidgetState extends State<HomeFastFoodListWidget> {
                 child: CustomErrorWidget(
                   useFlex: false,
                   message: state.message,
-                  callback: () => _getPopularRestaurantBloc.add(
+                  onRetry: () => _getPopularRestaurantBloc.add(
                     const GetPopularRestaurantEvent(),
                   ),
                 ),
@@ -69,7 +84,7 @@ class _HomeFastFoodListWidgetState extends State<HomeFastFoodListWidget> {
                       onTap: () => AppRouter.instance.navigateTo(
                         VendorDetailsView.route,
                       ),
-                      child: _BuildFastFoodItem(shop: shop),
+                      child: BuildFastFoodItem(shop: shop),
                     );
                   },
                 ),
@@ -84,9 +99,9 @@ class _HomeFastFoodListWidgetState extends State<HomeFastFoodListWidget> {
   }
 }
 
-class _BuildFastFoodItem extends StatelessWidget {
+class BuildFastFoodItem extends StatelessWidget {
   final ShopDetailsEntity shop;
-  _BuildFastFoodItem({Key? key, required this.shop}) : super(key: key);
+  BuildFastFoodItem({Key? key, required this.shop}) : super(key: key);
 
   final BookmarkRestaurantBloc _bookmarkRestaurantBloc =
       SetUpLocators.getIt<BookmarkRestaurantBloc>();

@@ -13,9 +13,16 @@ abstract class HomeRemoteDataSource {
 
   Future<List<ShopDetailsModel>> getPopularRestaurants(String? lastDocId);
 
+  Future<List<ShopDetailsModel>> getRestaurants(String? lastDocId);
+
   Future<BaseModel> bookMarkRestaurant(String id);
 
   Future<List<MenuItemModel>> getFoodMenuByQuery(
+    String query,
+    String? lastDocId,
+  );
+
+  Future<List<ShopDetailsModel>> searchRestaurantByQuery(
     String query,
     String? lastDocId,
   );
@@ -119,5 +126,38 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
       message: 'Restaurant bookmarked successfully',
       success: true,
     );
+  }
+
+  @override
+  Future<List<ShopDetailsModel>> getRestaurants(String? lastDocId) async {
+    Query<Map<String, dynamic>> collectionReference =
+        firebaseHelper.shopCollectionRef().orderBy("name");
+
+    if (lastDocId != null) {
+      collectionReference = collectionReference.startAfter([lastDocId]);
+    }
+
+    QuerySnapshot<Map<String, dynamic>> result =
+        await collectionReference.limit(5).get();
+    return result.docs.map((e) => ShopDetailsModel.fromMap(e.data())).toList();
+  }
+
+  @override
+  Future<List<ShopDetailsModel>> searchRestaurantByQuery(
+    String query,
+    String? lastDocId,
+  ) async {
+    var collectionReference = firebaseHelper
+        .shopCollectionRef()
+        .where('searchKey', arrayContains: query)
+        .orderBy("searchKey");
+
+    if (lastDocId != null) {
+      collectionReference = collectionReference.startAfter([lastDocId]);
+    }
+
+    QuerySnapshot<Map<String, dynamic>> result =
+        await collectionReference.limit(10).get();
+    return result.docs.map((e) => ShopDetailsModel.fromMap(e.data())).toList();
   }
 }

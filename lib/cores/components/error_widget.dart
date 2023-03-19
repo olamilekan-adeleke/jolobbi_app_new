@@ -9,7 +9,7 @@ class CustomErrorWidget extends StatelessWidget {
   const CustomErrorWidget({
     Key? key,
     required this.message,
-    this.callback,
+    this.onRetry,
     this.assetPath,
     this.useFlex = true,
     this.showButton = true,
@@ -19,7 +19,7 @@ class CustomErrorWidget extends StatelessWidget {
   final String? assetPath;
   final bool useFlex;
   final bool showButton;
-  final void Function()? callback;
+  final void Function()? onRetry;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class CustomErrorWidget extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10.0),
-            if (showButton) RetryButtonWidget(callback: () => callback!.call()),
+            if (showButton) RetryButtonWidget(callback: () => onRetry!.call()),
           ],
         ),
       );
@@ -68,7 +68,7 @@ class CustomErrorWidget extends StatelessWidget {
           ),
         TextWidget(message, textAlign: TextAlign.center, maxLines: 4),
         const SizedBox(height: 10.0),
-        if (showButton) RetryButtonWidget(callback: () => callback!.call()),
+        if (showButton) RetryButtonWidget(callback: () => onRetry!.call()),
       ],
     );
   }
