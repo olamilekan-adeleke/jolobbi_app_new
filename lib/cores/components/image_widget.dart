@@ -15,6 +15,7 @@ class ImageWidget extends StatelessWidget {
     this.fit = BoxFit.fill,
     this.height,
     this.width,
+    this.color,
   }) : super(key: key);
 
   final String? imageUrl;
@@ -23,6 +24,7 @@ class ImageWidget extends StatelessWidget {
   final BoxFit fit;
   final double? height;
   final double? width;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,7 @@ class ImageWidget extends StatelessWidget {
       return Container(
         height: height,
         width: width,
-        color: kcGrey200,
+        color: color ?? kcGrey200,
         child: Center(
           child: Icon(
             imageTypes == ImageTypes.profile
@@ -48,7 +50,7 @@ class ImageWidget extends StatelessWidget {
         return Container(
           height: height,
           width: width,
-          color: Colors.black,
+          color: color ?? Colors.black,
           child: CachedNetworkImage(
             imageUrl: imageUrl!,
             fit: fit,
@@ -71,6 +73,7 @@ class ImageWidget extends StatelessWidget {
           child: Image.file(
             File(imageUrl!),
             fit: fit,
+            color: color ?? Colors.black,
             errorBuilder: (_, __, ___) => Container(
               color: kcGrey200,
               child: const Center(
@@ -86,6 +89,7 @@ class ImageWidget extends StatelessWidget {
           child: Image.asset(
             imageUrl!,
             fit: fit,
+            color: color ?? Colors.black,
             errorBuilder: (_, __, ___) {
               // log(e.toString());
               return Container(
@@ -111,6 +115,7 @@ class ImageWidget extends StatelessWidget {
           width: width,
           imageUrl: imageUrl!,
           fit: fit,
+          color: color ?? Colors.black,
           errorWidget: (_, __, ___) => Container(
             color: kcGrey200,
             child: const Center(child: Icon(Icons.person)),
@@ -125,7 +130,9 @@ class ImageWidget extends StatelessWidget {
           width: width,
           child: SvgPicture.asset(
             imageUrl!,
-            color: useIconColor ? kcPrimaryColor.withOpacity(0.6) : null,
+            color: useIconColor
+                ? (color ?? kcPrimaryColor.withOpacity(0.6))
+                : null,
           ),
         );
     }
