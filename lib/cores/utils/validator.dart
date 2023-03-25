@@ -89,3 +89,10 @@ String? mobileValidator(String? value) {
   }
   return null;
 }
+
+String? amountValidator(String? value) {
+  if (value == '' || value == null) {
+    return 'Amount must not be empty!';
+  }
+  return null;
+}

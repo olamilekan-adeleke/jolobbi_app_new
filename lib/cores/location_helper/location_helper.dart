@@ -1,5 +1,4 @@
 import 'package:geolocator/geolocator.dart';
-import 'package:jolobbi_app_new/cores/utils/utils.dart';
 
 class LocationHelper {
   Future<Position?> getUserCurrentLocation() async {
@@ -27,7 +26,7 @@ class LocationHelper {
 
     final Position position = await Geolocator.getCurrentPosition();
 
-    LoggerHelper.log("${position.latitude} ${position.longitude}");
+    // LoggerHelper.log("${position.latitude} ${position.longitude}");
 
     return position;
   }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../../cores/components/components.dart';
 import '../../../../cores/constants/color.dart';
 import '../../../menu_cart/presentation/pages/cart_view.dart';
+import '../../../wallet/presentation/pages/wallet_view.dart';
 import 'home_view.dart';
 
 class HomeTabScreen extends StatefulWidget {
@@ -49,7 +50,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
   static List<Widget> pages = const <Widget>[
     HomeView(),
     CartView(),
-    SizedBox(),
+    WalletView(),
     SizedBox(),
     // SizedBox(),
   ];
