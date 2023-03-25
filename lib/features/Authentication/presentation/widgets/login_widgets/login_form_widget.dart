@@ -92,7 +92,7 @@ class LoginFormWidget extends StatelessWidget {
                       // );
                       final LoginDataParams login = LoginDataParams(
                         email: "olamilekanly66@gmail.com",
-                        password: "Tested2021",
+                        password: "testpass000",
                       );
 
                       _bloc.add(LoginEvent(login));

@@ -50,6 +50,7 @@ class ScaffoldWidget extends StatelessWidget {
           height: sh(98),
           child: useSingleScroll
               ? SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
                   child: Padding(
                     padding: EdgeInsets.symmetric(
                       horizontal: usePadding ? sp(kGlobalPadding) : 0,

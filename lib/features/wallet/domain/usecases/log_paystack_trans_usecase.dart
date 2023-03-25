@@ -17,6 +17,6 @@ class LogPaystackTransUsecase
   FutureOr<Either<Failures, BaseEntity>> call(
     Map<String, dynamic> params,
   ) async {
-    return await walletRepository.logFlutterWaveTrans(params);
+    return await walletRepository.logPaystackTrans(params);
   }
 }

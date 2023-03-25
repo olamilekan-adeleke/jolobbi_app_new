@@ -68,7 +68,7 @@ extension on _WalletViewState {
         context: context,
         message: 'Payment successful',
       );
-    } else if (state is LogTransError) {
+    }else if(state is LogTransError){
       SnackBarService.showErrorSnackBar(
         context: context,
         message: state.message,

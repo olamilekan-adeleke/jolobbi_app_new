@@ -27,7 +27,7 @@ void setUpWalletLocator() {
   );
 
   // repository
-  getIt.registerLazySingleton(
+  getIt.registerLazySingleton<WalletRepository>(
     () => WalletRepositoryImpl(
       walletRemoteDataSource: getIt<WalletRemoteDataSource>(),
     ),
