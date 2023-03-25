@@ -11,6 +11,7 @@ import '../../../../../cores/utils/formatter/money_formatter.dart';
 import '../../../../../cores/utils/formz_validator/payment_option.dart';
 import '../../../../../cores/utils/utils.dart';
 import '../../../data/models/flutter_wave_payment_model.dart';
+import '../../bloc/log_trans/log_trans_bloc.dart';
 import '../../cubit/fund_wallet_cubit.dart';
 import '../../pages/payment_gateway_screen/flutter_wave_payment_view.dart';
 import '../../pages/payment_gateway_screen/paystack_payment_view.dart';
@@ -24,6 +25,7 @@ class FundWalletOptionWidget extends StatefulWidget {
 
 class _FundWalletOptionWidgetState extends State<FundWalletOptionWidget> {
   final FundWalletCubit _cubit = SetUpLocators.getIt<FundWalletCubit>();
+  final LogTransBloc _logTransBloc = SetUpLocators.getIt<LogTransBloc>();
 
   @override
   void initState() {
@@ -105,28 +107,37 @@ class _FundWalletOptionWidgetState extends State<FundWalletOptionWidget> {
           },
         ),
         verticalSpace(50),
-        BlocBuilder<FundWalletCubit, FundWalletFormz>(
-          bloc: _cubit,
+        BlocBuilder<LogTransBloc, LogTransState>(
+          bloc: _logTransBloc,
           builder: (context, state) {
-            return Button(
-              active: state.isValid,
-              text: "Fund Wallet",
-              onTap: () {
-                final args = FlutterWavePaymentArgs(
-                  amount: state.amount.value,
-                  currency: "ng",
-                  transactionRef: "${DateTime.now().microsecond}_tr",
-                  description: "Payment for Jolobbi",
-                  email: "olamilekanly66@gmail.com",
-                  fullName: "Kod Enigma",
-                  phoneNumber: "08100000000",
-                );
+            if (state is LogTransLoading) {
+              return const Button.loading();
+            }
 
-                if (state.getOption == PaymentOption.flutterWave) {
-                  openFlutterWave(args);
-                } else if (state.getOption == PaymentOption.paystack) {
-                  openPaystackWave(args);
-                }
+            return BlocBuilder<FundWalletCubit, FundWalletFormz>(
+              bloc: _cubit,
+              builder: (context, state) {
+                return Button(
+                  active: state.isValid,
+                  text: "Fund Wallet",
+                  onTap: () {
+                    final args = FlutterWavePaymentArgs(
+                      amount: state.amount.value,
+                      currency: "ng",
+                      transactionRef: "${DateTime.now().microsecond}_tr",
+                      description: "Payment for Jolobbi",
+                      email: "olamilekanly66@gmail.com",
+                      fullName: "Kod Enigma",
+                      phoneNumber: "08100000000",
+                    );
+
+                    if (state.getOption == PaymentOption.flutterWave) {
+                      openFlutterWave(args);
+                    } else if (state.getOption == PaymentOption.paystack) {
+                      openPaystackWave(args);
+                    }
+                  },
+                );
               },
             );
           },

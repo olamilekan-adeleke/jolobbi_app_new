@@ -1,11 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../app/locator.dart';
 import '../../../../cores/components/components.dart';
 import '../../../../cores/constants/constants.dart';
 import '../../../../cores/utils/utils.dart';
+import '../../domain/entities/transaction_entity.dart';
+import '../bloc/get_transaction/get_transaction_bloc.dart';
 
-class TransactionHistoryListViewWidget extends StatelessWidget {
+class TransactionHistoryListViewWidget extends StatefulWidget {
   const TransactionHistoryListViewWidget({super.key});
+
+  @override
+  State<TransactionHistoryListViewWidget> createState() =>
+      _TransactionHistoryListViewWidgetState();
+}
+
+class _TransactionHistoryListViewWidgetState
+    extends State<TransactionHistoryListViewWidget> {
+  final GetTransactionBloc _getTransactionBloc =
+      SetUpLocators.getIt<GetTransactionBloc>();
 
   @override
   Widget build(BuildContext context) {
@@ -29,14 +43,36 @@ class TransactionHistoryListViewWidget extends StatelessWidget {
           ],
         ),
         verticalSpace(),
-        ListView.separated(
-          padding: EdgeInsets.symmetric(vertical: h(20)),
-          separatorBuilder: (context, index) => const Divider(),
-          physics: const NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          itemCount: 20,
-          itemBuilder: (context, index) {
-            return const TransactionItem();
+        BlocBuilder<GetTransactionBloc, GetTransactionState>(
+          bloc: _getTransactionBloc,
+          builder: (context, state) {
+            if (state is GetTransactionLoading) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (state is GetTransactionError) {
+              return SizedBox(
+                height: sh(30),
+                child: CustomErrorWidget(
+                  useFlex: false,
+                  message: state.message,
+                  onRetry: () => _getTransactionBloc.add(
+                    const GetTransactionEvent(),
+                  ),
+                ),
+              );
+            }
+
+            return ListView.separated(
+              padding: EdgeInsets.symmetric(vertical: h(20)),
+              separatorBuilder: (context, index) => const Divider(),
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: _getTransactionBloc.transactions.length,
+              itemBuilder: (context, index) {
+                final transaction = _getTransactionBloc.transactions[index];
+
+                return TransactionItem(transaction);
+              },
+            );
           },
         ),
       ],
@@ -45,7 +81,8 @@ class TransactionHistoryListViewWidget extends StatelessWidget {
 }
 
 class TransactionItem extends StatelessWidget {
-  const TransactionItem({Key? key}) : super(key: key);
+  final TransactionEntity transaction;
+  const TransactionItem(this.transaction, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +92,7 @@ class TransactionItem extends StatelessWidget {
           width: 50,
           height: 50,
           decoration: BoxDecoration(
-            color: kcPrimaryColor.withOpacity(0.1),
+            color: transaction.color.withOpacity(0.1),
             borderRadius: BorderRadius.circular(10),
           ),
           child: RotatedBox(
@@ -69,13 +106,13 @@ class TransactionItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               TextWidget(
-                'Fund transfer',
+                transaction.title,
                 fontSize: sp(16),
                 fontWeight: FontWeight.w600,
               ),
               verticalSpace(2),
               TextWidget(
-                'Transaction description',
+                transaction.description,
                 fontSize: sp(14),
                 textColor: kcSoftTextColor.withOpacity(0.5),
               ),
@@ -83,7 +120,7 @@ class TransactionItem extends StatelessWidget {
           ),
         ),
         TextWidget(
-          '- ${currencyFormatter(100)}',
+          '${transaction.sign} ${currencyFormatter(transaction.amount)}',
           fontSize: sp(16),
           fontWeight: FontWeight.w500,
           textColor: kcErrorColor,
