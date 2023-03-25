@@ -161,7 +161,7 @@ class _FundWalletOptionWidgetState extends State<FundWalletOptionWidget> {
       return;
     }
 
-    // Todo: Process payment
+    _logTransBloc.add(LogFlutterWaveTransEvent(model.toMap()));
   }
 
   Future<void> openPaystackWave(FlutterWavePaymentArgs args) async {
@@ -178,7 +178,12 @@ class _FundWalletOptionWidgetState extends State<FundWalletOptionWidget> {
       return;
     }
 
-    // Todo: Process payment
+    _logTransBloc.add(LogPaystackTransEvent({
+      "reference": response.reference,
+      "status": response.status,
+      "message": response.message,
+      "paymentMethod": response.method.name,
+    }));
   }
 }
 

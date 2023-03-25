@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../app/locator.dart';
 import '../../../../cores/components/components.dart';
@@ -36,16 +37,42 @@ class _WalletViewState extends State<WalletView> {
         _getWalletBloc.add(const GetWalletEvent());
         _getTransactionBloc.add(const GetTransactionEvent());
       },
-      child: ScaffoldWidget(
-        body: Column(
-          children: [
-            verticalSpace(),
-            const WalletBalanceWidget(),
-            verticalSpace(20),
-            const TransactionHistoryListViewWidget(),
-          ],
+      child: MultiBlocListener(
+        listeners: [
+          BlocListener<LogTransBloc, LogTransState>(
+            bloc: _logTransBloc,
+            listener: logListener,
+          ),
+        ],
+        child: ScaffoldWidget(
+          body: Column(
+            children: [
+              verticalSpace(),
+              const WalletBalanceWidget(),
+              verticalSpace(20),
+              const TransactionHistoryListViewWidget(),
+            ],
+          ),
         ),
       ),
     );
+  }
+}
+
+extension on _WalletViewState {
+  void logListener(context, LogTransState state) {
+    if (state is LogTransSuccess) {
+      // _getWalletBloc.add(const GetWalletEvent());
+      // _getTransactionBloc.add(const GetTransactionEvent());
+      SnackBarService.showSuccessSnackBar(
+        context: context,
+        message: 'Payment successful',
+      );
+    } else if (state is LogTransError) {
+      SnackBarService.showErrorSnackBar(
+        context: context,
+        message: state.message,
+      );
+    }
   }
 }
