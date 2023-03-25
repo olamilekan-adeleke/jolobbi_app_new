@@ -18,6 +18,8 @@ import '../../features/home/presentation/pages/search_restaurant_view.dart';
 import '../../features/menu_cart/presentation/pages/confirm_food_order_view.dart';
 import '../../features/vendor/presentation/pages/menu_item_details_view.dart';
 import '../../features/vendor/presentation/pages/vendor_details_view.dart';
+import '../../features/wallet/presentation/pages/payment_gateway_screen/flutter_wave_payment_view.dart';
+import '../../features/wallet/presentation/pages/payment_gateway_screen/paystack_payment_view.dart';
 import 'error_route_screen.dart';
 
 class RouteGenerator {
@@ -65,6 +67,16 @@ class RouteGenerator {
 
       case SearchRestaurantView.route:
         return pageRoute(const SearchRestaurantView());
+
+      case FlutterWavePaymentView.routeName:
+        final FlutterWavePaymentArgs args =
+            settings.arguments as FlutterWavePaymentArgs;
+        return pageRoute(FlutterWavePaymentView(args));
+
+      case PaystackPaymentView.routeName:
+        final FlutterWavePaymentArgs args =
+            settings.arguments as FlutterWavePaymentArgs;
+        return pageRoute(PaystackPaymentView(args));
 
       default:
         return errorRoute();

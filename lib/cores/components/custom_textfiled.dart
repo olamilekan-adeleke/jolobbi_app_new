@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../cores/constants/color.dart';
@@ -25,6 +26,7 @@ class TextFieldWidget extends StatefulWidget {
     this.onChanged,
     this.boldHintText = false,
     this.prefixWidget,
+    this.inputFormatters,
   }) : super(key: key);
 
   final TextEditingController? textEditingController;
@@ -41,6 +43,7 @@ class TextFieldWidget extends StatefulWidget {
   final IconData? suffix;
   final IconData? prefix;
   final Widget? prefixWidget;
+  final List<TextInputFormatter>? inputFormatters;
 
   @override
   _TextFieldWidgetState createState() => _TextFieldWidgetState();
@@ -66,6 +69,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
               ),
             verticalSpace(5),
             TextFormField(
+              inputFormatters: widget.inputFormatters,
               maxLines: widget.maxLine,
               enabled: widget.enabled,
               cursorColor: kcPrimaryColor,

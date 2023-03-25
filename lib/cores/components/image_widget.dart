@@ -50,7 +50,7 @@ class ImageWidget extends StatelessWidget {
         return Container(
           height: height,
           width: width,
-          color: color ?? Colors.black,
+          color: color,
           child: CachedNetworkImage(
             imageUrl: imageUrl!,
             fit: fit,
@@ -73,7 +73,7 @@ class ImageWidget extends StatelessWidget {
           child: Image.file(
             File(imageUrl!),
             fit: fit,
-            color: color ?? Colors.black,
+            color: color,
             errorBuilder: (_, __, ___) => Container(
               color: kcGrey200,
               child: const Center(
@@ -89,7 +89,7 @@ class ImageWidget extends StatelessWidget {
           child: Image.asset(
             imageUrl!,
             fit: fit,
-            color: color ?? Colors.black,
+            color: color,
             errorBuilder: (_, __, ___) {
               // log(e.toString());
               return Container(
@@ -115,7 +115,7 @@ class ImageWidget extends StatelessWidget {
           width: width,
           imageUrl: imageUrl!,
           fit: fit,
-          color: color ?? Colors.black,
+          color: color,
           errorWidget: (_, __, ___) => Container(
             color: kcGrey200,
             child: const Center(child: Icon(Icons.person)),

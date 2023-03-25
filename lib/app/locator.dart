@@ -5,6 +5,8 @@ import '../cores/firebase_helper/firebase_helper.dart';
 import '../cores/push_notification/push_nofication_helper.dart';
 import '../features/Authentication/auth_locator.dart';
 import '../features/vendor/vendor_locator.dart';
+import '../features/wallet/data/datasources/paystack_service.dart';
+import '../features/wallet/wallet_locator.dart';
 
 class SetUpLocators {
   static const SetUpLocators _instance = SetUpLocators._();
@@ -24,6 +26,9 @@ class SetUpLocators {
 
     ///--------------- Vendor --------------------//
     setUpVendorLocator();
+
+    ///--------------- Wallet --------------------//
+    setUpWalletLocator();
   }
 
   static void _setUp() {
@@ -33,5 +38,8 @@ class SetUpLocators {
     getIt.registerLazySingleton<PushNotificationHelper>(
       () => PushNotificationHelper(),
     );
+
+    /// --------------- Paystack Service -----------------//
+    getIt.registerLazySingleton(() => PaystackService());
   }
 }

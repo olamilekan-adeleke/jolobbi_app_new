@@ -4,8 +4,11 @@ import '../constants/color.dart';
 import 'sizer_utils.dart';
 
 class BottomSheetHelper {
-  static void show({required BuildContext context, required Widget child}) {
-    showModalBottomSheet(
+  static Future<dynamic> show(
+    BuildContext context, {
+    required Widget child,
+  }) async {
+    return await showModalBottomSheet(
       backgroundColor: Colors.black.withOpacity(0.02),
       isScrollControlled: true,
       enableDrag: true,

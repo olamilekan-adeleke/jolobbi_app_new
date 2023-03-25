@@ -9,6 +9,11 @@ import '../exception/base_exception.dart';
 String USERCOLLECTION = "users";
 String SHOPCOLLECTION = "shops";
 String MenuCOLLECTION = "menus_items";
+String WalletCOLLECTION = "wallets";
+String TransactionCOLLECTION = "transactions";
+
+String PaystackTransactionCOLLECTION = "paystack_transactions";
+String FlutterWaveTransactionCOLLECTION = "flutterwave_transactions";
 
 class FirebaseHelper {
   /// -------- Utile ---------
@@ -44,7 +49,24 @@ class FirebaseHelper {
     return FirebaseFirestore.instance.collection(MenuCOLLECTION);
   }
 
- 
+  CollectionReference<Map<String, dynamic>> walletCollectionRef() {
+    return FirebaseFirestore.instance.collection(WalletCOLLECTION);
+  }
+
+  CollectionReference<Map<String, dynamic>> flutterWaveTransCollectionRef() {
+    return FirebaseFirestore.instance
+        .collection(FlutterWaveTransactionCOLLECTION);
+  }
+
+  CollectionReference<Map<String, dynamic>> paystackTransCollectionRef() {
+    return FirebaseFirestore.instance.collection(PaystackTransactionCOLLECTION);
+  }
+
+  CollectionReference<Map<String, dynamic>> transactionCollectionRef() {
+    return userCollectionRef()
+        .doc(currentUserId)
+        .collection(TransactionCOLLECTION);
+  }
 
   /// -------- Storage ---------
   Reference storageRef() => FirebaseStorage.instance.ref();

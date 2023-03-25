@@ -37,6 +37,8 @@ dependencies:
   http: ^0.13.5
   geoflutterfire2: ^2.3.14
   geolocator: ^9.0.2
+  flutter_dotenv: ^5.0.2
+  flutter_paystack: ^1.0.7
 
 dependency_overrides:
   rxdart: ^0.27.7
@@ -53,10 +55,13 @@ flutter:
   assets:
     - assets/images/
     - assets/images/wallet/
-    -
+
     - assets/icons/
     - assets/icons/home/
-    -
+    - assets/icons/wallet/
+
     - assets/svg/
     - assets/svg/wallet/
     - assets/svg/onboarding/
+
+    - .env

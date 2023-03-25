@@ -4,9 +4,11 @@ import 'package:webview_flutter/webview_flutter.dart';
 import 'custom_scaffold_widget.dart';
 
 class WebviewScreen extends StatefulWidget {
-  const WebviewScreen(this.url, {Key? key}) : super(key: key);
+  const WebviewScreen({required this.url, required this.title, Key? key})
+      : super(key: key);
 
   final String url;
+  final String title;
 
   @override
   State<WebviewScreen> createState() => _WebviewScreenState();

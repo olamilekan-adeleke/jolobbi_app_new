@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../cores/components/components.dart';
 import '../../../../cores/constants/color.dart';
 import '../../../../cores/utils/utils.dart';
+import 'fund_wallet_widget/fund_wallet_option_widget.dart';
 
 class WalletBalanceWidget extends StatelessWidget {
   const WalletBalanceWidget({super.key});
@@ -12,17 +13,13 @@ class WalletBalanceWidget extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: kcPrimaryColor.withOpacity(0.7),
-        // borderRadius: BorderRadius.only(
-        //   bottomLeft: Radius.circular(sr(30)),
-        //   bottomRight: Radius.circular(sr(30)),
-        // ),
         borderRadius: BorderRadius.circular(sr(15)),
       ),
-      child: _buildWalletItem(20393),
+      child: _buildWalletItem(context, 20393),
     );
   }
 
-  Widget _buildWalletItem(double balance) {
+  Widget _buildWalletItem(BuildContext context, double balance) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: w(15)),
       margin: EdgeInsets.symmetric(vertical: w(20)),
@@ -43,10 +40,10 @@ class WalletBalanceWidget extends StatelessWidget {
             Row(
               children: <Widget>[
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () => openFundAccount(context),
                   child: _buildWalletButtonWidget(
                     "assets/images/wallet/request_money.png",
-                    "Receive",
+                    "Fund",
                   ),
                 ),
                 const Spacer(),
@@ -54,7 +51,7 @@ class WalletBalanceWidget extends StatelessWidget {
                   onTap: () {},
                   child: _buildWalletButtonWidget(
                     "assets/images/wallet/send_money.png",
-                    "Send",
+                    "Withdraw",
                   ),
                 ),
               ],
@@ -63,6 +60,10 @@ class WalletBalanceWidget extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> openFundAccount(BuildContext context) async {
+    BottomSheetHelper.show(context, child: const FundWalletOptionWidget());
   }
 
   Container _buildWalletButtonWidget(String iconPath, String name) {
