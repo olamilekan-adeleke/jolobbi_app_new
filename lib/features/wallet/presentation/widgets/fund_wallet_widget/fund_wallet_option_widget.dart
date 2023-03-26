@@ -11,6 +11,8 @@ import '../../../../../cores/navigator/navigator.dart';
 import '../../../../../cores/utils/formatter/money_formatter.dart';
 import '../../../../../cores/utils/formz_validator/payment_option.dart';
 import '../../../../../cores/utils/utils.dart';
+import '../../../../profile/domain/entities/user_details_entity.dart';
+import '../../../../profile/presentation/bloc/get_profile/get_profile_bloc_bloc.dart';
 import '../../../data/models/flutter_wave_payment_model.dart';
 import '../../bloc/log_trans/log_trans_bloc.dart';
 import '../../cubit/fund_wallet_cubit.dart';
@@ -27,10 +29,12 @@ class FundWalletOptionWidget extends StatefulWidget {
 class _FundWalletOptionWidgetState extends State<FundWalletOptionWidget> {
   final FundWalletCubit _cubit = SetUpLocators.getIt<FundWalletCubit>();
   final LogTransBloc _logTransBloc = SetUpLocators.getIt<LogTransBloc>();
+  late UserDetailsEntity? userDetailsEntity;
 
   @override
   void initState() {
     _cubit.reset();
+    userDetailsEntity = SetUpLocators.getIt<GetProfileBloc>().userDetailsEntity;
     super.initState();
   }
 
@@ -122,6 +126,15 @@ class _FundWalletOptionWidgetState extends State<FundWalletOptionWidget> {
                   active: state.isValid,
                   text: "Fund Wallet",
                   onTap: () {
+                    if (userDetailsEntity == null) {
+                      SnackBarService.showErrorSnackBar(
+                        context: context,
+                        message: "Unable to get user details, please logout"
+                            " and login again",
+                      );
+                      return;
+                    }
+
                     final args = FlutterWavePaymentArgs(
                       amount: state.amount.value,
                       currency: "ng",
@@ -162,7 +175,10 @@ class _FundWalletOptionWidgetState extends State<FundWalletOptionWidget> {
       return;
     }
 
-    _logTransBloc.add(LogFlutterWaveTransEvent(model.toMap()));
+    _logTransBloc.add(LogFlutterWaveTransEvent({
+      "userId": userDetailsEntity!.userId,
+      ...model.toMap(),
+    }));
   }
 
   Future<void> openPaystackWave(FlutterWavePaymentArgs args) async {
@@ -180,6 +196,7 @@ class _FundWalletOptionWidgetState extends State<FundWalletOptionWidget> {
     }
 
     _logTransBloc.add(LogPaystackTransEvent({
+      "userId": userDetailsEntity!.userId,
       "reference": response.reference,
       "status": response.status,
       "message": response.message,

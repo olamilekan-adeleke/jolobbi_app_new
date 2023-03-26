@@ -132,7 +132,7 @@ class _FlutterWavePaymentViewState extends State<FlutterWavePaymentView> {
               FlutterwaveCheckout({
                 public_key: "${ENV.flutterWavePublicKey}",
                 tx_ref: "${widget.args.transactionRef}",
-                amount: "${widget.args.amount * 100}",
+                amount: "${widget.args.amount}",
                 currency: "NGN",
                 country: "NG",
                 payment_options: "card",

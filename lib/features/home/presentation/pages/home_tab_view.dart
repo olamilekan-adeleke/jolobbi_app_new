@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../../cores/components/components.dart';
 import '../../../../cores/constants/color.dart';
 import '../../../menu_cart/presentation/pages/cart_view.dart';
+import '../../../profile/presentation/pages/profile_screen.dart';
 import '../../../wallet/presentation/pages/wallet_view.dart';
 import 'home_view.dart';
 
@@ -17,14 +18,9 @@ class HomeTabScreen extends StatefulWidget {
 
 class _HomeTabScreenState extends State<HomeTabScreen> {
   void _onTap(int index) => _currentIndex.value = index;
-  static final ValueNotifier<int> _currentIndex = ValueNotifier<int>(0);
+  final ValueNotifier<int> _currentIndex = ValueNotifier<int>(0);
 
-  static List<BottomNavigationBarItem> navBarItem = <BottomNavigationBarItem>[
-    // const BottomNavigationBarItem(
-    //   icon: Icon(CupertinoIcons.home),
-    //   activeIcon: Icon(CupertinoIcons.home, color: kcPrimaryColor),
-    //   label: 'Home',
-    // ),
+  List<BottomNavigationBarItem> navBarItem = <BottomNavigationBarItem>[
     const BottomNavigationBarItem(
       icon: Icon(Icons.fastfood_outlined),
       activeIcon: Icon(Icons.fastfood_outlined, color: kcPrimaryColor),
@@ -47,12 +43,11 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
     ),
   ];
 
-  static List<Widget> pages = const <Widget>[
+  List<Widget> pages = const <Widget>[
     HomeView(),
     CartView(),
     WalletView(),
-    SizedBox(),
-    // SizedBox(),
+    ProfileView(),
   ];
 
   @override
