@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_paystack/flutter_paystack.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../../../app/locator.dart';
 import '../../../../../cores/components/components.dart';
@@ -124,7 +125,7 @@ class _FundWalletOptionWidgetState extends State<FundWalletOptionWidget> {
                     final args = FlutterWavePaymentArgs(
                       amount: state.amount.value,
                       currency: "ng",
-                      transactionRef: "${DateTime.now().microsecond}_tr",
+                      transactionRef: "jolo_${const Uuid().v4()}",
                       description: "Payment for Jolobbi",
                       email: "olamilekanly66@gmail.com",
                       fullName: "Kod Enigma",

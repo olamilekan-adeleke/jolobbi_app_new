@@ -91,7 +91,7 @@ class LoginFormWidget extends StatelessWidget {
                       //   password: cubitState.password,
                       // );
                       final LoginDataParams login = LoginDataParams(
-                        email: "olamilekanly66@gmail.com",
+                        email: "kod@gmail.com",
                         password: "testpass000",
                       );
 
