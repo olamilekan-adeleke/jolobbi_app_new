@@ -25,8 +25,10 @@ class _WalletViewState extends State<WalletView> {
 
   @override
   void initState() {
-    _getWalletBloc.add(const GetWalletEvent());
-    _getTransactionBloc.add(const GetTransactionEvent());
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _getWalletBloc.add(const GetWalletEvent());
+      _getTransactionBloc.add(const GetTransactionEvent());
+    });
     super.initState();
   }
 
@@ -60,15 +62,17 @@ class _WalletViewState extends State<WalletView> {
 }
 
 extension on _WalletViewState {
-  void logListener(context, LogTransState state) {
+  Future<void> logListener(context, LogTransState state) async {
     if (state is LogTransSuccess) {
-      // _getWalletBloc.add(const GetWalletEvent());
-      // _getTransactionBloc.add(const GetTransactionEvent());
       SnackBarService.showSuccessSnackBar(
         context: context,
         message: 'Payment successful',
       );
-    }else if(state is LogTransError){
+
+      await Future.delayed(const Duration(milliseconds: 1500));
+      _getWalletBloc.add(const GetWalletEvent());
+      _getTransactionBloc.add(const GetTransactionEvent());
+    } else if (state is LogTransError) {
       SnackBarService.showErrorSnackBar(
         context: context,
         message: state.message,

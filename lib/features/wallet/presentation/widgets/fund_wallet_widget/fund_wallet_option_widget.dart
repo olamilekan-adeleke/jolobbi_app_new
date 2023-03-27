@@ -14,6 +14,7 @@ import '../../../../../cores/utils/utils.dart';
 import '../../../../profile/domain/entities/user_details_entity.dart';
 import '../../../../profile/presentation/bloc/get_profile/get_profile_bloc_bloc.dart';
 import '../../../data/models/flutter_wave_payment_model.dart';
+import '../../bloc/get_wallet/get_wallet_bloc.dart';
 import '../../bloc/log_trans/log_trans_bloc.dart';
 import '../../cubit/fund_wallet_cubit.dart';
 import '../../pages/payment_gateway_screen/flutter_wave_payment_view.dart';
@@ -27,6 +28,7 @@ class FundWalletOptionWidget extends StatefulWidget {
 }
 
 class _FundWalletOptionWidgetState extends State<FundWalletOptionWidget> {
+  final GetWalletBloc _getWalletBloc = SetUpLocators.getIt<GetWalletBloc>();
   final FundWalletCubit _cubit = SetUpLocators.getIt<FundWalletCubit>();
   final LogTransBloc _logTransBloc = SetUpLocators.getIt<LogTransBloc>();
   late UserDetailsEntity? userDetailsEntity;
@@ -40,124 +42,132 @@ class _FundWalletOptionWidgetState extends State<FundWalletOptionWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        verticalSpace(20),
-        TextWidget(
-          "Payment Amount",
-          fontSize: sp(18),
-          fontWeight: FontWeight.w600,
-        ),
-        TextWidget(
-          "Enter the amount you want to fund your wallet",
-          fontSize: sp(16),
-          textColor: kcSoftTextColor.withOpacity(0.5),
-        ),
-        verticalSpace(),
-        TextFieldWidget(
-          hintText: "\u20A6 1,000",
-          validator: amountValidator,
-          textInputType: const TextInputType.numberWithOptions(),
-          inputFormatters: [
-            FilteringTextInputFormatter.digitsOnly,
-            CurrencyTextInputFormatter(symbol: "\u20A6 "),
-          ],
-          onChanged: _cubit.amountChanged,
-        ),
-        verticalSpace(25),
-        TextWidget(
-          "Payment Method",
-          fontSize: sp(18),
-          fontWeight: FontWeight.w600,
-        ),
-        TextWidget(
-          "Select a payment method to fund your wallet",
-          fontSize: sp(16),
-          textColor: kcSoftTextColor.withOpacity(0.5),
-        ),
-        verticalSpace(25),
-        BlocBuilder<FundWalletCubit, FundWalletFormz>(
-          bloc: _cubit,
-          builder: (context, state) {
-            return Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                GestureDetector(
-                  onTap: () => _cubit.paymentOptionChanged(
-                    PaymentOption.flutterWave,
+    return BlocListener<LogTransBloc, LogTransState>(
+      bloc: _logTransBloc,
+      listener: (context, state) {
+        if (state is LogTransSuccess) {
+          AppRouter.instance.goBack();
+        }
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          verticalSpace(20),
+          TextWidget(
+            "Payment Amount",
+            fontSize: sp(18),
+            fontWeight: FontWeight.w600,
+          ),
+          TextWidget(
+            "Enter the amount you want to fund your wallet",
+            fontSize: sp(16),
+            textColor: kcSoftTextColor.withOpacity(0.5),
+          ),
+          verticalSpace(),
+          TextFieldWidget(
+            hintText: "\u20A6 1,000",
+            validator: amountValidator,
+            textInputType: const TextInputType.numberWithOptions(),
+            inputFormatters: [
+              FilteringTextInputFormatter.digitsOnly,
+              CurrencyTextInputFormatter(symbol: "\u20A6 "),
+            ],
+            onChanged: _cubit.amountChanged,
+          ),
+          verticalSpace(25),
+          TextWidget(
+            "Payment Method",
+            fontSize: sp(18),
+            fontWeight: FontWeight.w600,
+          ),
+          TextWidget(
+            "Select a payment method to fund your wallet",
+            fontSize: sp(16),
+            textColor: kcSoftTextColor.withOpacity(0.5),
+          ),
+          verticalSpace(25),
+          BlocBuilder<FundWalletCubit, FundWalletFormz>(
+            bloc: _cubit,
+            builder: (context, state) {
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  GestureDetector(
+                    onTap: () => _cubit.paymentOptionChanged(
+                      PaymentOption.flutterWave,
+                    ),
+                    child: _BuildWalletButtonWidget(
+                      image: "assets/icons/wallet/flutterwave.png",
+                      title: "Flutterwave",
+                      description: "Pay with your debit card",
+                      selected: state.getOption == PaymentOption.flutterWave,
+                    ),
                   ),
-                  child: _BuildWalletButtonWidget(
-                    image: "assets/icons/wallet/flutterwave.png",
-                    title: "Flutterwave",
-                    description: "Pay with your debit card",
-                    selected: state.getOption == PaymentOption.flutterWave,
+                  verticalSpace(15),
+                  GestureDetector(
+                    onTap: () => _cubit.paymentOptionChanged(
+                      PaymentOption.paystack,
+                    ),
+                    child: _BuildWalletButtonWidget(
+                      image: "assets/icons/wallet/paystack.png",
+                      title: "Paystack",
+                      description: "Pay with your debit card",
+                      selected: state.getOption == PaymentOption.paystack,
+                    ),
                   ),
-                ),
-                verticalSpace(15),
-                GestureDetector(
-                  onTap: () => _cubit.paymentOptionChanged(
-                    PaymentOption.paystack,
-                  ),
-                  child: _BuildWalletButtonWidget(
-                    image: "assets/icons/wallet/paystack.png",
-                    title: "Paystack",
-                    description: "Pay with your debit card",
-                    selected: state.getOption == PaymentOption.paystack,
-                  ),
-                ),
-              ],
-            );
-          },
-        ),
-        verticalSpace(50),
-        BlocBuilder<LogTransBloc, LogTransState>(
-          bloc: _logTransBloc,
-          builder: (context, state) {
-            if (state is LogTransLoading) {
-              return const Button.loading();
-            }
+                ],
+              );
+            },
+          ),
+          verticalSpace(50),
+          BlocBuilder<LogTransBloc, LogTransState>(
+            bloc: _logTransBloc,
+            builder: (context, state) {
+              if (state is LogTransLoading) {
+                return const Button.loading();
+              }
 
-            return BlocBuilder<FundWalletCubit, FundWalletFormz>(
-              bloc: _cubit,
-              builder: (context, state) {
-                return Button(
-                  active: state.isValid,
-                  text: "Fund Wallet",
-                  onTap: () {
-                    if (userDetailsEntity == null) {
-                      SnackBarService.showErrorSnackBar(
-                        context: context,
-                        message: "Unable to get user details, please logout"
-                            " and login again",
+              return BlocBuilder<FundWalletCubit, FundWalletFormz>(
+                bloc: _cubit,
+                builder: (context, state) {
+                  return Button(
+                    active: state.isValid,
+                    text: "Fund Wallet",
+                    onTap: () {
+                      if (userDetailsEntity == null) {
+                        SnackBarService.showErrorSnackBar(
+                          context: context,
+                          message: "Unable to get user details, please logout"
+                              " and login again",
+                        );
+                        return;
+                      }
+
+                      final args = FlutterWavePaymentArgs(
+                        amount: state.amount.value,
+                        currency: "ngn",
+                        transactionRef: "jolo_${const Uuid().v1()}",
+                        description: "Payment for Jolobbi",
+                        email: userDetailsEntity!.email,
+                        fullName: userDetailsEntity!.fullName,
+                        phoneNumber: userDetailsEntity!.phoneNumber,
                       );
-                      return;
-                    }
 
-                    final args = FlutterWavePaymentArgs(
-                      amount: state.amount.value,
-                      currency: "ng",
-                      transactionRef: "jolo_${const Uuid().v4()}",
-                      description: "Payment for Jolobbi",
-                      email: "olamilekanly66@gmail.com",
-                      fullName: "Kod Enigma",
-                      phoneNumber: "08100000000",
-                    );
-
-                    if (state.getOption == PaymentOption.flutterWave) {
-                      openFlutterWave(args);
-                    } else if (state.getOption == PaymentOption.paystack) {
-                      openPaystackWave(args);
-                    }
-                  },
-                );
-              },
-            );
-          },
-        ),
-        verticalSpace(),
-      ],
+                      if (state.getOption == PaymentOption.flutterWave) {
+                        openFlutterWave(args);
+                      } else if (state.getOption == PaymentOption.paystack) {
+                        openPaystackWave(args);
+                      }
+                    },
+                  );
+                },
+              );
+            },
+          ),
+          verticalSpace(),
+        ],
+      ),
     );
   }
 
@@ -177,6 +187,7 @@ class _FundWalletOptionWidgetState extends State<FundWalletOptionWidget> {
 
     _logTransBloc.add(LogFlutterWaveTransEvent({
       "userId": userDetailsEntity!.userId,
+      "trans_status": "pending",
       ...model.toMap(),
     }));
   }
@@ -197,6 +208,7 @@ class _FundWalletOptionWidgetState extends State<FundWalletOptionWidget> {
 
     _logTransBloc.add(LogPaystackTransEvent({
       "userId": userDetailsEntity!.userId,
+      "trans_status": "pending",
       "reference": response.reference,
       "status": response.status,
       "message": response.message,

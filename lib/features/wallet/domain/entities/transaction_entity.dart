@@ -50,6 +50,15 @@ class TransactionEntity extends Equatable {
     }
   }
 
+  int get rotation {
+    switch (transactionType) {
+      case TransactionType.credit:
+        return 2;
+      case TransactionType.debit:
+        return 0;
+    }
+  }
+
   @override
   List<Object?> get props =>
       [id, userId, transactionType, amount, description, date, status, action];

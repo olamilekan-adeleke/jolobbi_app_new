@@ -5,5 +5,5 @@ class GetTransactionEvent extends Equatable {
   const GetTransactionEvent([this.getFreshData = true]);
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [getFreshData];
 }

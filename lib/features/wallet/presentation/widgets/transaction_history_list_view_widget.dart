@@ -66,9 +66,9 @@ class _TransactionHistoryListViewWidgetState
               separatorBuilder: (context, index) => const Divider(),
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
-              itemCount: _getTransactionBloc.transactions.length,
+              itemCount: _getTransactionBloc.transactionsList.length,
               itemBuilder: (context, index) {
-                final transaction = _getTransactionBloc.transactions[index];
+                final transaction = _getTransactionBloc.transactionsList[index];
 
                 return TransactionItem(transaction);
               },
@@ -96,7 +96,7 @@ class TransactionItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           ),
           child: RotatedBox(
-            quarterTurns: 2,
+            quarterTurns: transaction.rotation,
             child: Icon(CupertinoIcons.paperplane, size: sp(20)),
           ),
         ),
@@ -115,6 +115,7 @@ class TransactionItem extends StatelessWidget {
                 transaction.description,
                 fontSize: sp(14),
                 textColor: kcSoftTextColor.withOpacity(0.5),
+                textAlign: TextAlign.left,
               ),
             ],
           ),
@@ -123,7 +124,7 @@ class TransactionItem extends StatelessWidget {
           '${transaction.sign} ${currencyFormatter(transaction.amount)}',
           fontSize: sp(16),
           fontWeight: FontWeight.w500,
-          textColor: kcErrorColor,
+          textColor: transaction.color,
         ),
       ],
     );

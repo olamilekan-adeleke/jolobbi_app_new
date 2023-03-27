@@ -13,18 +13,14 @@ class GetTransactionBloc
 
   String? lastDoc;
   bool isBusy = false;
-  List<TransactionEntity> transactions = [];
+  List<TransactionEntity> transactionsList = [];
 
   GetTransactionBloc({
     required this.getTransactionUsecase,
   }) : super(GetTransactionInitial()) {
     on<GetTransactionEvent>((event, emit) async {
       if (isBusy) return;
-
-      if (event.getFreshData == true) {
-        transactions = [];
-        lastDoc = null;
-      }
+      if (event.getFreshData == true) lastDoc = null;
 
       if (lastDoc == null) {
         emit(GetTransactionLoading());
@@ -43,10 +39,11 @@ class GetTransactionBloc
           }
         },
         (transactions) {
-          this.transactions.addAll(transactions);
+          if (event.getFreshData == true) transactionsList = [];
+          transactionsList.addAll(transactions);
           if (transactions.isNotEmpty) lastDoc = transactions.last.id;
 
-          emit(GetTransactionSuccess(this.transactions));
+          emit(GetTransactionSuccess(transactions));
         },
       );
     });
