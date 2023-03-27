@@ -30,7 +30,5 @@ class PaystackService {
     return response;
   }
 
-  String _getReference(FlutterWavePaymentArgs args) {
-    return 'jolo-${args.transactionRef}';
-  }
+  String _getReference(FlutterWavePaymentArgs args) => args.transactionRef;
 }
