@@ -22,11 +22,11 @@ class SetUpLocators {
     ///--------------- Authentication --------------------//
     setUpAuthenticationLocators();
 
-    ///--------------- Home --------------------//
-    setUpHomeLocator();
-
     ///--------------- Vendor --------------------//
     setUpVendorLocator();
+
+    ///--------------- Home --------------------//
+    setUpHomeLocator();
 
     ///--------------- Wallet --------------------//
     setUpWalletLocator();
