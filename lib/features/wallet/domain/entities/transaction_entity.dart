@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 
 import '../../data/models/transaction_model.dart';
 
@@ -22,6 +23,41 @@ class TransactionEntity extends Equatable {
   final DateTime date;
   final TransactionStatus status;
   final TransactionAction action;
+
+  String get sign => transactionType == TransactionType.credit ? "+" : "-";
+
+  String get title {
+    switch (action) {
+      case TransactionAction.fundWallet:
+        return "Fund Wallet";
+      case TransactionAction.payment:
+        return "Purchase";
+      case TransactionAction.withdrawal:
+        return "Withdrawal";
+      case TransactionAction.refund:
+        return "Refund";
+      case TransactionAction.none:
+        return "N/A";
+    }
+  }
+
+  Color get color {
+    switch (transactionType) {
+      case TransactionType.credit:
+        return Colors.green;
+      case TransactionType.debit:
+        return Colors.red;
+    }
+  }
+
+  int get rotation {
+    switch (transactionType) {
+      case TransactionType.credit:
+        return 2;
+      case TransactionType.debit:
+        return 0;
+    }
+  }
 
   @override
   List<Object?> get props =>

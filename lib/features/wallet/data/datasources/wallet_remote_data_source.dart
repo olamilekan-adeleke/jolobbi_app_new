@@ -26,8 +26,8 @@ class WalletRemoteDataSourceImpl implements WalletRemoteDataSource {
   Future<List<TransactionModel>> getTransaction(String? lastDoc) async {
     final QuerySnapshot<Map<String, dynamic>> query = await firebaseHelper
         .transactionCollectionRef()
-        .orderBy('createdAt', descending: true)
-        .startAfter([lastDoc])
+        .orderBy('date', descending: true)
+        // .startAfter([lastDoc])
         .limit(10)
         .get();
 

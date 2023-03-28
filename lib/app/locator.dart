@@ -4,6 +4,7 @@ import 'package:jolobbi_app_new/features/home/home_locator.dart';
 import '../cores/firebase_helper/firebase_helper.dart';
 import '../cores/push_notification/push_nofication_helper.dart';
 import '../features/Authentication/auth_locator.dart';
+import '../features/profile/profile_locator.dart';
 import '../features/vendor/vendor_locator.dart';
 import '../features/wallet/data/datasources/paystack_service.dart';
 import '../features/wallet/wallet_locator.dart';
@@ -21,14 +22,17 @@ class SetUpLocators {
     ///--------------- Authentication --------------------//
     setUpAuthenticationLocators();
 
-    ///--------------- Home --------------------//
-    setUpHomeLocator();
-
     ///--------------- Vendor --------------------//
     setUpVendorLocator();
 
+    ///--------------- Home --------------------//
+    setUpHomeLocator();
+
     ///--------------- Wallet --------------------//
     setUpWalletLocator();
+
+    /// --------------- Profile -----------------//
+    setUpProfileLocators();
   }
 
   static void _setUp() {

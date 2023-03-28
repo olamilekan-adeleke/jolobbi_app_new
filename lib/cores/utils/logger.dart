@@ -1,8 +1,10 @@
 import 'dart:developer' as developer;
 
-class LoggerHelper{
+import 'package:flutter/foundation.dart';
 
-  static log(e, [s = '']){
+class LoggerHelper {
+  static log(e, [s = '']) {
+    if (kDebugMode == false) return;
     developer.log(e.toString());
     developer.log(s.toString());
   }

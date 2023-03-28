@@ -36,7 +36,7 @@ class GetPopularRestaurantBloc
           }
         },
         (r) {
-          lastDocId = r.last.id;
+          if (r.isNotEmpty) lastDocId = r.last.id;
           emit(GetPopularRestaurantSuccess(r));
         },
       );
