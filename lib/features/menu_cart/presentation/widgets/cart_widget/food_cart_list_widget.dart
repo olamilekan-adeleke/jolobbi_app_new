@@ -1,46 +1,69 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../app/locator.dart';
 import '../../../../../cores/components/components.dart';
 import '../../../../../cores/constants/constants.dart';
 import '../../../../../cores/utils/utils.dart';
+import '../../../../home/domain/entities/menu_item_entity.dart';
+import '../../cubit/cart_items_cubit.dart';
+import '../../formz/cart_item_formz.dart';
 import '../others/cart_item_counter_widget.dart';
 
 class FoodCartListWidget extends StatelessWidget {
   const FoodCartListWidget({super.key});
 
-  get kcWhiteColor => null;
+  static final CartItemCubit _cartItemCubit =
+      SetUpLocators.getIt<CartItemCubit>();
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: 4,
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemBuilder: (context, index) {
-        return Dismissible(
-          key: UniqueKey(),
-          direction: DismissDirection.endToStart,
-          background: Container(
-            color: kcErrorColor,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                const Icon(Icons.delete, color: Colors.white),
-                horizontalSpace(10),
-              ],
-            ),
-          ),
-          child: const FoodCartItemWidget(),
+    return BlocBuilder<CartItemCubit, CartItemsList>(
+      bloc: _cartItemCubit,
+      builder: (context, state) {
+        return ListView.builder(
+          itemCount: state.cartItems.length,
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemBuilder: (context, index) {
+            final CartItemFormz cartItem = state.cartItems[index];
+
+            return Dismissible(
+              key: UniqueKey(),
+              direction: DismissDirection.endToStart,
+              onDismissed: (direction) => _cartItemCubit.removeFromCart(
+                cartItem,
+              ),
+              background: Container(
+                color: kcErrorColor,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    const Icon(Icons.delete, color: Colors.white),
+                    horizontalSpace(10),
+                  ],
+                ),
+              ),
+              child: FoodCartItemWidget(cartItem),
+            );
+          },
         );
       },
     );
   }
 }
 
-class FoodCartItemWidget extends StatelessWidget {
-  final bool isEditable;
+class FoodCartItemWidget extends StatefulWidget {
+  final CartItemFormz cartItem;
 
-  const FoodCartItemWidget({super.key, this.isEditable = false});
+  const FoodCartItemWidget(this.cartItem, {super.key});
+
+  @override
+  State<FoodCartItemWidget> createState() => _FoodCartItemWidgetState();
+}
+
+class _FoodCartItemWidgetState extends State<FoodCartItemWidget> {
+  final CartItemCubit _cartItemCubit = SetUpLocators.getIt<CartItemCubit>();
 
   @override
   Widget build(BuildContext context) {
@@ -51,11 +74,10 @@ class FoodCartItemWidget extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: ImageWidget(
-                height: h(isEditable ? 70 : 45),
-                width: w(isEditable ? 65 : 45),
+                height: h(70),
+                width: w(65),
                 imageTypes: ImageTypes.network,
-                imageUrl:
-                    "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8YnVyZ2VyfGVufDB8fDB8fA%3D%3D&w=1000&q=80",
+                imageUrl: widget.cartItem.images.first.value,
               ),
             ),
             horizontalSpace(10),
@@ -64,13 +86,13 @@ class FoodCartItemWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextWidget(
-                    "Chicken Burger",
+                    widget.cartItem.name.value,
                     fontSize: sp(16),
                     fontWeight: FontWeight.w500,
                   ),
-                  verticalSpace(isEditable ? 5 : 0),
+                  verticalSpace(5),
                   TextWidget(
-                    currencyFormatter(2300),
+                    currencyFormatter(widget.cartItem.price.value),
                     fontSize: sp(14),
                     fontWeight: FontWeight.w400,
                   ),
@@ -78,30 +100,53 @@ class FoodCartItemWidget extends StatelessWidget {
               ),
             ),
             verticalSpace(10),
-            if (isEditable)
-              CartItemCounterWidget(
-                count: 1,
-                onIncrement: () {},
-                onDecrement: () {},
-              ),
+            CartItemCounterWidget(
+              count: widget.cartItem.quantity.value,
+              onIncrement: () {
+                _cartItemCubit.increaseQuantity(widget.cartItem);
+              },
+              onDecrement: () {
+                _cartItemCubit.decreaseQuantity(widget.cartItem);
+              },
+            ),
           ],
         ),
         verticalSpace(),
-        if (isEditable)
+        if (widget.cartItem.extras.isNotEmpty)
           ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: 2,
+            itemCount: widget.cartItem.extras.length,
             itemBuilder: (context, index) {
+              final MenuExtraEntity extra = widget.cartItem.extras[index];
               return Row(
                 children: [
-                  Expanded(child: TextWidget("Extra Cheese", fontSize: sp(14))),
-                  TextWidget(currencyFormatter(200), fontSize: sp(14)),
+                  Expanded(
+                    child: TextWidget(
+                      '${extra.name} x ${extra.quantity}',
+                      fontSize: sp(14),
+                    ),
+                  ),
+                  TextWidget(
+                    currencyFormatter(extra.price * extra.quantity),
+                    fontSize: sp(14),
+                  ),
                 ],
               );
             },
           ),
-        if (isEditable) Divider(color: kcSoftTextColor.withOpacity(0.5)),
+        verticalSpace(3),
+        Row(
+          children: [
+            Expanded(child: TextWidget("Total", fontSize: sp(14))),
+            TextWidget(
+              currencyFormatter(widget.cartItem.getTotal),
+              fontSize: sp(14),
+            ),
+          ],
+        ),
+        verticalSpace(3),
+        Divider(color: kcSoftTextColor.withOpacity(0.5)),
       ],
     );
   }

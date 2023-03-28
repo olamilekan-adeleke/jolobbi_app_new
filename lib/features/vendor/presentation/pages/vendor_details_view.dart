@@ -3,6 +3,7 @@ import '../../../../cores/utils/utils.dart';
 
 import '../../../../cores/components/components.dart';
 import '../../../home/domain/entities/shop_details_entity.dart';
+import '../../../menu_cart/presentation/widgets/cart_icon_widget.dart';
 import '../widgets/vendor_option_tab_widget.dart';
 import '../widgets/vendor_shop_info_widget.dart';
 
@@ -21,7 +22,7 @@ class VendorDetailsView extends StatelessWidget {
         children: <Widget>[
           AppBarWidget(
             shop.name,
-            trilling: const Icon(CupertinoIcons.cart),
+            trilling: const CartIconWidget(),
             useSpacer: true,
           ),
           VendorShopInfoWidget(shop),

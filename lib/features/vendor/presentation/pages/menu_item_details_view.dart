@@ -16,14 +16,13 @@ class MenuItemDetailsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScaffoldWidget(
       usePadding: false,
-      // useSingleScroll: false,
       body: Column(
         children: <Widget>[
           MenuItemImageWidget(menuItem.images),
           Container(
             padding: EdgeInsets.symmetric(horizontal: w(15)),
             color: Colors.white,
-            child:  MenuItemInfoWidget(menuItem),
+            child: MenuItemInfoWidget(menuItem),
           ),
         ],
       ),
