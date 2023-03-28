@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../../cores/components/components.dart';
 import '../../../../cores/constants/color.dart';
 import '../../../menu_cart/presentation/pages/cart_view.dart';
+import '../../../menu_cart/presentation/widgets/cart_icon_widget.dart';
 import '../../../profile/presentation/pages/profile_screen.dart';
 import '../../../wallet/presentation/pages/wallet_view.dart';
 import 'home_view.dart';
@@ -27,8 +28,8 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
       label: 'Food',
     ),
     const BottomNavigationBarItem(
-      icon: Icon(CupertinoIcons.shopping_cart),
-      activeIcon: Icon(CupertinoIcons.shopping_cart, color: kcPrimaryColor),
+      icon: IgnorePointer(child: CartIconWidget()),
+      activeIcon: IgnorePointer(child: CartIconWidget(color: kcPrimaryColor)),
       label: 'Cart',
     ),
     const BottomNavigationBarItem(
@@ -45,7 +46,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
 
   List<Widget> pages = const <Widget>[
     HomeView(),
-    CartView(),
+    MenuCartView(),
     WalletView(),
     ProfileView(),
   ];

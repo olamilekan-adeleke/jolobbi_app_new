@@ -6,8 +6,10 @@ import '../widgets/cart_widget/food_cart_header_widget.dart';
 import '../widgets/cart_widget/food_cart_list_widget.dart';
 import 'confirm_food_order_view.dart';
 
-class CartView extends StatelessWidget {
-  const CartView({super.key});
+class MenuCartView extends StatelessWidget {
+  static const String route = "/menu_cart";
+
+  const MenuCartView({super.key});
 
   @override
   Widget build(BuildContext context) {

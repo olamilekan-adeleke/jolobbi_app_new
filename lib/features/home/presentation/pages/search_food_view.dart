@@ -5,6 +5,7 @@ import '../../../../app/locator.dart';
 import '../../../../cores/components/components.dart';
 import '../../../../cores/constants/color.dart';
 import '../../../../cores/utils/utils.dart';
+import '../../../menu_cart/presentation/widgets/cart_icon_widget.dart';
 import '../../domain/entities/menu_item_entity.dart';
 import '../bloc/search_menu_item/search_menu_item_bloc.dart';
 
@@ -22,7 +23,11 @@ class SearchFoodMenuView extends StatelessWidget {
       useSingleScroll: false,
       body: Column(
         children: <Widget>[
-          const AppBarWidget("Search Food Menu"),
+          const AppBarWidget(
+            "Search Food Menu",
+            useSpacer: true,
+            trilling: CartIconWidget(),
+          ),
           TextFieldWidget(
             hintText: "Search For Food",
             prefixWidget: const SizedBox(

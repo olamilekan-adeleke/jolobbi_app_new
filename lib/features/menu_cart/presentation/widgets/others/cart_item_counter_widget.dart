@@ -27,7 +27,10 @@ class CartItemCounterWidget extends StatelessWidget {
       child: Row(
         children: [
           GestureDetector(
-            onTap: onDecrement,
+            onTap: () {
+              if (count <= 1) return;
+              onDecrement();
+            },
             child: Icon(
               Icons.remove_circle_outline_outlined,
               color: kcPrimaryColor,
@@ -38,7 +41,10 @@ class CartItemCounterWidget extends StatelessWidget {
           TextWidget("$count", fontSize: sp(14)),
           horizontalSpace(),
           GestureDetector(
-            onTap: onDecrement,
+            onTap: () {
+              if (count >= 10) return;
+              onIncrement();
+            },
             child: Icon(
               Icons.add_circle_outline_outlined,
               color: kcPrimaryColor,

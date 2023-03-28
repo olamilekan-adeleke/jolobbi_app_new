@@ -1,13 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:jolobbi_app_new/app/locator.dart';
 
 import '../../../../../../cores/constants/color.dart';
 import '../../../../../../cores/utils/utils.dart';
 import '../../../../../cores/components/components.dart';
 import '../../../../home/domain/entities/menu_item_entity.dart';
+import '../../../../menu_cart/presentation/cubit/cart_items_cubit.dart';
+import '../../../../menu_cart/presentation/formz/cart_item_formz.dart';
 
-class MenuItemDescriptionWidget extends StatelessWidget {
+class MenuItemDescriptionWidget extends StatefulWidget {
   final MenuItemEntity menuItem;
   const MenuItemDescriptionWidget(this.menuItem, {super.key});
+
+  @override
+  State<MenuItemDescriptionWidget> createState() =>
+      _MenuItemDescriptionWidgetState();
+}
+
+class _MenuItemDescriptionWidgetState extends State<MenuItemDescriptionWidget> {
+  final CartItemCubit _cartItemCubit = SetUpLocators.getIt<CartItemCubit>();
+  final ValueNotifier<CartItemFormz> _cartItemFormzState =
+      ValueNotifier(CartItemFormz());
+
+  @override
+  void initState() {
+    initData();
+    super.initState();
+  }
+
+  void initData() {
+    _cartItemFormzState.value = _cartItemFormzState.value.copyWithData(
+      id: widget.menuItem.id,
+      name: widget.menuItem.name,
+      price: widget.menuItem.price,
+      quantity: 1,
+      images: widget.menuItem.images,
+      addOns: widget.menuItem.addOns,
+      description: widget.menuItem.description,
+      shopId: widget.menuItem.shopId,
+      shopName: widget.menuItem.shopName,
+      prepTime: widget.menuItem.prepTime,
+      type: widget.menuItem.type,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,14 +53,14 @@ class MenuItemDescriptionWidget extends StatelessWidget {
         children: <Widget>[
           verticalSpace(15),
           TextWidget(
-            menuItem.description,
+            widget.menuItem.description,
             fontSize: sp(14),
             fontWeight: FontWeight.w400,
             textAlign: TextAlign.left,
           ),
           verticalSpace(20),
           Visibility(
-            visible: menuItem.addOns.isNotEmpty,
+            visible: widget.menuItem.addOns.isNotEmpty,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,13 +76,13 @@ class MenuItemDescriptionWidget extends StatelessWidget {
                   fontWeight: FontWeight.w300,
                 ),
                 verticalSpace(5),
-                AddOnItemWidget(menuItem.addOns),
+                AddOnItemWidget(widget.menuItem.addOns),
                 verticalSpace(20),
               ],
             ),
           ),
           Visibility(
-            visible: menuItem.extras.isNotEmpty,
+            visible: widget.menuItem.extras.isNotEmpty,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,12 +93,34 @@ class MenuItemDescriptionWidget extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                 ),
                 const Divider(color: kcGrey200),
-                ExtraItemWidget(menuItem.extras),
+                ExtraItemWidget(
+                  widget.menuItem.extras,
+                  cartItemFormzState: _cartItemFormzState,
+                ),
                 verticalSpace(20),
               ],
             ),
           ),
-          Button(text: "Add to Cart", onTap: () {}),
+          ValueListenableBuilder(
+            valueListenable: _cartItemFormzState,
+            builder: (_, CartItemFormz cartItemFormz, __) {
+              return Button(
+                active: cartItemFormz.isValid,
+                text: "Add to Cart",
+                onTap: () {
+                  String message = _cartItemCubit.addToCart(cartItemFormz);
+
+                  SnackBarService.showSuccessSnackBar(
+                    context: context,
+                    message: message,
+                  );
+
+                  _cartItemFormzState.value = CartItemFormz();
+                  initData();
+                },
+              );
+            },
+          ),
           verticalSpace(40),
         ],
       ),
@@ -128,19 +185,24 @@ class AddOnItemWidget extends StatelessWidget {
 
 class ExtraItemWidget extends StatelessWidget {
   final List<MenuExtraEntity> extras;
+  final ValueNotifier<CartItemFormz> cartItemFormzState;
 
-  const ExtraItemWidget(this.extras, {Key? key}) : super(key: key);
+  const ExtraItemWidget(
+    this.extras, {
+    Key? key,
+    required this.cartItemFormzState,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: 3,
+      itemCount: extras.length,
       itemBuilder: (context, index) {
         final MenuExtraEntity extra = extras[index];
 
-        return _ExtraItemWidget(extra);
+        return _ExtraItemWidget(extra, cartItemFormzState: cartItemFormzState);
       },
     );
   }
@@ -148,7 +210,13 @@ class ExtraItemWidget extends StatelessWidget {
 
 class _ExtraItemWidget extends StatelessWidget {
   final MenuExtraEntity extra;
-  _ExtraItemWidget(this.extra, {Key? key}) : super(key: key);
+  final ValueNotifier<CartItemFormz> cartItemFormzState;
+
+  _ExtraItemWidget(
+    this.extra, {
+    Key? key,
+    required this.cartItemFormzState,
+  }) : super(key: key);
 
   final ValueNotifier<int> _countNotifier = ValueNotifier<int>(0);
 
@@ -161,8 +229,7 @@ class _ExtraItemWidget extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(sr(5)),
             child: ImageWidget(
-              imageUrl:
-                 extra.image,
+              imageUrl: extra.image,
               imageTypes: ImageTypes.network,
               height: h(45),
               width: w(45),
@@ -175,7 +242,7 @@ class _ExtraItemWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextWidget(
-                 extra.name,
+                  extra.name,
                   fontSize: sp(16),
                   fontWeight: FontWeight.w400,
                 ),
@@ -197,10 +264,7 @@ class _ExtraItemWidget extends StatelessWidget {
             child: Row(
               children: [
                 GestureDetector(
-                  onTap: () {
-                    if (_countNotifier.value <= 0) return;
-                    _countNotifier.value--;
-                  },
+                  onTap: decrement,
                   child: Icon(
                     Icons.remove_circle_outline_outlined,
                     color: kcPrimaryColor,
@@ -220,10 +284,7 @@ class _ExtraItemWidget extends StatelessWidget {
                 ),
                 horizontalSpace(),
                 GestureDetector(
-                  onTap: () {
-                    if (_countNotifier.value >= 10) return;
-                    _countNotifier.value++;
-                  },
+                  onTap: increment,
                   child: Icon(
                     Icons.add_circle_outline_outlined,
                     color: kcPrimaryColor,
@@ -236,5 +297,51 @@ class _ExtraItemWidget extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void increment() {
+    if (_countNotifier.value >= 10) return;
+    _countNotifier.value++;
+
+    MenuExtraEntity extraEntity = MenuExtraEntity(
+      name: extra.name,
+      price: extra.price,
+      quantity: _countNotifier.value,
+      image: extra.image,
+    );
+
+    List<MenuExtraEntity> extras = cartItemFormzState.value.extras;
+
+    cartItemFormzState.value = cartItemFormzState.value.copyWith(
+      extras: [...extras, extraEntity],
+    );
+  }
+
+  void decrement() {
+    if (_countNotifier.value <= 0) return;
+    _countNotifier.value--;
+
+    if (_countNotifier.value == 0) {
+      List<MenuExtraEntity> extras =
+          cartItemFormzState.value.extras.where(((element) {
+        return element.name != extra.name;
+      })).toList();
+
+      cartItemFormzState.value = cartItemFormzState.value.copyWith(
+        extras: extras,
+      );
+    } else {
+      MenuExtraEntity extraEntity = cartItemFormzState.value.extras.firstWhere(
+        ((element) => element.name == extra.name),
+      );
+      final int index = cartItemFormzState.value.extras.indexOf(extraEntity);
+      extraEntity = extraEntity.copyWith(quantity: _countNotifier.value);
+
+      cartItemFormzState.value = cartItemFormzState.value.copyWith(
+        extras: cartItemFormzState.value.extras
+          ..removeAt(index)
+          ..insert(index, extraEntity),
+      );
+    }
   }
 }

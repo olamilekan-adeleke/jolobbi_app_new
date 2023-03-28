@@ -5,6 +5,7 @@ import '../../../../../cores/components/components.dart';
 import '../../../../../cores/constants/color.dart';
 import '../../../../../cores/constants/constants.dart';
 import '../../../../../cores/utils/utils.dart';
+import '../../../../menu_cart/presentation/widgets/cart_icon_widget.dart';
 
 class MenuItemImageWidget extends StatelessWidget {
   MenuItemImageWidget(this.images, {super.key});
@@ -106,9 +107,10 @@ class MenuItemImageWidget extends StatelessWidget {
                     padding: EdgeInsets.all(sp(10)),
                     decoration: BoxDecoration(
                       color: kcGrey200.withOpacity(0.8),
-                      borderRadius: BorderRadius.circular(sr(20)),
+                      borderRadius: BorderRadius.circular(sr(40)),
                     ),
-                    child: Icon(Icons.bookmark_border_outlined, size: sr(20)),
+                    // child: Icon(Icons.bookmark_border_outlined, size: sr(20)),
+                    child: CartIconWidget(size: sp(20)),
                   ),
                 ),
               ],

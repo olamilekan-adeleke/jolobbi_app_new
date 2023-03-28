@@ -2,20 +2,22 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:jolobbi_app_new/features/home/domain/entities/menu_item_entity.dart';
 
 import '../../features/Authentication/presentation/pages/auth_state_view.dart';
 import '../../features/Authentication/presentation/pages/forgot_password_view.dart';
 import '../../features/Authentication/presentation/pages/intro_view.dart';
 import '../../features/Authentication/presentation/pages/login_view.dart';
 import '../../features/Authentication/presentation/pages/sign_up_view.dart';
+import '../../features/home/domain/entities/menu_item_entity.dart';
 import '../../features/home/domain/entities/shop_details_entity.dart';
 import '../../features/home/presentation/pages/all_fast_food_view.dart';
 import '../../features/home/presentation/pages/home_tab_view.dart';
 import '../../features/home/presentation/pages/home_view.dart';
 import '../../features/home/presentation/pages/search_food_view.dart';
 import '../../features/home/presentation/pages/search_restaurant_view.dart';
+import '../../features/menu_cart/presentation/pages/cart_view.dart';
 import '../../features/menu_cart/presentation/pages/confirm_food_order_view.dart';
+import '../../features/profile/presentation/pages/user_address_view.dart';
 import '../../features/vendor/presentation/pages/menu_item_details_view.dart';
 import '../../features/vendor/presentation/pages/vendor_details_view.dart';
 import '../../features/wallet/presentation/pages/payment_gateway_screen/flutter_wave_payment_view.dart';
@@ -56,6 +58,9 @@ class RouteGenerator {
         final MenuItemEntity menuItem = settings.arguments as MenuItemEntity;
         return pageRoute(MenuItemDetailsView(menuItem));
 
+      case MenuCartView.route:
+        return pageRoute(const MenuCartView());
+
       case ConfirmFoodOrderView.route:
         return pageRoute(const ConfirmFoodOrderView());
 
@@ -77,6 +82,9 @@ class RouteGenerator {
         final FlutterWavePaymentArgs args =
             settings.arguments as FlutterWavePaymentArgs;
         return pageRoute(PaystackPaymentView(args));
+
+      case UserAddressView.route:
+        return pageRoute(const UserAddressView());
 
       default:
         return errorRoute();
