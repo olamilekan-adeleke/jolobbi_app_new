@@ -55,8 +55,9 @@ class FoodCartListWidget extends StatelessWidget {
 
 class FoodCartItemWidget extends StatefulWidget {
   final CartItemFormz cartItem;
+  final bool showEdit;
 
-  const FoodCartItemWidget(this.cartItem, {super.key});
+  const FoodCartItemWidget(this.cartItem, {super.key, this.showEdit = true});
 
   @override
   State<FoodCartItemWidget> createState() => _FoodCartItemWidgetState();
@@ -100,15 +101,16 @@ class _FoodCartItemWidgetState extends State<FoodCartItemWidget> {
               ),
             ),
             verticalSpace(10),
-            CartItemCounterWidget(
-              count: widget.cartItem.quantity.value,
-              onIncrement: () {
-                _cartItemCubit.increaseQuantity(widget.cartItem);
-              },
-              onDecrement: () {
-                _cartItemCubit.decreaseQuantity(widget.cartItem);
-              },
-            ),
+            if (widget.showEdit)
+              CartItemCounterWidget(
+                count: widget.cartItem.quantity.value,
+                onIncrement: () {
+                  _cartItemCubit.increaseQuantity(widget.cartItem);
+                },
+                onDecrement: () {
+                  _cartItemCubit.decreaseQuantity(widget.cartItem);
+                },
+              ),
           ],
         ),
         verticalSpace(),

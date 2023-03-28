@@ -34,7 +34,7 @@ class OrderItemWidget extends StatelessWidget {
               itemCount: state.cartItems.length,
               itemBuilder: (context, index) {
                 final CartItemFormz cartItem = state.cartItems[index];
-                return FoodCartItemWidget(cartItem);
+                return FoodCartItemWidget(cartItem, showEdit: false);
               },
             );
           },

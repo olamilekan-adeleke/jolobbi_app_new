@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:jolobbi_app_new/cores/navigator/navigator.dart';
 import '../../../../../cores/constants/constants.dart';
 
 import '../../../../../cores/components/components.dart';
 import '../../../../../cores/utils/utils.dart';
+import '../../../../profile/presentation/pages/user_address_view.dart';
 
 class OrderDeliverWidget extends StatelessWidget {
   const OrderDeliverWidget({super.key});
@@ -20,17 +22,24 @@ class OrderDeliverWidget extends StatelessWidget {
               fontSize: sp(18),
               fontWeight: FontWeight.w500,
             ),
-            TextWidget(
-              "Change",
-              fontSize: sp(14),
-              textColor: kcSoftTextColor.withOpacity(0.5),
-              decoration: TextDecoration.underline,
+            GestureDetector(
+              onTap: () => AppRouter.instance.navigateTo(
+                UserAddressView.route,
+              ),
+              child: TextWidget(
+                "Change",
+                fontSize: sp(14),
+                textColor: kcSoftTextColor.withOpacity(0.5),
+                decoration: TextDecoration.underline,
+              ),
             ),
           ],
         ),
         verticalSpace(5),
         GestureDetector(
-          onTap: () {},
+          onTap: () => AppRouter.instance.navigateTo(
+            UserAddressView.route,
+          ),
           child: AbsorbPointer(
             absorbing: true,
             child: TextFieldWidget(
@@ -39,7 +48,7 @@ class OrderDeliverWidget extends StatelessWidget {
               textEditingController: TextEditingController(
                 text: "Km 3, No way home, Brooklyn, NY",
               ),
-              suffix: Icons.arrow_forward_ios_outlined,
+              // suffix: Icons.arrow_forward_ios_outlined,
             ),
           ),
         ),
