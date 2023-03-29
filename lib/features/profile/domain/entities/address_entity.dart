@@ -11,6 +11,8 @@ class AddressEntity extends Equatable {
     required this.addressDescription,
   });
 
+  String get fullAddress => "$region, $address, $addressDescription";
+
   @override
   List<Object?> get props => [region, address, addressDescription];
   

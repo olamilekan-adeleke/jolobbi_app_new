@@ -52,7 +52,7 @@ class _UserAddressViewState extends State<UserAddressView> {
                   ),
                 );
               } else if (state is GetAddressBlocSuccess) {
-                return buildListView(state.addresses);
+                return BuildListView(addresses: state.addresses);
               } else {
                 return Container();
               }
@@ -67,8 +67,22 @@ class _UserAddressViewState extends State<UserAddressView> {
       ),
     );
   }
+}
 
-  ListView buildListView(List<AddressEntity> addresses) {
+class BuildListView extends StatelessWidget {
+  const BuildListView({
+    Key? key,
+    required this.addresses,
+    this.showIcon = true,
+    this.onSelected,
+  }) : super(key: key);
+
+  final List<AddressEntity> addresses;
+  final bool showIcon;
+  final void Function(AddressEntity addressEntity)? onSelected;
+
+  @override
+  Widget build(BuildContext context) {
     return ListView.separated(
       separatorBuilder: (_, __) => verticalSpace(),
       itemCount: addresses.length,
@@ -76,55 +90,61 @@ class _UserAddressViewState extends State<UserAddressView> {
       itemBuilder: (context, index) {
         final AddressEntity address = addresses[index];
 
-        return Container(
-          padding: EdgeInsets.symmetric(
-            horizontal: sp(20),
-            vertical: sp(10),
-          ),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: boxShadowHelper,
-          ),
-          child: Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Icon(
-                          Icons.location_on_outlined,
-                          size: sp(15),
-                          color: kcSoftTextColor.withOpacity(0.5),
-                        ),
-                        horizontalSpace(5),
-                        TextWidget(
-                          address.region,
-                          fontWeight: FontWeight.w500,
-                          fontSize: sp(16),
-                        ),
-                      ],
-                    ),
-                    verticalSpace(5),
-                    TextWidget(
-                      "${address.address}, ${address.addressDescription}",
-                      textColor: kcSoftTextColor.withOpacity(0.8),
-                      fontSize: sp(14),
-                      fontWeight: FontWeight.w300,
-                    ),
-                  ],
+        return GestureDetector(
+          onTap: () {
+            if (onSelected != null) onSelected!(address);
+          },
+          child: Container(
+            padding: EdgeInsets.symmetric(
+              horizontal: sp(20),
+              vertical: sp(10),
+            ),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: boxShadowHelper,
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Icon(
+                            Icons.location_on_outlined,
+                            size: sp(15),
+                            color: kcSoftTextColor.withOpacity(0.5),
+                          ),
+                          horizontalSpace(5),
+                          TextWidget(
+                            address.region,
+                            fontWeight: FontWeight.w500,
+                            fontSize: sp(16),
+                          ),
+                        ],
+                      ),
+                      verticalSpace(5),
+                      TextWidget(
+                        "${address.address}, ${address.addressDescription}",
+                        textColor: kcSoftTextColor.withOpacity(0.8),
+                        fontSize: sp(14),
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              verticalSpace(),
-              Icon(
-                CupertinoIcons.delete,
-                size: sp(20),
-                color: kcSoftTextColor.withOpacity(0.5),
-              ),
-            ],
+                verticalSpace(),
+                if (showIcon)
+                  Icon(
+                    CupertinoIcons.delete,
+                    size: sp(20),
+                    color: kcSoftTextColor.withOpacity(0.5),
+                  ),
+              ],
+            ),
           ),
         );
       },
