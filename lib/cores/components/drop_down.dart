@@ -42,7 +42,7 @@ class DropDownWidget extends StatelessWidget {
             items: items.map((String items) {
               return DropdownMenuItem(
                 value: items,
-                child: Text(items),
+                child: TextWidget(items),
               );
             }).toList(),
             onChanged: (String? newValue) {
@@ -53,7 +53,7 @@ class DropDownWidget extends StatelessWidget {
             iconEnabledColor: kcPrimaryColor,
             decoration: InputDecoration(
               filled: true,
-              fillColor: const Color(0xffF4FFFF),
+              fillColor: Colors.orange.withOpacity(0.05),
               border: OutlineInputBorder(
                 borderSide: const BorderSide(color: kcGrey400),
                 borderRadius: BorderRadius.circular(sp(8.0)),
@@ -73,7 +73,7 @@ class DropDownWidget extends StatelessWidget {
               hintText: hintText,
               hintStyle: TextStyle(
                 color: kcTextColor.withOpacity(0.5),
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.w300,
                 fontSize: sp(13),
               ),
             ),

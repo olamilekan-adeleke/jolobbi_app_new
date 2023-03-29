@@ -17,7 +17,8 @@ import '../../features/home/presentation/pages/search_food_view.dart';
 import '../../features/home/presentation/pages/search_restaurant_view.dart';
 import '../../features/menu_cart/presentation/pages/cart_view.dart';
 import '../../features/menu_cart/presentation/pages/confirm_food_order_view.dart';
-import '../../features/profile/presentation/pages/user_address_view.dart';
+import '../../features/profile/presentation/pages/address/add_address_view.dart';
+import '../../features/profile/presentation/pages/address/user_address_view.dart';
 import '../../features/vendor/presentation/pages/menu_item_details_view.dart';
 import '../../features/vendor/presentation/pages/vendor_details_view.dart';
 import '../../features/wallet/presentation/pages/payment_gateway_screen/flutter_wave_payment_view.dart';
@@ -85,6 +86,9 @@ class RouteGenerator {
 
       case UserAddressView.route:
         return pageRoute(const UserAddressView());
+
+      case AddAddressView.route:
+        return pageRoute(const AddAddressView());
 
       default:
         return errorRoute();

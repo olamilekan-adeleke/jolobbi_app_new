@@ -4,7 +4,7 @@ import '../../../../../cores/constants/constants.dart';
 
 import '../../../../../cores/components/components.dart';
 import '../../../../../cores/utils/utils.dart';
-import '../../../../profile/presentation/pages/user_address_view.dart';
+import '../../../../profile/presentation/pages/address/user_address_view.dart';
 
 class OrderDeliverWidget extends StatelessWidget {
   const OrderDeliverWidget({super.key});

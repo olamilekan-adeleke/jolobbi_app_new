@@ -68,6 +68,10 @@ class FirebaseHelper {
         .collection(TransactionCOLLECTION);
   }
 
+  CollectionReference<Map<String, dynamic>> userAddress() {
+    return userCollectionRef().doc(currentUserId).collection('address');
+  }
+
   /// -------- Storage ---------
   Reference storageRef() => FirebaseStorage.instance.ref();
 }
