@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../../../cores/entity/base_entity.dart';
 import '../../../../cores/firebase_helper/firebase_helper.dart';
+import '../models/address_model.dart';
 import '../models/user_details_model.dart';
 
 abstract class ProfileRemoteDataSource {
@@ -10,6 +11,10 @@ abstract class ProfileRemoteDataSource {
   Future<BaseModel> updateProfile(Map<String, dynamic> data);
 
   Future<BaseModel> updatePassword(String email);
+
+  Future<BaseModel> addAddress(AddressModel address);
+
+  Future<List<AddressModel>> getAddress();
 }
 
 class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
@@ -49,5 +54,27 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
       success: true,
       message: "Profile updated successfully!",
     );
+  }
+
+  @override
+  Future<BaseModel> addAddress(AddressModel address) async {
+    await _firebaseHelper.userAddress().add(address.toMap());
+
+    return const BaseModel(
+      success: true,
+      message: "Address added successfully!",
+    );
+  }
+
+  @override
+  Future<List<AddressModel>> getAddress() async {
+    final QuerySnapshot<Map<String, dynamic>> query =
+        await _firebaseHelper.userAddress().get();
+
+    if (query.docs.isEmpty) return <AddressModel>[];
+
+    return query.docs.map((DocumentSnapshot<Map<String, dynamic>> e) {
+      return AddressModel.fromMap(e.data()!);
+    }).toList();
   }
 }
