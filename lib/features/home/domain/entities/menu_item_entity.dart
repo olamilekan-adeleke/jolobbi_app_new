@@ -70,6 +70,15 @@ class MenuAddOnEntity extends Equatable {
   final String image;
   final int quantity;
 
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'price': price,
+      'image': image,
+      'quantity': quantity,
+    };
+  }
+
   @override
   List<Object?> get props => [name, price, image, quantity];
 }
@@ -86,6 +95,15 @@ class MenuExtraEntity extends Equatable {
   final int price;
   final String image;
   final int quantity;
+
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'price': price,
+      'image': image,
+      'quantity': quantity,
+    };
+  }
 
   @override
   List<Object?> get props => [name, price, image, quantity];

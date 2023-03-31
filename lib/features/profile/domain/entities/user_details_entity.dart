@@ -25,6 +25,21 @@ class UserDetailsEntity extends Equatable {
     required this.isBlocked,
   });
 
+  Map<String, dynamic> toMap() {
+    return {
+      'fullName': fullName,
+      'email': email,
+      'phoneNumber': phoneNumber,
+      'role': role,
+      'username': username,
+      'userId': userId,
+      'displayPicture': displayPicture,
+      'createdAt': createdAt,
+      'fcmToken': fcmToken,
+      'isBlocked': isBlocked,
+    };
+  }
+
   @override
   List<Object?> get props => [
         fullName,

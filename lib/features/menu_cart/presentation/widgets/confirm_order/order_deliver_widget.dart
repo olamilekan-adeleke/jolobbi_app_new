@@ -9,6 +9,7 @@ import '../../../../../cores/utils/utils.dart';
 import '../../../../profile/domain/entities/address_entity.dart';
 import '../../../../profile/presentation/bloc/get_address_bloc/get_address_bloc_bloc.dart';
 import '../../../../profile/presentation/pages/address/user_address_view.dart';
+import '../../cubit/create_order_cubit.dart';
 
 class OrderDeliverWidget extends StatefulWidget {
   const OrderDeliverWidget({super.key});
@@ -20,6 +21,8 @@ class OrderDeliverWidget extends StatefulWidget {
 class _OrderDeliverWidgetState extends State<OrderDeliverWidget> {
   final GetAddressBlocBloc getAddressBlocBloc =
       SetUpLocators.getIt<GetAddressBlocBloc>();
+  final CreateOrderCubit createOrderCubit =
+      SetUpLocators.getIt<CreateOrderCubit>();
 
   List<AddressEntity> addresses = [];
   String addressTitle = "No Address, Tap to Add Address";
@@ -40,8 +43,7 @@ class _OrderDeliverWidgetState extends State<OrderDeliverWidget> {
         } else if (state is GetAddressBlocSuccess) {
           addresses = state.addresses;
           addressTitle = addresses.first.address;
-
-          // setState(() {});
+          createOrderCubit.addAddress(addresses.first);
         }
       },
       builder: (context, state) {
@@ -89,6 +91,8 @@ class _OrderDeliverWidgetState extends State<OrderDeliverWidget> {
                   );
 
                   if (address != null) addressTitle = address.fullAddress;
+                  createOrderCubit.addAddress(address!);
+                  setState(() {});
                 }
               },
               child: AbsorbPointer(

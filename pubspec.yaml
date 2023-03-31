@@ -58,6 +58,7 @@ flutter:
     - assets/icons/
     - assets/icons/home/
     - assets/icons/wallet/
+    - assets/icons/cart/
 
     - assets/svg/
     - assets/svg/wallet/

@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jolobbi_app_new/cores/utils/formz_validator/required_formz_validator.dart';
 
+import '../../../../cores/utils/formz_validator/required_formz_validator.dart';
 import '../../../../cores/utils/utils.dart';
 import '../formz/cart_item_formz.dart';
 

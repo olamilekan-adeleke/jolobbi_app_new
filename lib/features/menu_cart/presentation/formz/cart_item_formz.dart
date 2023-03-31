@@ -117,6 +117,22 @@ class CartItemFormz extends Equatable with FormzMixin {
     );
   }
 
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id.value,
+      'addOns': addOns.map((e) => e.toMap()).toList(),
+      'extras': extras.map((e) => e.toMap()).toList(),
+      'description': description.value,
+      'name': name.value,
+      'shopId': shopId.value,
+      'shopName': shopName.value,
+      'images': images.map((e) => e.value).toList(),
+      'price': price.value,
+      'quantity': quantity.value,
+      'type': type.value,
+    };
+  }
+
   @override
   List<Object?> get props => [
         id,

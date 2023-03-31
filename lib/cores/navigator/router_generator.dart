@@ -16,7 +16,7 @@ import '../../features/home/presentation/pages/home_view.dart';
 import '../../features/home/presentation/pages/search_food_view.dart';
 import '../../features/home/presentation/pages/search_restaurant_view.dart';
 import '../../features/menu_cart/presentation/pages/cart_view.dart';
-import '../../features/menu_cart/presentation/pages/confirm_food_order_view.dart';
+import '../../features/menu_cart/presentation/pages/order/confirm_food_order_view.dart';
 import '../../features/profile/presentation/pages/address/add_address_view.dart';
 import '../../features/profile/presentation/pages/address/user_address_view.dart';
 import '../../features/vendor/presentation/pages/menu_item_details_view.dart';
