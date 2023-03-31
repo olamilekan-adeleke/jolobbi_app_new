@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -83,19 +84,22 @@ class LoginFormWidget extends StatelessWidget {
                   if (state is LoginLoading) return const Button.loading();
 
                   return Button(
-                    // active: active,
+                    active: kDebugMode ? true : active,
                     text: "Log In",
                     onTap: () {
-                      // final LoginDataParams login = LoginDataParams(
-                      //   email: cubitState.email,
-                      //   password: cubitState.password,
-                      // );
-                      final LoginDataParams login = LoginDataParams(
-                        email: "kod@gmail.com",
-                        password: "testpass000",
-                      );
-
-                      _bloc.add(LoginEvent(login));
+                      if (kDebugMode == false) {
+                        final LoginDataParams login = LoginDataParams(
+                          email: cubitState.email,
+                          password: cubitState.password,
+                        );
+                        _bloc.add(LoginEvent(login));
+                      } else {
+                        final LoginDataParams login = LoginDataParams(
+                          email: "kod@gmail.com",
+                          password: "testpass000",
+                        );
+                        _bloc.add(LoginEvent(login));
+                      }
                     },
                   );
                 },

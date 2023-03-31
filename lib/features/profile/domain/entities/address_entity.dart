@@ -13,7 +13,14 @@ class AddressEntity extends Equatable {
 
   String get fullAddress => "$region, $address, $addressDescription";
 
+  Map<String, dynamic> toMap() {
+    return {
+      'region': region,
+      'address': address,
+      'addressDescription': addressDescription,
+    };
+  }
+
   @override
   List<Object?> get props => [region, address, addressDescription];
-  
 }

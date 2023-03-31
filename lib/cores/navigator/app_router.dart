@@ -31,7 +31,7 @@ class AppRouter {
     );
   }
 
-  void goBack() {
-    return navigatorKey.currentState!.pop();
+  void goBack([dynamic result]) {
+    return navigatorKey.currentState!.pop(result);
   }
 }

@@ -74,12 +74,10 @@ class BuildListView extends StatelessWidget {
     Key? key,
     required this.addresses,
     this.showIcon = true,
-    this.onSelected,
   }) : super(key: key);
 
   final List<AddressEntity> addresses;
   final bool showIcon;
-  final void Function(AddressEntity addressEntity)? onSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -91,9 +89,7 @@ class BuildListView extends StatelessWidget {
         final AddressEntity address = addresses[index];
 
         return GestureDetector(
-          onTap: () {
-            if (onSelected != null) onSelected!(address);
-          },
+          onTap: () => AppRouter.instance.goBack(address),
           child: Container(
             padding: EdgeInsets.symmetric(
               horizontal: sp(20),

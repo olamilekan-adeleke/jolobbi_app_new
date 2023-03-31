@@ -56,7 +56,7 @@ class ProfileInfoDetailsWidget extends StatelessWidget {
           ),
         ),
         verticalSpace(40),
-        TextWidget("v 1.0.1", fontSize: sp(16), textColor: kcSoftTextColor),
+        TextWidget("v 1.0.2", fontSize: sp(16), textColor: kcSoftTextColor),
       ],
     );
   }

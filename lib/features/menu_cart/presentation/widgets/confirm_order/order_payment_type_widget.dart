@@ -18,31 +18,41 @@ class OrderPaymentTypeWidget extends StatelessWidget {
         ),
         verticalSpace(15),
         _buildOptionWidget(
-          icon: Icons.monetization_on,
-          title: "Cash On Delivery",
-        ),
-        _buildOptionWidget(
           icon: Icons.wallet_rounded,
           title: "Pay With Wallet",
+        ),
+        _buildOptionWidget(
+          icon: Icons.monetization_on,
+          title: "Cash On Delivery (Coming Soon)",
+          isActive: false,
         ),
       ],
     );
   }
 
-  Widget _buildOptionWidget({required IconData icon, required String title}) {
+  Widget _buildOptionWidget({
+    required IconData icon,
+    required String title,
+    bool isActive = true,
+  }) {
     return RadioListTile(
       contentPadding: EdgeInsets.zero,
       controlAffinity: ListTileControlAffinity.trailing,
-      value: true,
+      value: isActive,
       title: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: sp(20), color: kcSoftTextColor.withOpacity(0.5)),
+          Icon(
+            icon,
+            size: sp(20),
+            color: kcSoftTextColor.withOpacity(isActive ? 0.5 : 0.3),
+          ),
           horizontalSpace(),
           TextWidget(
             title,
             fontSize: sp(16),
             fontWeight: FontWeight.w500,
+            textColor: isActive ? null : kcSoftTextColor.withOpacity(0.5),
           )
         ],
       ),
