@@ -65,6 +65,27 @@ class OrderFormzModel extends Equatable {
         serviceFee != null;
   }
 
+  Map<String, dynamic> _eachShopFee() {
+    final Map<String, dynamic> map = {};
+
+    for (var element in items) {
+      final shopId = element.shopId.value;
+      final shopName = element.shopName.value;
+      final shopFee = element.getTotal;
+
+      map.update(shopId, (value) {
+        return {
+          'shopName': shopName,
+          'shopFee': (value['shopFee'] ?? 0) + shopFee,
+        };
+      }, ifAbsent: () {
+        return {'shopName': shopName, 'shopFee': shopFee};
+      });
+    }
+
+    return map;
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'address': address?.toMap(),
@@ -80,6 +101,7 @@ class OrderFormzModel extends Equatable {
       'userId': userDetails?.userId,
       'vendors': vendors,
       'vendorsNames': vendorsNames,
+      'eachShopFee': _eachShopFee(),
     };
   }
 
