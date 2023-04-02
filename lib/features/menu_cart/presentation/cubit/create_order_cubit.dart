@@ -11,6 +11,8 @@ class CreateOrderCubit extends Cubit<OrderFormzModel> {
 
   void reset() => emit(OrderFormzModel(orderId: const Uuid().v4()));
 
+  void updateOrderId() => emit(state.copyWith(orderId: const Uuid().v4()));
+
   void addOrderItem(List<CartItemFormz> items) {
     emit(state.copyWith(items: items));
   }

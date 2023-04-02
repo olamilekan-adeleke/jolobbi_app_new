@@ -113,6 +113,7 @@ extension on _ConfirmFoodOrderViewState {
         message: state.baseEntity.message,
       );
 
+      createOrderCubit.updateOrderId();
       // createOrderCubit.reset();
       // cartItemCubit.clearCart();
       // AppRouter.instance.goBack();
