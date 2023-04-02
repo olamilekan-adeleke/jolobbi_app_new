@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../app/locator.dart';
 import '../../../../../cores/components/components.dart';
-import '../../../../../cores/navigator/navigator.dart';
 import '../../../../../cores/utils/utils.dart';
 import '../../../../profile/presentation/bloc/get_profile/get_profile_bloc_bloc.dart';
 import '../../bloc/create_order/create_order_bloc.dart';
@@ -114,10 +113,11 @@ extension on _ConfirmFoodOrderViewState {
         message: state.baseEntity.message,
       );
 
-      createOrderCubit.reset();
-      cartItemCubit.clearCart();
-      AppRouter.instance.goBack();
-      AppRouter.instance.goBack();
+      createOrderCubit.updateOrderId();
+      // createOrderCubit.reset();
+      // cartItemCubit.clearCart();
+      // AppRouter.instance.goBack();
+      // AppRouter.instance.goBack();
     }
   }
 }

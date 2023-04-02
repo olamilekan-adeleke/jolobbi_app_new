@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
-import 'package:uuid/uuid.dart';
 
 import '../../../../cores/firebase_helper/firebase_helper.dart';
 import '../../../profile/domain/entities/address_entity.dart';
@@ -21,6 +20,7 @@ import 'cart_item_formz.dart';
 
 class OrderFormzModel extends Equatable {
   const OrderFormzModel({
+    required this.orderId,
     this.address,
     this.userDetails,
     this.deliveryFee,
@@ -28,13 +28,14 @@ class OrderFormzModel extends Equatable {
     List<CartItemFormz>? items,
   }) : items = items ?? const <CartItemFormz>[];
 
+  final String orderId;
   final List<CartItemFormz> items;
   final AddressEntity? address;
   final UserDetailsEntity? userDetails;
   final int? deliveryFee;
   final int? serviceFee;
 
-  String get orderId => const Uuid().v4();
+  // String get orderId => _orderId;
   List<String> get vendors => items.map((e) => e.shopId.value).toSet().toList();
   List<String> get vendorsNames => items.map((e) => e.shopName.value).toList();
 
@@ -65,6 +66,27 @@ class OrderFormzModel extends Equatable {
         serviceFee != null;
   }
 
+  Map<String, dynamic> _eachShopFee() {
+    final Map<String, dynamic> map = {};
+
+    for (var element in items) {
+      final shopId = element.shopId.value;
+      final shopName = element.shopName.value;
+      final shopFee = element.getTotal;
+
+      map.update(shopId, (value) {
+        return {
+          'shopName': shopName,
+          'shopFee': (value['shopFee'] ?? 0) + shopFee,
+        };
+      }, ifAbsent: () {
+        return {'shopName': shopName, 'shopFee': shopFee};
+      });
+    }
+
+    return map;
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'address': address?.toMap(),
@@ -80,6 +102,7 @@ class OrderFormzModel extends Equatable {
       'userId': userDetails?.userId,
       'vendors': vendors,
       'vendorsNames': vendorsNames,
+      'eachShopFee': _eachShopFee(),
     };
   }
 
@@ -88,6 +111,7 @@ class OrderFormzModel extends Equatable {
       [items, address, userDetails, deliveryFee, serviceFee];
 
   OrderFormzModel copyWith({
+    String? orderId,
     List<CartItemFormz>? items,
     AddressEntity? address,
     UserDetailsEntity? userDetails,
@@ -95,6 +119,7 @@ class OrderFormzModel extends Equatable {
     int? serviceFee,
   }) {
     return OrderFormzModel(
+      orderId: orderId ?? this.orderId,
       items: items ?? this.items,
       address: address ?? this.address,
       userDetails: userDetails ?? this.userDetails,
