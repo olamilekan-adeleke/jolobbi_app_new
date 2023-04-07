@@ -43,11 +43,20 @@ const Map<String, TransactionStatus> transactionStatusValues = {
   "failed": TransactionStatus.failed,
 };
 
-enum TransactionAction { fundWallet, payment, withdrawal, refund, none }
+enum TransactionAction {
+  fundWallet,
+  payment,
+  withdrawal,
+  refund,
+  acceptPayment,
+  none
+}
 
 const Map<String, TransactionAction> transactionActionValues = {
   "fund_wallet": TransactionAction.fundWallet,
   "payment": TransactionAction.payment,
   "withdrawal": TransactionAction.withdrawal,
   "refund": TransactionAction.refund,
+  "accept_payment": TransactionAction.acceptPayment,
+  "none": TransactionAction.none,
 };

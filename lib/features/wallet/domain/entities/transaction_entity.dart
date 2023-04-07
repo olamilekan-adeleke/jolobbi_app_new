@@ -38,6 +38,8 @@ class TransactionEntity extends Equatable {
         return "Refund";
       case TransactionAction.none:
         return "N/A";
+      case TransactionAction.acceptPayment:
+        return "Accept Payment";
     }
   }
 
