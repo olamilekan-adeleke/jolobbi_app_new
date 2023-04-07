@@ -94,7 +94,7 @@ class OrderFormzModel extends Equatable {
       'hasRated': false,
       'items': items.map((e) => e.toMap()).toList(),
       'orderId': orderId,
-      'orderStatus': 'pre-processing',
+      'status': 'pre-processing',
       'serviceFee': serviceFee,
       'timestamp': FirebaseHelper().timestamp,
       'totalFee': totalFee,
@@ -103,6 +103,9 @@ class OrderFormzModel extends Equatable {
       'vendors': vendors,
       'vendorsNames': vendorsNames,
       'eachShopFee': _eachShopFee(),
+      'statusHistory': [
+        {'status': 'pre-processing', 'time': DateTime.now()},
+      ],
     };
   }
 
