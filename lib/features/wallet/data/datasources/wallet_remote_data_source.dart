@@ -14,7 +14,7 @@ abstract class WalletRemoteDataSource {
 
   Future<BaseEntity> logPaystackTrans(Map<String, dynamic> data);
 
-  Future<BaseEntity> withdrawal();
+  Future<BaseEntity> withdrawal(Map<String, dynamic> data);
 }
 
 class WalletRemoteDataSourceImpl implements WalletRemoteDataSource {
@@ -70,8 +70,13 @@ class WalletRemoteDataSourceImpl implements WalletRemoteDataSource {
     );
   }
 
-  @override
-  Future<BaseEntity> withdrawal() {
-    throw UnimplementedError();
+   @override
+  Future<BaseEntity> withdrawal(Map<String, dynamic> data) async {
+    await firebaseHelper.withdrawalCollectionRef().add(data);
+
+    return const BaseEntity(
+      message: 'Withdrawal request sent successfully',
+      success: true,
+    );
   }
 }

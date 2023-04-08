@@ -26,6 +26,7 @@ import '../../features/vendor/presentation/pages/menu_item_details_view.dart';
 import '../../features/vendor/presentation/pages/vendor_details_view.dart';
 import '../../features/wallet/presentation/pages/payment_gateway_screen/flutter_wave_payment_view.dart';
 import '../../features/wallet/presentation/pages/payment_gateway_screen/paystack_payment_view.dart';
+import '../../features/wallet/presentation/pages/request_withdrawal/request_withdrawal_view.dart';
 import 'error_route_screen.dart';
 
 class RouteGenerator {
@@ -99,6 +100,9 @@ class RouteGenerator {
       case OrderDetailsView.routeName:
         final OrderEntity args = settings.arguments as OrderEntity;
         return pageRoute(OrderDetailsView(args));
+
+      case RequestWithdrawalView.routeName:
+        return pageRoute(const RequestWithdrawalView());
 
       default:
         return errorRoute();

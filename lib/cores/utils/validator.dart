@@ -68,6 +68,15 @@ String? nameValidator(String? value) {
   return null;
 }
 
+String? accountNumberValidator(String? value) {
+  if (value == '' || value == null) {
+    return 'Account Number must not be empty!';
+  } else if (value.trim().length <= 10) {
+    return 'Account Number must be min 11 characters long!';
+  }
+  return null;
+}
+
 String? usernameValidator(String? value) {
   final usernameRegExp = RegExp(r'^[A-Za-z][A-Za-z0-9_]{3,29}$');
 

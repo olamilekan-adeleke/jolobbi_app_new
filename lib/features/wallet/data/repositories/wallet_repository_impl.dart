@@ -114,9 +114,11 @@ class WalletRepositoryImpl implements WalletRepository {
   }
 
   @override
-  Future<Either<Failures, BaseEntity>> withdrawal() async {
+  Future<Either<Failures, BaseEntity>> withdrawal(
+    Map<String, dynamic> data,
+  ) async {
     try {
-      final BaseEntity result = await walletRemoteDataSource.withdrawal();
+      final BaseEntity result = await walletRemoteDataSource.withdrawal(data);
 
       return Right(result);
     } on FirebaseAuthException catch (e) {

@@ -20,5 +20,5 @@ abstract class WalletRepository {
     Map<String, dynamic> data,
   );
 
-  Future<Either<Failures, BaseEntity>> withdrawal();
+  Future<Either<Failures, BaseEntity>> withdrawal(Map<String, dynamic> data);
 }

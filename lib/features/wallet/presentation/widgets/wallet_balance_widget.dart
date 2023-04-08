@@ -4,8 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../app/locator.dart';
 import '../../../../cores/components/components.dart';
 import '../../../../cores/constants/color.dart';
+import '../../../../cores/navigator/navigator.dart';
 import '../../../../cores/utils/utils.dart';
 import '../bloc/get_wallet/get_wallet_bloc.dart';
+import '../pages/request_withdrawal/request_withdrawal_view.dart';
 import 'fund_wallet_widget/fund_wallet_option_widget.dart';
 
 class WalletBalanceWidget extends StatelessWidget {
@@ -64,7 +66,9 @@ class WalletBalanceWidget extends StatelessWidget {
                 ),
                 const Spacer(),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () => AppRouter.instance.navigateTo(
+                    RequestWithdrawalView.routeName,
+                  ),
                   child: _buildWalletButtonWidget(
                     "assets/images/wallet/send_money.png",
                     "Withdraw",

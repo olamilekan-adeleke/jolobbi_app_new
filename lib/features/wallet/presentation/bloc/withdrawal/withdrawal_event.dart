@@ -1,8 +1,9 @@
 part of 'withdrawal_bloc.dart';
 
 class WithdrawalEvent extends Equatable {
-  const WithdrawalEvent();
+  final Map<String, dynamic> data;
+  const WithdrawalEvent(this.data);
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [data];
 }
