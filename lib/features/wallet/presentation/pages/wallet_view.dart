@@ -49,7 +49,7 @@ class _WalletViewState extends State<WalletView> {
         child: ScaffoldWidget(
           body: Column(
             children: [
-              verticalSpace(),
+              verticalSpace(20),
               const WalletBalanceWidget(),
               verticalSpace(20),
               const TransactionHistoryListViewWidget(),

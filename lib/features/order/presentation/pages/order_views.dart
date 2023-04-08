@@ -23,7 +23,7 @@ class _OrderViewState extends State<OrderView> {
 
   @override
   void initState() {
-    // _bloc.add(const GetAllOrdersEvent());
+    _bloc.add(const GetAllOrdersEvent());
     _scrollController = ScrollController();
 
     _scrollController.addListener(() {
@@ -46,7 +46,7 @@ class _OrderViewState extends State<OrderView> {
         body: Column(
           children: <Widget>[
             verticalSpace(20),
-            const AppBarWidget("Orders", showBackButton: false),
+            const AppBarWidget("Orders"),
             verticalSpace(),
             BlocBuilder<GetAllOrdersBloc, GetAllOrdersState>(
               bloc: _bloc,

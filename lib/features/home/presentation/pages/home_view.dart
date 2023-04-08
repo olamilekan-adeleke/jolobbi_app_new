@@ -18,6 +18,7 @@ class HomeView extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          verticalSpace(),
           const HomeAppBarWidget(),
           verticalSpace(20),
           const HomeSearchWidget(),

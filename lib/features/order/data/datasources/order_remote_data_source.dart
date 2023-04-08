@@ -37,11 +37,10 @@ class OrderRemoteDataSourceImpl implements OrderRemoteDataSource {
 
   @override
   Future<List<OrderModel>> getOrders(String? lastDocTime) async {
-    Query<Map<String, dynamic>> query =
-        firebaseHelper.orderCollectionRef().where(
-      'shopOwnersId',
-      arrayContainsAny: [firebaseHelper.currentUserId],
-    ).orderBy("timestamp", descending: true);
+    Query<Map<String, dynamic>> query = firebaseHelper
+        .orderCollectionRef()
+        .where('userId', isEqualTo: firebaseHelper.currentUserId)
+        .orderBy("timestamp", descending: true);
 
     if (lastDocTime != null) {
       query = firebaseHelper.orderCollectionRef().startAfter([lastDocTime]);

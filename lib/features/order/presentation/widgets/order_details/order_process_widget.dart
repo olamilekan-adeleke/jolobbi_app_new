@@ -6,7 +6,6 @@ import '../../../../../cores/components/components.dart';
 import '../../../../../cores/constants/color.dart';
 import '../../../../../cores/utils/utils.dart';
 import '../../../domain/entities/order_entity.dart';
-import 'update_order_status_widget.dart';
 
 class OrderProcessWidget extends StatefulWidget {
   final OrderEntity order;
@@ -62,7 +61,7 @@ class _OrderProcessWidgetState extends State<OrderProcessWidget> {
           ),
         ),
         verticalSpace(10),
-        UpdateOrderStatusWidget(widget.order),
+        // UpdateOrderStatusWidget(widget.order),
       ],
     );
   }

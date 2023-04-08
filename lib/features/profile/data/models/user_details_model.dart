@@ -14,6 +14,7 @@ class UserDetailsModel extends UserDetailsEntity {
     required super.isBlocked,
   });
 
+  @override
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'fullName': fullName,
@@ -40,7 +41,7 @@ class UserDetailsModel extends UserDetailsEntity {
       displayPicture: map['displayPicture'] != null
           ? map['displayPicture'] as String
           : null,
-      createdAt: DateTime.parse(map['createdAt'] as String),
+      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int),
       fcmToken: map['fcmToken'] as String,
       isBlocked: map['isBlocked'] as bool,
     );
