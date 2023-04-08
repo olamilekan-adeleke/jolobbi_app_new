@@ -8,7 +8,7 @@ class UserDetailsEntity extends Equatable {
   final String username;
   final String userId;
   final String? displayPicture;
-  final DateTime createdAt;
+  // final DateTime createdAt;
   final String fcmToken;
   final bool isBlocked;
 
@@ -20,7 +20,7 @@ class UserDetailsEntity extends Equatable {
     required this.username,
     required this.userId,
     required this.displayPicture,
-    required this.createdAt,
+    // required this.createdAt,
     required this.fcmToken,
     required this.isBlocked,
   });
@@ -34,7 +34,7 @@ class UserDetailsEntity extends Equatable {
       'username': username,
       'userId': userId,
       'displayPicture': displayPicture,
-      'createdAt': createdAt,
+      // 'createdAt': createdAt,
       'fcmToken': fcmToken,
       'isBlocked': isBlocked,
     };
@@ -49,7 +49,7 @@ class UserDetailsEntity extends Equatable {
         username,
         userId,
         displayPicture,
-        createdAt,
+        // createdAt,
         fcmToken,
         isBlocked,
       ];
