@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import '../../domain/entities/transaction_entity.dart';
 
 class TransactionModel extends TransactionEntity {
@@ -20,7 +22,7 @@ class TransactionModel extends TransactionEntity {
           TransactionType.debit,
       amount: json["amount"],
       description: json["description"],
-      date: DateTime.parse(json["date"]),
+      date: (json["date"] as Timestamp).toDate(),
       status:
           transactionStatusValues[json["status"]] ?? TransactionStatus.pending,
       action: transactionActionValues[json["action"]] ?? TransactionAction.none,

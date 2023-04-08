@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 
 import '../../../../cores/firebase_helper/firebase_helper.dart';
@@ -37,7 +36,9 @@ class OrderFormzModel extends Equatable {
 
   // String get orderId => _orderId;
   List<String> get vendors => items.map((e) => e.shopId.value).toSet().toList();
-  List<String> get vendorsNames => items.map((e) => e.shopName.value).toList();
+  List<String> get vendorsNames {
+    return items.map((e) => e.shopName.value).toSet().toList();
+  }
 
   int get subTotal {
     int total = 0;
@@ -67,7 +68,7 @@ class OrderFormzModel extends Equatable {
   }
 
   Map<String, dynamic> _eachShopFee() {
-    final Map<String, dynamic> map = {};
+    final Map<String, Map<String, dynamic>> map = {};
 
     for (var element in items) {
       final shopId = element.shopId.value;
@@ -78,9 +79,14 @@ class OrderFormzModel extends Equatable {
         return {
           'shopName': shopName,
           'shopFee': (value['shopFee'] ?? 0) + shopFee,
+          'itemCount': (value['itemCount'] ?? 0) + 1,
         };
       }, ifAbsent: () {
-        return {'shopName': shopName, 'shopFee': shopFee};
+        return {
+          'shopName': shopName,
+          'shopFee': shopFee,
+          'itemCount': 1,
+        };
       });
     }
 
