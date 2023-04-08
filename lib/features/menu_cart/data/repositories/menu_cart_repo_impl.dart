@@ -10,7 +10,7 @@ import '../../../../cores/exception/firebase_auth_exception.dart';
 import '../../../../cores/failures/base.dart';
 import '../../../../cores/failures/error_text.dart';
 import '../../../../cores/utils/logger.dart';
-import '../../domain/entities/order_entity.dart';
+import '../../../order/domain/entities/order_entity.dart';
 import '../../domain/repositories/menu_cart_repository.dart';
 import '../../presentation/formz/order_formz.dart';
 import '../datasources/menu_cart_remote_source.dart';

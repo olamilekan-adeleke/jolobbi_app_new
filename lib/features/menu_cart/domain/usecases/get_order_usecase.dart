@@ -2,7 +2,7 @@ import 'package:fpdart/fpdart.dart';
 
 import '../../../../cores/failures/base.dart';
 import '../../../../cores/usecase/usecase_interface.dart';
-import '../entities/order_entity.dart';
+import '../../../order/domain/entities/order_entity.dart';
 import '../repositories/menu_cart_repository.dart';
 
 class GetOrderUsecase
