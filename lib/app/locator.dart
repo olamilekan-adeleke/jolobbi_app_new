@@ -1,10 +1,11 @@
 import 'package:get_it/get_it.dart';
-import 'package:jolobbi_app_new/features/home/home_locator.dart';
 
 import '../cores/firebase_helper/firebase_helper.dart';
 import '../cores/push_notification/push_nofication_helper.dart';
 import '../features/Authentication/auth_locator.dart';
+import '../features/home/home_locator.dart';
 import '../features/menu_cart/menu_cart_locator.dart';
+import '../features/order/order_locator.dart';
 import '../features/profile/profile_locator.dart';
 import '../features/vendor/vendor_locator.dart';
 import '../features/wallet/data/datasources/paystack_service.dart';
@@ -37,6 +38,9 @@ class SetUpLocators {
 
     /// --------------- Menu Cart -----------------//
     getUpMenuCartLocator();
+
+    /// --------------- Order -----------------//
+    setUpOrderLocator();
   }
 
   static void _setUp() {

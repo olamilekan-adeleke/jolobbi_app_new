@@ -38,6 +38,7 @@ dependencies:
   geolocator: ^9.0.2
   flutter_dotenv: ^5.0.2
   flutter_paystack: ^1.0.7
+  flutter_timeline: ^0.3.0
 
 dependency_overrides:
   rxdart: ^0.27.7
