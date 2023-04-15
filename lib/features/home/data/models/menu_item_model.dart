@@ -68,6 +68,7 @@ class MenuAddOnModel extends MenuAddOnEntity {
     );
   }
 
+  @override
   Map<String, dynamic> toMap() {
     return {
       'name': name,
@@ -84,6 +85,7 @@ class MenuExtraModel extends MenuExtraEntity {
     required super.price,
     required super.image,
     required super.quantity,
+    required super.isAvailable,
   });
 
   factory MenuExtraModel.fromMap(Map<String, dynamic> json) {
@@ -92,15 +94,18 @@ class MenuExtraModel extends MenuExtraEntity {
       price: json['price'],
       image: json['image'],
       quantity: json['quantity'],
+      isAvailable: json['isAvailable'] ?? true,
     );
   }
 
+  @override
   Map<String, dynamic> toMap() {
     return {
       'name': name,
       'price': price,
       'image': image,
       'quantity': quantity,
+      'isAvailable': isAvailable,
     };
   }
 }
