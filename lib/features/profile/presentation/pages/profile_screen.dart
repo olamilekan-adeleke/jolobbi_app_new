@@ -36,7 +36,7 @@ class _ProfileViewState extends State<ProfileView> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              verticalSpace(),
+              verticalSpace(20),
               const AppBarWidget("Profile", showBackButton: false),
               verticalSpace(20),
               BlocBuilder<GetProfileBloc, GetProfileState>(

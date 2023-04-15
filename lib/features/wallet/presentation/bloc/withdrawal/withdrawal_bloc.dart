@@ -2,7 +2,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../../../cores/entity/base_entity.dart';
-import '../../../../../cores/usecase/params.dart';
 import '../../../domain/usecases/withdrawal_usecase.dart';
 
 part 'withdrawal_event.dart';
@@ -17,7 +16,7 @@ class WithdrawalBloc extends Bloc<WithdrawalEvent, WithdrawalState> {
     on<WithdrawalEvent>((event, emit) async {
       emit(WithdrawalLoading());
 
-      final result = await withdrawalUsecase(const NoParams());
+      final result = await withdrawalUsecase(WithdrawalParam(event.data));
 
       result.fold(
         (failure) => emit(WithdrawalError(failure.message)),

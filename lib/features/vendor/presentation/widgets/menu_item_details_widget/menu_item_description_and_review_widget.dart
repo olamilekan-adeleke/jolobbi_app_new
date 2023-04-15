@@ -105,7 +105,7 @@ class _MenuItemDescriptionWidgetState extends State<MenuItemDescriptionWidget> {
             valueListenable: _cartItemFormzState,
             builder: (_, CartItemFormz cartItemFormz, __) {
               return Button(
-                active: cartItemFormz.isValid,
+                active: cartItemFormz.isValid && widget.menuItem.isAvailable,
                 text: "Add to Cart",
                 onTap: () {
                   String message = _cartItemCubit.addToCart(cartItemFormz);

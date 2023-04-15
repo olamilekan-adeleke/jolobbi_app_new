@@ -24,6 +24,7 @@ class MenuCartView extends StatelessWidget {
     return ScaffoldWidget(
       body: Column(
         children: [
+          verticalSpace(),
           const FoodCartHeaderWidget(),
           verticalSpace(20),
           BlocBuilder<CartItemCubit, CartItemsList>(

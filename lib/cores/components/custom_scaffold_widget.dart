@@ -17,6 +17,8 @@ class ScaffoldWidget extends StatelessWidget {
     this.drawer,
     this.bottomNavigationBar,
     this.floatingActionButton,
+    this.controller,
+    this.scrollPhysics = const AlwaysScrollableScrollPhysics(),
   }) : super(key: key);
 
   final Widget? drawer;
@@ -28,6 +30,8 @@ class ScaffoldWidget extends StatelessWidget {
   final bool useSingleScroll;
   final Color? bg;
   final GlobalKey<ScaffoldState>? scaffoldKey;
+  final ScrollController? controller;
+  final ScrollPhysics? scrollPhysics;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +54,8 @@ class ScaffoldWidget extends StatelessWidget {
           height: sh(98),
           child: useSingleScroll
               ? SingleChildScrollView(
-                  physics: const AlwaysScrollableScrollPhysics(),
+                  controller: controller,
+                  physics: scrollPhysics,
                   child: Padding(
                     padding: EdgeInsets.symmetric(
                       horizontal: usePadding ? sp(kGlobalPadding) : 0,

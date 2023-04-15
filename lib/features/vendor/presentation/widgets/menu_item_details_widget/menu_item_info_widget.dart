@@ -6,19 +6,17 @@ import 'menu_item_description_and_review_widget.dart';
 import 'menu_item_name_and_price_widget.dart';
 
 class MenuItemInfoWidget extends StatelessWidget {
-    final MenuItemEntity menuItem;
+  final MenuItemEntity menuItem;
 
-  const MenuItemInfoWidget(this.menuItem,{super.key});
-
-  
+  const MenuItemInfoWidget(this.menuItem, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         verticalSpace(5),
-         MenuItemNameAndPriceWidget(menuItem),
-         MenuItemDescriptionWidget(menuItem),
+        MenuItemNameAndPriceWidget(menuItem),
+        MenuItemDescriptionWidget(menuItem),
       ],
     );
   }

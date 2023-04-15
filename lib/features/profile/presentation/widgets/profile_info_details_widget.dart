@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jolobbi_app_new/features/order/presentation/pages/order_views.dart';
 
 import '../../../../cores/components/components.dart';
 import '../../../../cores/constants/constants.dart';
@@ -33,6 +34,12 @@ class ProfileInfoDetailsWidget extends StatelessWidget {
           child: Column(
             children: <Widget>[
               horizontalSpace(double.infinity),
+              actionItemsWidget(
+                Icons.format_list_bulleted_outlined,
+                "Order History",
+                onTap: () => AppRouter.instance.navigateTo(OrderView.routeName),
+              ),
+              verticalSpace(20),
               actionItemsWidget(Icons.person, "Edit Profile", onTap: () {}),
               verticalSpace(20),
               actionItemsWidget(Icons.lock, "Change Password", onTap: () {}),

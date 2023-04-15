@@ -17,12 +17,16 @@ import '../../features/home/presentation/pages/search_food_view.dart';
 import '../../features/home/presentation/pages/search_restaurant_view.dart';
 import '../../features/menu_cart/presentation/pages/cart_view.dart';
 import '../../features/menu_cart/presentation/pages/order/confirm_food_order_view.dart';
+import '../../features/order/domain/entities/order_entity.dart';
+import '../../features/order/presentation/pages/order_details_view.dart';
+import '../../features/order/presentation/pages/order_views.dart';
 import '../../features/profile/presentation/pages/address/add_address_view.dart';
 import '../../features/profile/presentation/pages/address/user_address_view.dart';
 import '../../features/vendor/presentation/pages/menu_item_details_view.dart';
 import '../../features/vendor/presentation/pages/vendor_details_view.dart';
 import '../../features/wallet/presentation/pages/payment_gateway_screen/flutter_wave_payment_view.dart';
 import '../../features/wallet/presentation/pages/payment_gateway_screen/paystack_payment_view.dart';
+import '../../features/wallet/presentation/pages/request_withdrawal/request_withdrawal_view.dart';
 import 'error_route_screen.dart';
 
 class RouteGenerator {
@@ -89,6 +93,16 @@ class RouteGenerator {
 
       case AddAddressView.route:
         return pageRoute(const AddAddressView());
+
+      case OrderView.routeName:
+        return pageRoute(const OrderView());
+
+      case OrderDetailsView.routeName:
+        final OrderEntity args = settings.arguments as OrderEntity;
+        return pageRoute(OrderDetailsView(args));
+
+      case RequestWithdrawalView.routeName:
+        return pageRoute(const RequestWithdrawalView());
 
       default:
         return errorRoute();

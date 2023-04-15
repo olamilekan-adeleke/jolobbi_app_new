@@ -9,11 +9,12 @@ class UserDetailsModel extends UserDetailsEntity {
     required super.username,
     required super.userId,
     required super.displayPicture,
-    required super.createdAt,
+    // required super.createdAt,
     required super.fcmToken,
     required super.isBlocked,
   });
 
+  @override
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'fullName': fullName,
@@ -23,7 +24,7 @@ class UserDetailsModel extends UserDetailsEntity {
       'username': username,
       'userId': userId,
       'displayPicture': displayPicture,
-      'createdAt': createdAt.millisecondsSinceEpoch,
+      // 'createdAt': createdAt.millisecondsSinceEpoch,
       'fcmToken': fcmToken,
       'isBlocked': isBlocked,
     };
@@ -40,7 +41,7 @@ class UserDetailsModel extends UserDetailsEntity {
       displayPicture: map['displayPicture'] != null
           ? map['displayPicture'] as String
           : null,
-      createdAt: DateTime.parse(map['createdAt'] as String),
+      // createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int),
       fcmToken: map['fcmToken'] as String,
       isBlocked: map['isBlocked'] as bool,
     );

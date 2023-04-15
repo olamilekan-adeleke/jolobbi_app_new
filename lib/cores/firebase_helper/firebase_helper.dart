@@ -12,6 +12,7 @@ String MenuCOLLECTION = "menus_items";
 String WalletCOLLECTION = "wallets";
 String TransactionCOLLECTION = "transactions";
 String OrderCOLLECTION = "orders";
+String WithdrawalCOLLECTION = "withdrawals";
 
 String PaystackTransactionCOLLECTION = "paystack_transactions";
 String FlutterWaveTransactionCOLLECTION = "flutterwave_transactions";
@@ -75,6 +76,10 @@ class FirebaseHelper {
 
   CollectionReference<Map<String, dynamic>> orderCollectionRef() {
     return FirebaseFirestore.instance.collection(OrderCOLLECTION);
+  }
+
+  CollectionReference<Map<String, dynamic>> withdrawalCollectionRef() {
+    return FirebaseFirestore.instance.collection(WithdrawalCOLLECTION);
   }
 
   /// -------- Storage ---------

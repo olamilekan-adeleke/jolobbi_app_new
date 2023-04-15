@@ -3,6 +3,7 @@ import 'package:jolobbi_app_new/cores/firebase_helper/firebase_helper.dart';
 
 import '../../../../cores/entity/base_entity.dart';
 import '../../../home/data/models/menu_item_model.dart';
+import '../../../home/domain/entities/menu_item_entity.dart';
 
 abstract class VendorRemoteDataSource {
   Future<List<MenuItemModel>> getRestaurantFoodItems(
@@ -16,6 +17,8 @@ abstract class VendorRemoteDataSource {
   );
 
   Future<BaseModel> bookmarkMenuItem(String id);
+
+  Stream<MenuItemEntity> streamRestaurantFoodItems(String id);
 }
 
 class VendorRemoteDataSourceImpl implements VendorRemoteDataSource {
@@ -74,5 +77,12 @@ class VendorRemoteDataSourceImpl implements VendorRemoteDataSource {
     QuerySnapshot<Map<String, dynamic>> snapshot = await query.limit(10).get();
 
     return snapshot.docs.map((e) => MenuItemModel.fromMap(e.data())).toList();
+  }
+
+  @override
+  Stream<MenuItemEntity> streamRestaurantFoodItems(String id) {
+    return firebaseHelper.menuCollectionRef().doc(id).snapshots().map((event) {
+      return MenuItemModel.fromMap(event.data()!);
+    });
   }
 }

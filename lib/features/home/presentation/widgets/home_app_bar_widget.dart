@@ -5,13 +5,18 @@ import '../../../../cores/components/components.dart';
 import '../../../../cores/utils/utils.dart';
 
 class HomeAppBarWidget extends StatelessWidget {
-  const HomeAppBarWidget({super.key});
+  final VoidCallback? onMenuPressed;
+
+  const HomeAppBarWidget({super.key, this.onMenuPressed});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
-        const Icon(CupertinoIcons.list_dash),
+        GestureDetector(
+          onTap: onMenuPressed,
+          child: const Icon(CupertinoIcons.list_dash),
+        ),
         horizontalSpace(33),
         const Spacer(),
         TextWidget("Fast Food", fontSize: sp(24)),

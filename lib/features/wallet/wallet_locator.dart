@@ -15,6 +15,7 @@ import 'presentation/bloc/get_wallet/get_wallet_bloc.dart';
 import 'presentation/bloc/log_trans/log_trans_bloc.dart';
 import 'presentation/bloc/withdrawal/withdrawal_bloc.dart';
 import 'presentation/cubit/fund_wallet_cubit.dart';
+import 'presentation/cubit/withdrawal_cubit.dart';
 
 void setUpWalletLocator() {
   final GetIt getIt = SetUpLocators.getIt;
@@ -80,4 +81,5 @@ void setUpWalletLocator() {
 
   // cubit
   getIt.registerLazySingleton(() => FundWalletCubit());
+  getIt.registerLazySingleton(() => WithdrawalCubit());
 }
