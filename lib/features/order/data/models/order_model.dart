@@ -19,6 +19,7 @@ class OrderModel extends OrderEntity {
     required super.timestamp,
     required super.status,
     required super.statusHistory,
+    required super.paymentMethod,
   });
 
   factory OrderModel.fromMap(Map<String, dynamic> map) {
@@ -44,6 +45,8 @@ class OrderModel extends OrderEntity {
           (x) => StatusHistoryModel.fromMap(x as Map<String, dynamic>),
         ),
       ),
+      paymentMethod: orderPaymentMethodMap[map['paymentMethod']] ??
+          OrderPaymentMethod.unknown,
     );
   }
 
@@ -115,6 +118,7 @@ class StatusHistoryModel extends StatusHistoryEntity {
 }
 
 enum OrderStatus {
+  pending,
   preProcessing,
   processing,
   processingDone,
@@ -131,6 +135,7 @@ extension OrderStatusExtention on OrderStatus {
 }
 
 const Map<String, OrderStatus> orderStatusMap = {
+  'pending': OrderStatus.pending,
   'pre-processing': OrderStatus.preProcessing,
   'processing': OrderStatus.processing,
   'processing-done': OrderStatus.processingDone,
@@ -139,4 +144,35 @@ const Map<String, OrderStatus> orderStatusMap = {
   'enroute': OrderStatus.enroute,
   'delivered': OrderStatus.delivered,
   'rejected': OrderStatus.rejected,
+};
+
+enum OrderPaymentMethod { cash, card, wallet, bankTransfer, unknown }
+
+extension OrderPaymentMethodExtention on OrderPaymentMethod {
+  String get getName => orderPaymentMethodMap.entries
+      .firstWhere((element) => element.value == this)
+      .key;
+
+  String get getFormattedName {
+    switch (this) {
+      case OrderPaymentMethod.cash:
+        return 'Cash';
+      case OrderPaymentMethod.card:
+        return 'Card';
+      case OrderPaymentMethod.wallet:
+        return 'Wallet';
+      case OrderPaymentMethod.bankTransfer:
+        return 'Bank Transfer';
+      case OrderPaymentMethod.unknown:
+        return 'Unknown';
+    }
+  }
+}
+
+const Map<String, OrderPaymentMethod> orderPaymentMethodMap = {
+  'cash': OrderPaymentMethod.cash,
+  'card': OrderPaymentMethod.card,
+  'wallet': OrderPaymentMethod.wallet,
+  'bank-transfer': OrderPaymentMethod.bankTransfer,
+  'unknown': OrderPaymentMethod.unknown,
 };
