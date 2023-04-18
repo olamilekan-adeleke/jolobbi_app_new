@@ -89,12 +89,14 @@ class MenuExtraEntity extends Equatable {
     required this.price,
     required this.image,
     required this.quantity,
+    required this.isAvailable,
   });
 
   final String name;
   final int price;
   final String image;
   final int quantity;
+  final bool isAvailable;
 
   Map<String, dynamic> toMap() {
     return {
@@ -102,11 +104,12 @@ class MenuExtraEntity extends Equatable {
       'price': price,
       'image': image,
       'quantity': quantity,
+      'isAvailable': isAvailable,
     };
   }
 
   @override
-  List<Object?> get props => [name, price, image, quantity];
+  List<Object?> get props => [name, price, image, quantity, isAvailable];
 
   MenuExtraEntity copyWith({
     String? name,
@@ -119,6 +122,7 @@ class MenuExtraEntity extends Equatable {
       price: price ?? this.price,
       image: image ?? this.image,
       quantity: quantity ?? this.quantity,
+      isAvailable: isAvailable,
     );
   }
 }

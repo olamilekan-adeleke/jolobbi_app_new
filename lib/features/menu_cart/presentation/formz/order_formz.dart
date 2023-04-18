@@ -1,11 +1,14 @@
 import 'package:equatable/equatable.dart';
 
 import '../../../../cores/firebase_helper/firebase_helper.dart';
+import '../../../order/data/models/order_model.dart';
 import '../../../profile/domain/entities/address_entity.dart';
 import '../../../profile/domain/entities/user_details_entity.dart';
 import 'cart_item_formz.dart';
 
 /// Below are the order status
+/// pending
+/// 
 /// pre-processing
 /// processing
 /// processing-done
@@ -25,6 +28,7 @@ class OrderFormzModel extends Equatable {
     this.deliveryFee,
     this.serviceFee,
     List<CartItemFormz>? items,
+    this.paymentMethod = OrderPaymentMethod.wallet,
   }) : items = items ?? const <CartItemFormz>[];
 
   final String orderId;
@@ -33,6 +37,7 @@ class OrderFormzModel extends Equatable {
   final UserDetailsEntity? userDetails;
   final int? deliveryFee;
   final int? serviceFee;
+  final OrderPaymentMethod paymentMethod;
 
   // String get orderId => _orderId;
   List<String> get vendors => items.map((e) => e.shopId.value).toSet().toList();
@@ -94,13 +99,15 @@ class OrderFormzModel extends Equatable {
   }
 
   Map<String, dynamic> toMap() {
+    final bool isBank = paymentMethod == OrderPaymentMethod.bankTransfer;
+
     return {
       'address': address?.toMap(),
       'deliveryFee': deliveryFee,
       'hasRated': false,
       'items': items.map((e) => e.toMap()).toList(),
       'orderId': orderId,
-      'status': 'pre-processing',
+      'status': isBank ? "pending" : 'pre-processing',
       'serviceFee': serviceFee,
       'timestamp': FirebaseHelper().timestamp,
       'totalFee': totalFee,
@@ -110,14 +117,18 @@ class OrderFormzModel extends Equatable {
       'vendorsNames': vendorsNames,
       'eachShopFee': _eachShopFee(),
       'statusHistory': [
-        {'status': 'pre-processing', 'time': DateTime.now()},
+        if (isBank)
+          {'status': 'pending', 'time': DateTime.now()}
+        else
+          {'status': 'pre-processing', 'time': DateTime.now()}
       ],
+      'paymentMethod': paymentMethod.getName,
     };
   }
 
   @override
   List<Object?> get props =>
-      [items, address, userDetails, deliveryFee, serviceFee];
+      [items, address, userDetails, deliveryFee, serviceFee, paymentMethod];
 
   OrderFormzModel copyWith({
     String? orderId,
@@ -126,6 +137,7 @@ class OrderFormzModel extends Equatable {
     UserDetailsEntity? userDetails,
     int? deliveryFee,
     int? serviceFee,
+    OrderPaymentMethod? paymentMethod,
   }) {
     return OrderFormzModel(
       orderId: orderId ?? this.orderId,
@@ -134,6 +146,7 @@ class OrderFormzModel extends Equatable {
       userDetails: userDetails ?? this.userDetails,
       deliveryFee: deliveryFee ?? this.deliveryFee,
       serviceFee: serviceFee ?? this.serviceFee,
+      paymentMethod: paymentMethod ?? this.paymentMethod,
     );
   }
 }

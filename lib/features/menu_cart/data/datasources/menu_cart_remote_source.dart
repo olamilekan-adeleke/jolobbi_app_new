@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../models/order_model.dart';
+import '../../../order/data/models/order_model.dart';
 
 import '../../../../cores/entity/base_entity.dart';
 import '../../../../cores/firebase_helper/firebase_helper.dart';
@@ -23,10 +23,11 @@ class MenuCartRemoteSourceImpl implements MenuCartRemoteSource {
         .doc(order.orderId)
         .set(order.toMap());
 
-    return const BaseModel(
+    return BaseModel(
       message: 'Order created successfully',
       success: true,
-    ); 
+      data: order.orderId,
+    );
   }
 
   @override

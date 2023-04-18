@@ -14,7 +14,6 @@ import '../../../../../cores/utils/utils.dart';
 import '../../../../profile/domain/entities/user_details_entity.dart';
 import '../../../../profile/presentation/bloc/get_profile/get_profile_bloc_bloc.dart';
 import '../../../data/models/flutter_wave_payment_model.dart';
-import '../../bloc/get_wallet/get_wallet_bloc.dart';
 import '../../bloc/log_trans/log_trans_bloc.dart';
 import '../../cubit/fund_wallet_cubit.dart';
 import '../../pages/payment_gateway_screen/flutter_wave_payment_view.dart';
@@ -28,7 +27,7 @@ class FundWalletOptionWidget extends StatefulWidget {
 }
 
 class _FundWalletOptionWidgetState extends State<FundWalletOptionWidget> {
-  final GetWalletBloc _getWalletBloc = SetUpLocators.getIt<GetWalletBloc>();
+  // final GetWalletBloc _getWalletBloc = SetUpLocators.getIt<GetWalletBloc>();
   final FundWalletCubit _cubit = SetUpLocators.getIt<FundWalletCubit>();
   final LogTransBloc _logTransBloc = SetUpLocators.getIt<LogTransBloc>();
   late UserDetailsEntity? userDetailsEntity;

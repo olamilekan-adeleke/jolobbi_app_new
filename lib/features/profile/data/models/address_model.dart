@@ -15,6 +15,7 @@ class AddressModel extends AddressEntity {
     );
   }
 
+  @override
   Map<String, dynamic> toMap() {
     return {
       'region': region,

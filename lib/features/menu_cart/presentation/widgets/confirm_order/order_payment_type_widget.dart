@@ -1,32 +1,61 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../../app/locator.dart';
 import '../../../../../cores/components/components.dart';
 import '../../../../../cores/constants/constants.dart';
 import '../../../../../cores/utils/utils.dart';
+import '../../../../order/data/models/order_model.dart';
+import '../../cubit/create_order_cubit.dart';
+import '../../formz/order_formz.dart';
 
 class OrderPaymentTypeWidget extends StatelessWidget {
   const OrderPaymentTypeWidget({super.key});
 
+  static final CreateOrderCubit createOrderCubit =
+      SetUpLocators.getIt<CreateOrderCubit>();
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        TextWidget(
-          "Select Payment Method",
-          fontSize: sp(18),
-          fontWeight: FontWeight.w500,
-        ),
-        verticalSpace(15),
-        _buildOptionWidget(
-          icon: Icons.wallet_rounded,
-          title: "Pay With Wallet",
-        ),
-        _buildOptionWidget(
-          icon: Icons.monetization_on,
-          title: "Cash On Delivery (Coming Soon)",
-          isActive: false,
-        ),
-      ],
+    return BlocBuilder<CreateOrderCubit, OrderFormzModel>(
+      bloc: createOrderCubit,
+      builder: (context, state) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            TextWidget(
+              "Select Payment Method",
+              fontSize: sp(18),
+              fontWeight: FontWeight.w500,
+            ),
+            verticalSpace(15),
+            _buildOptionWidget(
+              icon: Icons.wallet_rounded,
+              title: "Pay With Wallet",
+              isActive: state.paymentMethod == OrderPaymentMethod.wallet,
+              onChanged: (value) => createOrderCubit.paymentMethod(
+                OrderPaymentMethod.wallet,
+              ),
+            ),
+            _buildOptionWidget(
+              icon: Icons.account_balance_outlined,
+              title: "Pay With Bank Transfer",
+              isActive: state.paymentMethod == OrderPaymentMethod.bankTransfer,
+              onChanged: (value) => createOrderCubit.paymentMethod(
+                OrderPaymentMethod.bankTransfer,
+              ),
+            ),
+            _buildOptionWidget(
+              icon: Icons.monetization_on,
+              title: "Cash On Delivery (Coming Soon)",
+              isActive: state.paymentMethod == OrderPaymentMethod.cash,
+              isDisable: true,
+              onChanged: (value) => createOrderCubit.paymentMethod(
+                OrderPaymentMethod.cash,
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -34,6 +63,8 @@ class OrderPaymentTypeWidget extends StatelessWidget {
     required IconData icon,
     required String title,
     bool isActive = true,
+    bool isDisable = false,
+    Function(bool?)? onChanged,
   }) {
     return RadioListTile(
       contentPadding: EdgeInsets.zero,
@@ -45,19 +76,22 @@ class OrderPaymentTypeWidget extends StatelessWidget {
           Icon(
             icon,
             size: sp(20),
-            color: kcSoftTextColor.withOpacity(isActive ? 0.5 : 0.3),
+            color: kcSoftTextColor.withOpacity(isDisable ? 0.3 : 0.5),
           ),
           horizontalSpace(),
           TextWidget(
             title,
             fontSize: sp(16),
             fontWeight: FontWeight.w500,
-            textColor: isActive ? null : kcSoftTextColor.withOpacity(0.5),
+            textColor: isDisable ? kcSoftTextColor.withOpacity(0.5) : null,
           )
         ],
       ),
       groupValue: true,
-      onChanged: (value) {},
+      onChanged: (val) {
+        if (isDisable) return;
+        onChanged?.call(val);
+      },
       activeColor: kcPrimaryColor,
       visualDensity: const VisualDensity(
         horizontal: VisualDensity.minimumDensity,

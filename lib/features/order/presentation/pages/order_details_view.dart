@@ -6,6 +6,7 @@ import '../../../../cores/constants/color.dart';
 import '../../../../cores/utils/utils.dart';
 import '../../data/datasources/order_remote_data_source.dart';
 import '../../domain/entities/order_entity.dart';
+import '../widgets/order_details/order_payment_type_widget.dart';
 import '../widgets/order_details/order_user_and_deliver_details_widget.dart';
 import '../widgets/order_details/order_fee_break_down_widget.dart';
 import '../widgets/order_details/order_item_widget.dart';
@@ -29,6 +30,10 @@ class OrderDetailsView extends StatelessWidget {
           OrderItemWidget(order),
           verticalSpace(20),
           OrderUserAndDeliveryDetailsWidget(order),
+          verticalSpace(10),
+          Divider(color: kcSoftTextColor.withOpacity(0.5)),
+          verticalSpace(10),
+          OrderPaymentMethodWidget(order),
           verticalSpace(10),
           Divider(color: kcSoftTextColor.withOpacity(0.5)),
           verticalSpace(10),

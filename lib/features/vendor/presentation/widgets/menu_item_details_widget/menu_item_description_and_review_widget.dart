@@ -222,79 +222,85 @@ class _ExtraItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(bottom: h(10)),
-      child: Row(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(sr(5)),
-            child: ImageWidget(
-              imageUrl: extra.image,
-              imageTypes: ImageTypes.network,
-              height: h(45),
-              width: w(45),
-            ),
-          ),
-          horizontalSpace(15),
-          SizedBox(
-            height: h(40),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TextWidget(
-                  extra.name,
-                  fontSize: sp(16),
-                  fontWeight: FontWeight.w400,
-                ),
-                TextWidget(
-                  currencyFormatter(extra.price),
-                  fontSize: sp(14),
-                  fontWeight: FontWeight.w400,
-                ),
-              ],
-            ),
-          ),
-          const Spacer(),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: w(10), vertical: h(5)),
-            decoration: BoxDecoration(
-              border: Border.all(color: kcGrey400),
+    return IgnorePointer(
+      ignoring: extra.isAvailable == false,
+      child: Container(
+        margin: EdgeInsets.only(bottom: h(10)),
+        child: Row(
+          children: [
+            ClipRRect(
               borderRadius: BorderRadius.circular(sr(5)),
+              child: ImageWidget(
+                imageUrl: extra.image,
+                imageTypes: ImageTypes.network,
+                height: h(45),
+                width: w(45),
+              ),
             ),
-            child: Row(
-              children: [
-                GestureDetector(
-                  onTap: decrement,
-                  child: Icon(
-                    Icons.remove_circle_outline_outlined,
-                    color: kcPrimaryColor,
-                    size: sr(20),
+            horizontalSpace(15),
+            SizedBox(
+              height: h(40),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  TextWidget(
+                    extra.name,
+                    fontSize: sp(16),
+                    fontWeight: FontWeight.w400,
+                    textColor: extra.isAvailable ? null : kcGrey400,
                   ),
-                ),
-                horizontalSpace(),
-                ValueListenableBuilder(
-                  valueListenable: _countNotifier,
-                  builder: (_, int count, __) {
-                    return TextWidget(
-                      "$count",
-                      fontSize: sp(14),
-                      fontWeight: FontWeight.w400,
-                    );
-                  },
-                ),
-                horizontalSpace(),
-                GestureDetector(
-                  onTap: increment,
-                  child: Icon(
-                    Icons.add_circle_outline_outlined,
-                    color: kcPrimaryColor,
-                    size: sr(20),
+                  TextWidget(
+                    currencyFormatter(extra.price),
+                    fontSize: sp(14),
+                    fontWeight: FontWeight.w400,
+                    textColor: extra.isAvailable ? null : kcGrey400,
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+            const Spacer(),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: w(10), vertical: h(5)),
+              decoration: BoxDecoration(
+                border: Border.all(color: kcGrey400),
+                borderRadius: BorderRadius.circular(sr(5)),
+              ),
+              child: Row(
+                children: [
+                  GestureDetector(
+                    onTap: decrement,
+                    child: Icon(
+                      Icons.remove_circle_outline_outlined,
+                      color: extra.isAvailable ? kcPrimaryColor : kcGrey400,
+                      size: sr(20),
+                    ),
+                  ),
+                  horizontalSpace(),
+                  ValueListenableBuilder(
+                    valueListenable: _countNotifier,
+                    builder: (_, int count, __) {
+                      return TextWidget(
+                        "$count",
+                        fontSize: sp(14),
+                        fontWeight: FontWeight.w400,
+                        textColor: extra.isAvailable ? null : kcGrey400,
+                      );
+                    },
+                  ),
+                  horizontalSpace(),
+                  GestureDetector(
+                    onTap: increment,
+                    child: Icon(
+                      Icons.add_circle_outline_outlined,
+                      color: extra.isAvailable ? kcPrimaryColor : kcGrey400,
+                      size: sr(20),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -308,6 +314,7 @@ class _ExtraItemWidget extends StatelessWidget {
       price: extra.price,
       quantity: _countNotifier.value,
       image: extra.image,
+      isAvailable: extra.isAvailable,
     );
 
     List<MenuExtraEntity> extras = cartItemFormzState.value.extras;

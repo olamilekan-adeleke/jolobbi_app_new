@@ -22,6 +22,7 @@ class OrderEntity extends Equatable {
     required this.timestamp,
     required this.status,
     required this.statusHistory,
+    required this.paymentMethod,
   });
 
   final List<OrderItemEntity> items;
@@ -36,6 +37,7 @@ class OrderEntity extends Equatable {
   final Timestamp timestamp;
   final OrderStatus status;
   final List<StatusHistoryEntity> statusHistory;
+  final OrderPaymentMethod paymentMethod;
 
   String get getItemsName => items.map((e) => e.name).join(', ');
 
@@ -67,6 +69,7 @@ class OrderEntity extends Equatable {
   }
 
   List<OrderStatus> get _getValues => [
+        // OrderStatus.pending,
         OrderStatus.preProcessing,
         OrderStatus.processing,
         OrderStatus.processingDone,
@@ -170,6 +173,8 @@ class StatusHistoryEntity extends Equatable {
         return 'Rejected';
       case OrderStatus.delivered:
         return 'Delivered';
+      case OrderStatus.pending:
+        return 'Pending';
     }
   }
 
@@ -191,6 +196,8 @@ class StatusHistoryEntity extends Equatable {
         return 'Your order has been rejected';
       case OrderStatus.delivered:
         return 'Your order has been delivered';
+      case OrderStatus.pending:
+        return 'Your order is pending';
     }
   }
 
@@ -209,9 +216,11 @@ class StatusHistoryEntity extends Equatable {
       case OrderStatus.enroute:
         return Icons.delivery_dining_rounded;
       case OrderStatus.rejected:
-        return Icons.hourglass_empty;
+        return Icons.cancel_outlined;
       case OrderStatus.delivered:
         return Icons.done_all;
+      case OrderStatus.pending:
+        return Icons.hourglass_empty;
     }
   }
 

@@ -18,7 +18,7 @@ class HomeView extends StatelessWidget {
     extended: true,
   );
 
-  static final GlobalKey<ScaffoldState> _key = GlobalKey();
+  // static final GlobalKey<ScaffoldState> _key = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +52,8 @@ class HomeView extends StatelessWidget {
 }
 
 class NavDrawer extends StatelessWidget {
+  const NavDrawer({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Drawer(

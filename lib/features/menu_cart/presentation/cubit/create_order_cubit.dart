@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../../order/data/models/order_model.dart';
 import '../../../profile/domain/entities/user_details_entity.dart';
 import '../formz/cart_item_formz.dart';
 import '../formz/order_formz.dart';
@@ -31,5 +32,9 @@ class CreateOrderCubit extends Cubit<OrderFormzModel> {
 
   void addServiceFee(int serviceFee) {
     emit(state.copyWith(serviceFee: serviceFee));
+  }
+
+  void paymentMethod(OrderPaymentMethod paymentMethod) {
+    emit(state.copyWith(paymentMethod: paymentMethod));
   }
 }
