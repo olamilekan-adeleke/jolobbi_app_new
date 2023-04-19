@@ -54,7 +54,7 @@ class OrderPaymentMethodWidget extends StatelessWidget {
                 ),
                 verticalSpace(5),
                 TextWidget(
-                  "Tap To Add Bank Transfer Receipt",
+                  "Tap To Add Bank Transfer Receipt for",
                   fontSize: sp(18),
                   fontWeight: FontWeight.w400,
                   textColor: kcSoftTextColor.withOpacity(0.8),
