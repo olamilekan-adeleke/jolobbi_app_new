@@ -53,6 +53,15 @@ class OrderPaymentTypeWidget extends StatelessWidget {
                 OrderPaymentMethod.cash,
               ),
             ),
+            BlocBuilder<CreateOrderCubit, OrderFormzModel>(
+              bloc: createOrderCubit,
+              builder: (context, state) {
+                if (state.paymentMethod == OrderPaymentMethod.bankTransfer) {
+                  return const OrderPaymentBankTransferDetailsWidget();
+                }
+                return Container();
+              },
+            ),
           ],
         );
       },
@@ -97,6 +106,44 @@ class OrderPaymentTypeWidget extends StatelessWidget {
         horizontal: VisualDensity.minimumDensity,
         vertical: VisualDensity.minimumDensity,
       ),
+    );
+  }
+}
+
+class OrderPaymentBankTransferDetailsWidget extends StatelessWidget {
+  const OrderPaymentBankTransferDetailsWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        verticalSpace(),
+        TextWidget(
+          "Enter Bank Details",
+          fontSize: sp(18),
+          fontWeight: FontWeight.w500,
+        ),
+        TextWidget(
+          "Please enter your bank account details so we can confirm your payment",
+          fontSize: sp(16),
+          fontWeight: FontWeight.w300,
+          textAlign: TextAlign.left,
+          textColor: kcSoftTextColor,
+        ),
+        verticalSpace(15),
+        TextFieldWidget(
+          title: "Account Name",
+          hintText: "E.g Test User",
+          onChanged: (value) => {},
+        ),
+        verticalSpace(),
+        TextFieldWidget(
+          title: "Bank Name",
+          hintText: "E.g Zenith Bank",
+          onChanged: (value) => {},
+        ),
+      ],
     );
   }
 }

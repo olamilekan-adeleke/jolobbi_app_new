@@ -227,3 +227,16 @@ class StatusHistoryEntity extends Equatable {
   @override
   List<Object?> get props => [status, time, reason];
 }
+
+class OrderBankPaymentDetailsEntity extends Equatable {
+  const OrderBankPaymentDetailsEntity({
+    required this.bankName,
+    required this.bankAccountName,
+  });
+
+  final String bankName;
+  final String bankAccountName;
+
+  @override
+  List<Object?> get props => [bankName, bankAccountName];
+}
