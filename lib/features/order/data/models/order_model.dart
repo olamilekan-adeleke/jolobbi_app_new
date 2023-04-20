@@ -1,3 +1,5 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../../home/data/models/menu_item_model.dart';
@@ -113,6 +115,20 @@ class StatusHistoryModel extends StatusHistoryEntity {
           return null;
         }
       }(),
+    );
+  }
+}
+
+class OrderBankPaymentDetailsModel extends OrderBankPaymentDetailsEntity {
+  const OrderBankPaymentDetailsModel({
+    required super.bankName,
+    required super.bankAccountName,
+  });
+
+  factory OrderBankPaymentDetailsModel.fromMap(Map<String, dynamic> map) {
+    return OrderBankPaymentDetailsModel(
+      bankName: map['bankName'] as String,
+      bankAccountName: map['bankAccountName'] as String,
     );
   }
 }
