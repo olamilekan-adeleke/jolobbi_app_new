@@ -113,6 +113,9 @@ class OrderPaymentTypeWidget extends StatelessWidget {
 class OrderPaymentBankTransferDetailsWidget extends StatelessWidget {
   const OrderPaymentBankTransferDetailsWidget({super.key});
 
+  static final CreateOrderCubit createOrderCubit =
+      SetUpLocators.getIt<CreateOrderCubit>();
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -135,13 +138,13 @@ class OrderPaymentBankTransferDetailsWidget extends StatelessWidget {
         TextFieldWidget(
           title: "Account Name",
           hintText: "E.g Test User",
-          onChanged: (value) => {},
+          onChanged: createOrderCubit.addAccountName,
         ),
         verticalSpace(),
         TextFieldWidget(
           title: "Bank Name",
           hintText: "E.g Zenith Bank",
-          onChanged: (value) => {},
+          onChanged: createOrderCubit.addBankName,
         ),
       ],
     );
