@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jolobbi_app_new/app/locator.dart';
+import '../../../../app/locator.dart';
 
 import '../../../../cores/components/components.dart';
 import '../../../../cores/utils/utils.dart';

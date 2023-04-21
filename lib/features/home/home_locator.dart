@@ -1,5 +1,5 @@
 import 'package:get_it/get_it.dart';
-import 'package:jolobbi_app_new/features/home/presentation/bloc/search_restaurant/search_restaurant_bloc.dart';
+import 'presentation/bloc/search_restaurant/search_restaurant_bloc.dart';
 
 import '../../app/locator.dart';
 import '../../cores/firebase_helper/firebase_helper.dart';

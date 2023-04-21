@@ -5,7 +5,6 @@ import 'package:fpdart/fpdart.dart';
 import '../../../../cores/entity/base_entity.dart';
 import '../../../../cores/failures/base.dart';
 import '../../../../cores/usecase/usecase_interface.dart';
-
 import '../repositories/order_repository.dart';
 
 class ConfirmMakePaymentUsecase

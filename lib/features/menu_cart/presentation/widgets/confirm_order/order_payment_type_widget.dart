@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../../app/locator.dart';
 import '../../../../../cores/components/components.dart';
 import '../../../../../cores/constants/constants.dart';

@@ -2,10 +2,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../order/data/models/order_model.dart';
+import '../../../profile/domain/entities/address_entity.dart';
 import '../../../profile/domain/entities/user_details_entity.dart';
 import '../formz/cart_item_formz.dart';
 import '../formz/order_formz.dart';
-import '../../../profile/domain/entities/address_entity.dart';
 
 class CreateOrderCubit extends Cubit<OrderFormzModel> {
   CreateOrderCubit() : super(OrderFormzModel(orderId: const Uuid().v4()));

@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jolobbi_app_new/app/locator.dart';
-import 'package:jolobbi_app_new/cores/components/components.dart';
-import 'package:jolobbi_app_new/cores/utils/utils.dart';
-import 'package:jolobbi_app_new/features/home/domain/entities/shop_details_entity.dart';
-import 'package:jolobbi_app_new/features/home/presentation/bloc/get_all_restaurant/get_all_restaurant_bloc.dart';
-import 'package:jolobbi_app_new/features/home/presentation/widgets/home_fast_food_list_widget.dart';
+import '../../../../../app/locator.dart';
+import '../../../../../cores/components/components.dart';
+import '../../../../../cores/utils/utils.dart';
+import '../../../domain/entities/shop_details_entity.dart';
+import '../../bloc/get_all_restaurant/get_all_restaurant_bloc.dart';
+import '../home_fast_food_list_widget.dart';
 
 class AllRestaurantListView extends StatefulWidget {
   const AllRestaurantListView({super.key});
