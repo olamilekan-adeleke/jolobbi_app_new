@@ -29,19 +29,19 @@ class OrderPaymentTypeWidget extends StatelessWidget {
             ),
             verticalSpace(15),
             _buildOptionWidget(
-              icon: Icons.wallet_rounded,
-              title: "Pay With Wallet",
-              isActive: state.paymentMethod == OrderPaymentMethod.wallet,
-              onChanged: (value) => createOrderCubit.paymentMethod(
-                OrderPaymentMethod.wallet,
-              ),
-            ),
-            _buildOptionWidget(
               icon: Icons.account_balance_outlined,
               title: "Pay With Bank Transfer",
               isActive: state.paymentMethod == OrderPaymentMethod.bankTransfer,
               onChanged: (value) => createOrderCubit.paymentMethod(
                 OrderPaymentMethod.bankTransfer,
+              ),
+            ),
+            _buildOptionWidget(
+              icon: Icons.wallet_rounded,
+              title: "Pay With Wallet",
+              isActive: state.paymentMethod == OrderPaymentMethod.wallet,
+              onChanged: (value) => createOrderCubit.paymentMethod(
+                OrderPaymentMethod.wallet,
               ),
             ),
             _buildOptionWidget(

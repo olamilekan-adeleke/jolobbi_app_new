@@ -28,7 +28,7 @@ class OrderFormzModel extends Equatable {
     this.deliveryFee,
     this.serviceFee,
     List<CartItemFormz>? items,
-    this.paymentMethod = OrderPaymentMethod.wallet,
+    this.paymentMethod = OrderPaymentMethod.bankTransfer,
     this.bankName = '',
     this.accountName = '',
   }) : items = items ?? const <CartItemFormz>[];

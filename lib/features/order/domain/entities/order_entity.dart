@@ -205,7 +205,7 @@ class StatusHistoryEntity extends Equatable {
       case OrderStatus.pending:
         return 'Your order is pending';
       case OrderStatus.pendingDone:
-        return 'Your order is pending done';
+        return 'Your order is has been validated and processing will begin soon';
     }
   }
 

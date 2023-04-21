@@ -58,11 +58,9 @@ class OrderRemoteDataSourceImpl implements OrderRemoteDataSource {
   Future<BaseModel> updateOrderStatus(String id, OrderStatus status) async {
     await firebaseHelper.orderCollectionRef().doc(id).update({
       "status": status.getName,
-      "statusHistory": FieldValue.arrayUnion(
-        [
-          {"status": status.getName, "time": DateTime.now()}
-        ],
-      ),
+      "statusHistory": FieldValue.arrayUnion([
+        {"status": status.getName, "time": DateTime.now()}
+      ])
     });
 
     return const BaseModel(
@@ -99,15 +97,17 @@ class OrderRemoteDataSourceImpl implements OrderRemoteDataSource {
 
   @override
   Future<BaseModel> confirmMadePayment(String orderId) async {
-    const OrderStatus status = OrderStatus.pendingDone;
-
     await firebaseHelper.orderCollectionRef().doc(orderId).update({
-      "status": status.getName,
       "hasConfirmedBankTransfer": true,
-      "statusHistory": FieldValue.arrayUnion([
-        {"status": status.getName, "time": DateTime.now()}
-      ]),
     });
+
+    // await firebaseHelper.orderCollectionRef().doc(orderId).update({
+    //   "status": status.getName,
+    //   "hasConfirmedBankTransfer": true,
+    //   "statusHistory": FieldValue.arrayUnion([
+    //     {"status": status.getName, "time": DateTime.now()}
+    //   ]),
+    // });
 
     return const BaseModel(
       message: "Payment confirmation has been sent successfully",
