@@ -37,7 +37,7 @@ dependencies:
   geoflutterfire2: ^2.3.14
   geolocator: ^9.0.2
   flutter_dotenv: ^5.0.2
-  flutter_paystack: ^1.0.7
+  # flutter_paystack: ^1.0.7
   flutter_timeline: ^0.3.0
   sidebarx: ^0.15.0
 

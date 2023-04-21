@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_paystack/flutter_paystack.dart';
+// import 'package:flutter_paystack/flutter_paystack.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../../../app/locator.dart';
@@ -192,27 +192,27 @@ class _FundWalletOptionWidgetState extends State<FundWalletOptionWidget> {
   }
 
   Future<void> openPaystackWave(FlutterWavePaymentArgs args) async {
-    final CheckoutResponse? response = await AppRouter.instance.navigateTo(
-      PaystackPaymentView.routeName,
-      arguments: args,
-    );
+    // final CheckoutResponse? response = await AppRouter.instance.navigateTo(
+    //   PaystackPaymentView.routeName,
+    //   arguments: args,
+    // );
 
-    if (response == null) {
-      SnackBarService.showErrorSnackBar(
-        context: context,
-        message: "Payment Failed, Unable to make payment",
-      );
-      return;
-    }
+    // if (response == null) {
+    //   SnackBarService.showErrorSnackBar(
+    //     context: context,
+    //     message: "Payment Failed, Unable to make payment",
+    //   );
+    //   return;
+    // }
 
-    _logTransBloc.add(LogPaystackTransEvent({
-      "userId": userDetailsEntity!.userId,
-      "trans_status": "pending",
-      "reference": response.reference,
-      "status": response.status,
-      "message": response.message,
-      "paymentMethod": response.method.name,
-    }));
+    // _logTransBloc.add(LogPaystackTransEvent({
+    //   "userId": userDetailsEntity!.userId,
+    //   "trans_status": "pending",
+    //   "reference": response.reference,
+    //   "status": response.status,
+    //   "message": response.message,
+    //   "paymentMethod": response.method.name,
+    // }));
   }
 }
 

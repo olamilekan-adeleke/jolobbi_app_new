@@ -29,6 +29,49 @@
             {
               "client_id": "754917959694-ntbd0sb2mp637psjlfmq1dji6rrcfps2.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "754917959694-upor7dgld3qgofcd1eispo4r6vtd209o.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.jolobbiVendorNew"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:754917959694:android:947f74183fd6672b33f45f",
+        "android_client_info": {
+          "package_name": "com.example.jolobbi_vendor_new"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "754917959694-ntbd0sb2mp637psjlfmq1dji6rrcfps2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_jPpgn_sq6FqMBmnGa8jDOebHqoyabPQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "754917959694-ntbd0sb2mp637psjlfmq1dji6rrcfps2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "754917959694-upor7dgld3qgofcd1eispo4r6vtd209o.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.jolobbiVendorNew"
+              }
             }
           ]
         }

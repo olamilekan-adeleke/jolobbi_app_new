@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -48,6 +45,16 @@ class DefaultFirebaseOptions {
         );
     }
   }
+
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyBleeJk2VJ2gqTQWCrkia5MJvhODuyy89I',
+    appId: '1:754917959694:web:662b2aafc2802daf33f45f',
+    messagingSenderId: '754917959694',
+    projectId: 'jolobbi-food',
+    authDomain: 'jolobbi-food.firebaseapp.com',
+    storageBucket: 'jolobbi-food.appspot.com',
+    measurementId: 'G-Y10ZMH3RTB',
+  );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyD_jPpgn_sq6FqMBmnGa8jDOebHqoyabPQ',
