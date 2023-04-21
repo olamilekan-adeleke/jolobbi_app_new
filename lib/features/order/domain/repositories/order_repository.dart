@@ -18,4 +18,6 @@ abstract class OrderRepository {
   Future<Either<Failures, BaseEntity>> deleteOrder(String id);
 
   Future<Either<Failures, BaseEntity>> cancelOrder(String id, String reason);
+
+  Future<Either<Failures, BaseEntity>> confirmMadePayment(String orderId);
 }

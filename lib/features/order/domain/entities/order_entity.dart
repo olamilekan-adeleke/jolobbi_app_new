@@ -23,6 +23,8 @@ class OrderEntity extends Equatable {
     required this.status,
     required this.statusHistory,
     required this.paymentMethod,
+    required this.userBankDetails,
+    required this.hasConfirmedBankTransfer,
   });
 
   final List<OrderItemEntity> items;
@@ -38,6 +40,8 @@ class OrderEntity extends Equatable {
   final OrderStatus status;
   final List<StatusHistoryEntity> statusHistory;
   final OrderPaymentMethod paymentMethod;
+  final OrderBankPaymentDetailsEntity? userBankDetails;
+  final bool? hasConfirmedBankTransfer;
 
   String get getItemsName => items.map((e) => e.name).join(', ');
 
@@ -175,6 +179,8 @@ class StatusHistoryEntity extends Equatable {
         return 'Delivered';
       case OrderStatus.pending:
         return 'Pending';
+      case OrderStatus.pendingDone:
+        return 'Pending Done';
     }
   }
 
@@ -198,6 +204,8 @@ class StatusHistoryEntity extends Equatable {
         return 'Your order has been delivered';
       case OrderStatus.pending:
         return 'Your order is pending';
+      case OrderStatus.pendingDone:
+        return 'Your order is pending done';
     }
   }
 
@@ -221,6 +229,8 @@ class StatusHistoryEntity extends Equatable {
         return Icons.done_all;
       case OrderStatus.pending:
         return Icons.hourglass_empty;
+      case OrderStatus.pendingDone:
+        return Icons.hourglass_empty;
     }
   }
 
@@ -234,8 +244,8 @@ class OrderBankPaymentDetailsEntity extends Equatable {
     required this.bankAccountName,
   });
 
-  final String bankName;
-  final String bankAccountName;
+  final String? bankName;
+  final String? bankAccountName;
 
   @override
   List<Object?> get props => [bankName, bankAccountName];

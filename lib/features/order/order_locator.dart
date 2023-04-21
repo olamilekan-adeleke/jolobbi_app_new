@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:jolobbi_app_new/features/order/presentation/bloc/confirm_make_payment/confirm_make_payment_bloc.dart';
 
 import '../../app/locator.dart';
 import '../../cores/firebase_helper/firebase_helper.dart';
@@ -6,6 +7,7 @@ import 'data/datasources/order_remote_data_source.dart';
 import 'data/repositories/order_repository_impl.dart';
 import 'domain/repositories/order_repository.dart';
 import 'domain/usecases/cancel_order_usecase.dart';
+import 'domain/usecases/confirm_make_payment_usecase.dart';
 import 'domain/usecases/get_all_orders_usecase.dart';
 import 'domain/usecases/get_order_by_id_usecase.dart';
 import 'domain/usecases/update_order_usecase.dart';
@@ -46,6 +48,10 @@ void setUpOrderLocator() {
     () => CancelOrderUsecase(orderRepository: getIt<OrderRepository>()),
   );
 
+  getIt.registerLazySingleton(
+    () => ConfirmMakePaymentUsecase(orderRepository: getIt<OrderRepository>()),
+  );
+
   // bloc
   getIt.registerLazySingleton(
     () => GetAllOrdersBloc(getAllOrderUsecase: getIt<GetAllOrderUsecase>()),
@@ -61,5 +67,11 @@ void setUpOrderLocator() {
 
   getIt.registerLazySingleton(
     () => CancelOrderBloc(cancelOrderUsecase: getIt<CancelOrderUsecase>()),
+  );
+
+  getIt.registerLazySingleton(
+    () => ConfirmMakePaymentBloc(
+      confirmMakePaymentUsecase: getIt<ConfirmMakePaymentUsecase>(),
+    ),
   );
 }

@@ -35,7 +35,11 @@ class CreateOrderCubit extends Cubit<OrderFormzModel> {
   }
 
   void paymentMethod(OrderPaymentMethod paymentMethod) {
-    emit(state.copyWith(paymentMethod: paymentMethod));
+    emit(state.copyWith(
+      paymentMethod: paymentMethod,
+      bankName: '',
+      accountName: '',
+    ));
   }
 
   void addBankName(String bankName) {

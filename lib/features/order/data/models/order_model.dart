@@ -22,6 +22,8 @@ class OrderModel extends OrderEntity {
     required super.status,
     required super.statusHistory,
     required super.paymentMethod,
+    required super.userBankDetails,
+    required super.hasConfirmedBankTransfer,
   });
 
   factory OrderModel.fromMap(Map<String, dynamic> map) {
@@ -49,6 +51,10 @@ class OrderModel extends OrderEntity {
       ),
       paymentMethod: orderPaymentMethodMap[map['paymentMethod']] ??
           OrderPaymentMethod.unknown,
+      userBankDetails: map['bankPaymentDetails'] != null
+          ? OrderBankPaymentDetailsModel.fromMap(map['bankPaymentDetails'])
+          : null,
+      hasConfirmedBankTransfer: map['hasConfirmedBankTransfer'] as bool?,
     );
   }
 
@@ -127,14 +133,15 @@ class OrderBankPaymentDetailsModel extends OrderBankPaymentDetailsEntity {
 
   factory OrderBankPaymentDetailsModel.fromMap(Map<String, dynamic> map) {
     return OrderBankPaymentDetailsModel(
-      bankName: map['bankName'] as String,
-      bankAccountName: map['bankAccountName'] as String,
+      bankName: map['bankName'],
+      bankAccountName: map['bankAccountName'],
     );
   }
 }
 
 enum OrderStatus {
   pending,
+  pendingDone,
   preProcessing,
   processing,
   processingDone,
@@ -152,6 +159,7 @@ extension OrderStatusExtention on OrderStatus {
 
 const Map<String, OrderStatus> orderStatusMap = {
   'pending': OrderStatus.pending,
+  'pending-done': OrderStatus.pendingDone,
   'pre-processing': OrderStatus.preProcessing,
   'processing': OrderStatus.processing,
   'processing-done': OrderStatus.processingDone,
