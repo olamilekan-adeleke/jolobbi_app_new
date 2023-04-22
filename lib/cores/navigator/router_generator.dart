@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -110,7 +111,7 @@ class RouteGenerator {
   }
 
   static PageRoute pageRoute(Widget page) {
-    if (Platform.isIOS) {
+    if (!kIsWeb && Platform.isIOS) {
       return CupertinoPageRoute(builder: (_) => page);
     }
 
