@@ -16,12 +16,12 @@ class MyApp extends StatelessWidget {
       builder: (context, Widget? child) {
         return MaterialApp(
           title: 'Jolobbi',
-          theme: ThemeData(
-            errorColor: kcErrorColor,
-            scaffoldBackgroundColor: kcBackground,
-            primaryColor: kcPrimaryColor,
-            useMaterial3: true,
-          ),
+          // theme: ThemeData(
+          //   errorColor: kcErrorColor,
+          //   scaffoldBackgroundColor: kcBackground,
+          //   primaryColor: kcPrimaryColor,
+          //   // useMaterial3: true,
+          // ),
           initialRoute: IntroScreen.route,
           // initialRoute: HomeTabScreen.route,
           onGenerateRoute: RouteGenerator.generateRoute,

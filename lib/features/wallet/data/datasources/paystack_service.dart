@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart' show kIsWeb;
+// import 'package:flutter/foundation.dart' show kIsWeb;
 // import 'package:flutter/material.dart';
 // import 'package:flutter_paystack/flutter_paystack.dart';
 
@@ -9,7 +9,7 @@ class PaystackService {
   // static final _plugin = PaystackPlugin();
 
   void init() {
-    if (kIsWeb) return;
+    // if (kIsWeb) return;
     // _plugin.initialize(publicKey: ENV.paystackPublicKey);
   }
 
