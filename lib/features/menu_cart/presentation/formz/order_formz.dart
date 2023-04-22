@@ -8,7 +8,7 @@ import 'cart_item_formz.dart';
 
 /// Below are the order status
 /// pending
-/// 
+///
 /// pre-processing
 /// processing
 /// processing-done
@@ -28,7 +28,9 @@ class OrderFormzModel extends Equatable {
     this.deliveryFee,
     this.serviceFee,
     List<CartItemFormz>? items,
-    this.paymentMethod = OrderPaymentMethod.wallet,
+    this.paymentMethod = OrderPaymentMethod.bankTransfer,
+    this.bankName = '',
+    this.accountName = '',
   }) : items = items ?? const <CartItemFormz>[];
 
   final String orderId;
@@ -38,6 +40,8 @@ class OrderFormzModel extends Equatable {
   final int? deliveryFee;
   final int? serviceFee;
   final OrderPaymentMethod paymentMethod;
+  final String bankName;
+  final String accountName;
 
   // String get orderId => _orderId;
   List<String> get vendors => items.map((e) => e.shopId.value).toSet().toList();
@@ -65,6 +69,16 @@ class OrderFormzModel extends Equatable {
   }
 
   bool get isValid {
+    if (paymentMethod == OrderPaymentMethod.bankTransfer) {
+      return items.isNotEmpty &&
+          address != null &&
+          userDetails != null &&
+          deliveryFee != null &&
+          serviceFee != null &&
+          bankName.isNotEmpty &&
+          accountName.isNotEmpty;
+    }
+
     return items.isNotEmpty &&
         address != null &&
         userDetails != null &&
@@ -123,12 +137,9 @@ class OrderFormzModel extends Equatable {
           {'status': 'pre-processing', 'time': DateTime.now()}
       ],
       'paymentMethod': paymentMethod.getName,
+      'bankPaymentDetails': {'bankName': bankName, 'accountName': accountName}
     };
   }
-
-  @override
-  List<Object?> get props =>
-      [items, address, userDetails, deliveryFee, serviceFee, paymentMethod];
 
   OrderFormzModel copyWith({
     String? orderId,
@@ -138,6 +149,8 @@ class OrderFormzModel extends Equatable {
     int? deliveryFee,
     int? serviceFee,
     OrderPaymentMethod? paymentMethod,
+    String? bankName,
+    String? accountName,
   }) {
     return OrderFormzModel(
       orderId: orderId ?? this.orderId,
@@ -147,6 +160,20 @@ class OrderFormzModel extends Equatable {
       deliveryFee: deliveryFee ?? this.deliveryFee,
       serviceFee: serviceFee ?? this.serviceFee,
       paymentMethod: paymentMethod ?? this.paymentMethod,
+      bankName: bankName ?? this.bankName,
+      accountName: accountName ?? this.accountName,
     );
   }
+
+  @override
+  List<Object?> get props => [
+        items,
+        address,
+        userDetails,
+        deliveryFee,
+        serviceFee,
+        paymentMethod,
+        bankName,
+        accountName,
+      ];
 }

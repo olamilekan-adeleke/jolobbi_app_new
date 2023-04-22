@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../../app/locator.dart';
 import '../../../../../cores/components/components.dart';
 import '../../../../../cores/constants/constants.dart';
@@ -29,19 +30,19 @@ class OrderPaymentTypeWidget extends StatelessWidget {
             ),
             verticalSpace(15),
             _buildOptionWidget(
-              icon: Icons.wallet_rounded,
-              title: "Pay With Wallet",
-              isActive: state.paymentMethod == OrderPaymentMethod.wallet,
-              onChanged: (value) => createOrderCubit.paymentMethod(
-                OrderPaymentMethod.wallet,
-              ),
-            ),
-            _buildOptionWidget(
               icon: Icons.account_balance_outlined,
               title: "Pay With Bank Transfer",
               isActive: state.paymentMethod == OrderPaymentMethod.bankTransfer,
               onChanged: (value) => createOrderCubit.paymentMethod(
                 OrderPaymentMethod.bankTransfer,
+              ),
+            ),
+            _buildOptionWidget(
+              icon: Icons.wallet_rounded,
+              title: "Pay With Wallet",
+              isActive: state.paymentMethod == OrderPaymentMethod.wallet,
+              onChanged: (value) => createOrderCubit.paymentMethod(
+                OrderPaymentMethod.wallet,
               ),
             ),
             _buildOptionWidget(
@@ -113,6 +114,9 @@ class OrderPaymentTypeWidget extends StatelessWidget {
 class OrderPaymentBankTransferDetailsWidget extends StatelessWidget {
   const OrderPaymentBankTransferDetailsWidget({super.key});
 
+  static final CreateOrderCubit createOrderCubit =
+      SetUpLocators.getIt<CreateOrderCubit>();
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -135,13 +139,13 @@ class OrderPaymentBankTransferDetailsWidget extends StatelessWidget {
         TextFieldWidget(
           title: "Account Name",
           hintText: "E.g Test User",
-          onChanged: (value) => {},
+          onChanged: createOrderCubit.addAccountName,
         ),
         verticalSpace(),
         TextFieldWidget(
           title: "Bank Name",
           hintText: "E.g Zenith Bank",
-          onChanged: (value) => {},
+          onChanged: createOrderCubit.addBankName,
         ),
       ],
     );

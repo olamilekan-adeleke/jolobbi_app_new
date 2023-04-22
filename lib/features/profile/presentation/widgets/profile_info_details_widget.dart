@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jolobbi_app_new/features/order/presentation/pages/order_views.dart';
+import '../../../order/presentation/pages/order_views.dart';
 
 import '../../../../cores/components/components.dart';
 import '../../../../cores/constants/constants.dart';

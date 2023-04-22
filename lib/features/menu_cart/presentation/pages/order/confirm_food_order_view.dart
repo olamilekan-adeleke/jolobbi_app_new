@@ -1,12 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../order/presentation/pages/order_views.dart';
 
 import '../../../../../app/locator.dart';
 import '../../../../../cores/components/components.dart';
 import '../../../../../cores/navigator/app_router.dart';
 import '../../../../../cores/utils/utils.dart';
+import '../../../../order/presentation/pages/order_views.dart';
 import '../../../../profile/presentation/bloc/get_profile/get_profile_bloc_bloc.dart';
 import '../../bloc/create_order/create_order_bloc.dart';
 import '../../cubit/cart_items_cubit.dart';

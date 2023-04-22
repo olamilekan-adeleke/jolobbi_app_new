@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:jolobbi_app_new/cores/firebase_helper/firebase_helper.dart';
+import '../../../../cores/firebase_helper/firebase_helper.dart';
 
 import '../../../../cores/entity/base_entity.dart';
 import '../../../home/data/models/menu_item_model.dart';

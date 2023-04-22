@@ -1,6 +1,5 @@
 import 'dart:async';
 
-
 import 'package:fpdart/fpdart.dart';
 
 import '../../../../cores/failures/base.dart';

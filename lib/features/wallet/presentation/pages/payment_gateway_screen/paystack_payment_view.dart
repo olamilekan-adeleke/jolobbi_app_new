@@ -30,14 +30,14 @@ class _PaystackPaymentViewState extends State<PaystackPaymentView> {
   }
 
   void startPayment() async {
-    final response = await _paystackService.chargeCard(context, widget.args);
-    LoggerHelper.log(response.toString());
+    // final response = await _paystackService.chargeCard(context, widget.args);
+    // LoggerHelper.log(response.toString());
 
-    if (response.status) {
-      Navigator.pop(context, response);
-    } else {
-      Navigator.pop(context);
-    }
+    // if (response.status) {
+    //   Navigator.pop(context, response);
+    // } else {
+    //   Navigator.pop(context);
+    // }
   }
 
   @override

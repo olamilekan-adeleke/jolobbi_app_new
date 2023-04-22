@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:jolobbi_app_new/cores/constants/font_size.dart';
+import '../../../../../cores/constants/font_size.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../../../../cores/components/components.dart';

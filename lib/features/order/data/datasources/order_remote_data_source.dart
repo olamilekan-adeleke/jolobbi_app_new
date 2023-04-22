@@ -17,6 +17,8 @@ abstract class OrderRemoteDataSource {
   Future<BaseModel> deleteOrder(String id);
 
   Future<BaseModel> cancelOrder(String id, String reason);
+
+  Future<BaseModel> confirmMadePayment(String orderId);
 }
 
 class OrderRemoteDataSourceImpl implements OrderRemoteDataSource {
@@ -56,11 +58,9 @@ class OrderRemoteDataSourceImpl implements OrderRemoteDataSource {
   Future<BaseModel> updateOrderStatus(String id, OrderStatus status) async {
     await firebaseHelper.orderCollectionRef().doc(id).update({
       "status": status.getName,
-      "statusHistory": FieldValue.arrayUnion(
-        [
-          {"status": status.getName, "time": DateTime.now()}
-        ],
-      ),
+      "statusHistory": FieldValue.arrayUnion([
+        {"status": status.getName, "time": DateTime.now()}
+      ])
     });
 
     return const BaseModel(
@@ -84,19 +84,33 @@ class OrderRemoteDataSourceImpl implements OrderRemoteDataSource {
 
     await firebaseHelper.orderCollectionRef().doc(id).update({
       "status": status.getName,
-      "statusHistory": FieldValue.arrayUnion(
-        [
-          {
-            "status": status.getName,
-            "time": DateTime.now(),
-            "reason": reason,
-          }
-        ],
-      ),
+      "statusHistory": FieldValue.arrayUnion([
+        {"status": status.getName, "time": DateTime.now(), "reason": reason}
+      ]),
     });
 
     return const BaseModel(
       message: "Order has be cancelled successfully",
+      success: true,
+    );
+  }
+
+  @override
+  Future<BaseModel> confirmMadePayment(String orderId) async {
+    await firebaseHelper.orderCollectionRef().doc(orderId).update({
+      "hasConfirmedBankTransfer": true,
+    });
+
+    // await firebaseHelper.orderCollectionRef().doc(orderId).update({
+    //   "status": status.getName,
+    //   "hasConfirmedBankTransfer": true,
+    //   "statusHistory": FieldValue.arrayUnion([
+    //     {"status": status.getName, "time": DateTime.now()}
+    //   ]),
+    // });
+
+    return const BaseModel(
+      message: "Payment confirmation has been sent successfully",
       success: true,
     );
   }

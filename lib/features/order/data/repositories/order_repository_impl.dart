@@ -121,4 +121,26 @@ class OrderRepositoryImpl implements OrderRepository {
       return Either.left(BaseFailures(message: e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failures, BaseEntity>> confirmMadePayment(
+    String orderId,
+  ) async {
+    try {
+      final BaseModel result =
+          await orderRemoteDataSource.confirmMadePayment(orderId);
+
+      return Either.right(result);
+    } on SocketFailures {
+      return const Left(BaseFailures(message: ErrorText.noInternet));
+    } catch (e, s) {
+      LoggerHelper.log(e, s);
+
+      if (e is BaseFailures) {
+        return Either.left(BaseFailures(message: e.message));
+      }
+
+      return Either.left(BaseFailures(message: e.toString()));
+    }
+  }
 }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../../../../cores/navigator/navigator.dart';
 
 import '../../../../../cores/components/components.dart';
 import '../../../../../cores/constants/color.dart';
 import '../../../../../cores/constants/constants.dart';
+import '../../../../../cores/navigator/navigator.dart';
 import '../../../../../cores/utils/utils.dart';
 import '../../../../menu_cart/presentation/widgets/cart_icon_widget.dart';
 
