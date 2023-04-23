@@ -157,7 +157,7 @@ class AddOnItemWidget extends StatelessWidget {
               ),
               horizontalSpace(15),
               SizedBox(
-                height: h(40),
+                height: h(41),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -239,7 +239,7 @@ class _ExtraItemWidget extends StatelessWidget {
             ),
             horizontalSpace(15),
             SizedBox(
-              height: h(40),
+              height: h(41),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

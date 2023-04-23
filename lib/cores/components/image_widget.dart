@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -51,19 +52,53 @@ class ImageWidget extends StatelessWidget {
           height: height,
           width: width,
           color: color,
-          child: CachedNetworkImage(
-            imageUrl: imageUrl!,
-            fit: fit,
-            errorWidget: (_, __, ___) => Container(
-              color: kcGrey200,
-              child: const Center(
-                child: Icon(Icons.error),
-              ),
-            ),
-            placeholder: (_, __) => const Center(
-              child: CircularProgressIndicator(),
-            ),
-          ),
+          //   child: FastCachedImage(
+          //     url: imageUrl!,
+          //     fit: BoxFit.cover,
+          //     fadeInDuration: const Duration(seconds: 1),
+          //     errorBuilder: (context, exception, stacktrace) {
+          //       return Text(stacktrace.toString());
+          //     },
+          //     loadingBuilder: (context, progress) {
+          //       return Container(
+          //         color: Colors.yellow,
+          //         child: SizedBox(
+          //           width: 120,
+          //           height: 120,
+          //           child: CircularProgressIndicator(
+          //             color: Colors.grey.shade100,
+          //             value: progress.progressPercentage.value,
+          //           ),
+          //         ),
+          //       );
+          //     },
+          //   ),
+          // );
+          child: kIsWeb
+              ? Image.network(
+                  imageUrl!,
+                  fit: fit,
+                  errorBuilder: (_, __, ___) => Container(
+                    color: kcGrey200,
+                    child: const Center(
+                      child: Icon(Icons.error_outline_rounded),
+                    ),
+                  ),
+                  loadingBuilder: (_, __, ___) => const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                )
+              : CachedNetworkImage(
+                  imageUrl: imageUrl!,
+                  fit: fit,
+                  errorWidget: (_, __, ___) => Container(
+                    color: kcGrey200,
+                    child: const Center(child: Icon(Icons.error)),
+                  ),
+                  placeholder: (_, __) => const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                ),
         );
 
       case ImageTypes.file:

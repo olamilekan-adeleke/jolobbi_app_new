@@ -39,6 +39,7 @@ dependencies:
   # flutter_paystack: ^1.0.7
   flutter_timeline: ^0.3.0
   sidebarx: ^0.15.0
+  fast_cached_network_image: ^1.1.1
 
 dependency_overrides:
   rxdart: ^0.27.7
