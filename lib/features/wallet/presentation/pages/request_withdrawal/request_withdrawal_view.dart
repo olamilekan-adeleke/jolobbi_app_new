@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../app/locator.dart';
 import '../../../../../cores/components/components.dart';
-import '../../../../../cores/navigator/navigator.dart';
+import '../../../../../cores/navigator/app_router.dart';
 import '../../../../../cores/utils/formatter/money_formatter.dart';
 import '../../../../../cores/utils/utils.dart';
 import '../../bloc/withdrawal/withdrawal_bloc.dart';
@@ -48,7 +48,7 @@ class _RequestWithdrawalViewState extends State<RequestWithdrawalView> {
               textInputType: TextInputType.number,
               inputFormatters: [
                 FilteringTextInputFormatter.digitsOnly,
-                LengthLimitingTextInputFormatter(11),
+                LengthLimitingTextInputFormatter(10),
               ],
             ),
             verticalSpace(),

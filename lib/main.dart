@@ -15,7 +15,7 @@ Future<void> main() async {
   await dotenv.load(fileName: "assets/.env");
 
   await FastCachedImageConfig.init(clearCacheAfter: const Duration(days: 10));
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.web);
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   SetUpLocators.getIt<PushNotificationHelper>().initNotification();
   SetUpLocators.getIt<PaystackService>().init();
 

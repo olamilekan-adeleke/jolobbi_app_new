@@ -71,8 +71,8 @@ String? nameValidator(String? value) {
 String? accountNumberValidator(String? value) {
   if (value == '' || value == null) {
     return 'Account Number must not be empty!';
-  } else if (value.trim().length <= 10) {
-    return 'Account Number must be min 11 characters long!';
+  } else if (value.trim().length <= 9) {
+    return 'Account Number must be min 10 characters long!';
   }
   return null;
 }
