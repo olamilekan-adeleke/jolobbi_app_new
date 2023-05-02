@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+import '../../../../cores/firebase_helper/firebase_helper.dart';
 
 import '../../../../cores/utils/formz_validator/required_formz_validator.dart';
 
@@ -40,7 +41,7 @@ class WithdrawalStateFormz with FormzMixin {
   });
 
   bool get isValid {
-    return accountNumber.value.length == 11 &&
+    return accountNumber.value.length == 10 &&
         bankName.valid &&
         accountName.valid &&
         amount.valid;
@@ -69,6 +70,8 @@ class WithdrawalStateFormz with FormzMixin {
       'bank_name': bankName.value,
       'account_name': accountName.value,
       'amount': amount.value,
+      'status': 'pending',
+      'timestamp': FirebaseHelper().timestamp,
     };
   }
 }
