@@ -6,6 +6,7 @@ import '../../../../cores/components/components.dart';
 import '../../../../cores/constants/color.dart';
 import '../../../../cores/navigator/navigator.dart';
 import '../../../../cores/utils/utils.dart';
+import '../../../profile/presentation/bloc/get_profile/get_profile_bloc_bloc.dart';
 import '../bloc/get_wallet/get_wallet_bloc.dart';
 import '../pages/request_withdrawal/request_withdrawal_view.dart';
 import 'fund_wallet_widget/fund_wallet_option_widget.dart';
@@ -15,6 +16,8 @@ class WalletBalanceWidget extends StatelessWidget {
 
   static final GetWalletBloc _getWalletBloc =
       SetUpLocators.getIt<GetWalletBloc>();
+  static final GetProfileBloc _getProfileBloc =
+      SetUpLocators.getIt<GetProfileBloc>();
 
   @override
   Widget build(BuildContext context) {
@@ -66,9 +69,23 @@ class WalletBalanceWidget extends StatelessWidget {
                 ),
                 const Spacer(),
                 GestureDetector(
-                  onTap: () => AppRouter.instance.navigateTo(
-                    RequestWithdrawalView.routeName,
-                  ),
+                  onTap: () {
+                    if (_getProfileBloc.state is GetProfileSuccess) {
+                      AppRouter.instance
+                          .navigateTo(RequestWithdrawalView.routeName);
+                    } else if (_getProfileBloc.state is GetProfileError) {
+                      SnackBarService.showErrorSnackBar(
+                        context: context,
+                        message:
+                            (_getProfileBloc.state as GetProfileError).message,
+                      );
+                    } else {
+                      SnackBarService.showErrorSnackBar(
+                        context: context,
+                        message: " Something went wrong, please try again",
+                      );
+                    }
+                  },
                   child: _buildWalletButtonWidget(
                     "assets/images/wallet/send_money.png",
                     "Withdraw",

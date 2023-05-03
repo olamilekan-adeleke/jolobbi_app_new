@@ -1,8 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import '../../../../cores/firebase_helper/firebase_helper.dart';
 
+import '../../../../cores/firebase_helper/firebase_helper.dart';
 import '../../../../cores/utils/formz_validator/required_formz_validator.dart';
+import '../../../profile/domain/entities/user_details_entity.dart';
 
 class WithdrawalCubit extends Cubit<WithdrawalStateFormz> {
   WithdrawalCubit() : super(const WithdrawalStateFormz());
@@ -64,7 +65,7 @@ class WithdrawalStateFormz with FormzMixin {
   @override
   List<FormzInput> get inputs => [accountNumber, bankName, accountName, amount];
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toMap(UserDetailsEntity userDetailsEntity) {
     return {
       'account_number': accountNumber.value,
       'bank_name': bankName.value,
@@ -72,6 +73,7 @@ class WithdrawalStateFormz with FormzMixin {
       'amount': amount.value,
       'status': 'pending',
       'timestamp': FirebaseHelper().timestamp,
+      'user': userDetailsEntity.toMap(),
     };
   }
 }

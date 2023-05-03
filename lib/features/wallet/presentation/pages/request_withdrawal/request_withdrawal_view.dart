@@ -7,6 +7,7 @@ import '../../../../../cores/components/components.dart';
 import '../../../../../cores/navigator/app_router.dart';
 import '../../../../../cores/utils/formatter/money_formatter.dart';
 import '../../../../../cores/utils/utils.dart';
+import '../../../../profile/presentation/bloc/get_profile/get_profile_bloc_bloc.dart';
 import '../../bloc/withdrawal/withdrawal_bloc.dart';
 import '../../cubit/withdrawal_cubit.dart';
 
@@ -22,6 +23,7 @@ class _RequestWithdrawalViewState extends State<RequestWithdrawalView> {
   final WithdrawalBloc _withdrawalBloc = SetUpLocators.getIt<WithdrawalBloc>();
   final WithdrawalCubit _withdrawalCubit =
       SetUpLocators.getIt<WithdrawalCubit>();
+  final GetProfileBloc _getProfileBloc = SetUpLocators.getIt<GetProfileBloc>();
 
   @override
   void initState() {
@@ -98,7 +100,9 @@ class _RequestWithdrawalViewState extends State<RequestWithdrawalView> {
                       active: state.isValid,
                       text: 'Request Withdrawal',
                       onTap: () => _withdrawalBloc.add(
-                        WithdrawalEvent(state.toMap()),
+                        WithdrawalEvent(
+                          state.toMap(_getProfileBloc.userDetailsEntity!),
+                        ),
                       ),
                     );
                   },
