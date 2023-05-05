@@ -49,8 +49,6 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
     }
 
     final GeoFlutterFire geo = GeoFlutterFire();
-    // const double latitude = 8.4813;
-    // const double longitude = 4.6115;
     final double latitude = location.latitude;
     final double longitude = location.longitude;
 
@@ -149,7 +147,9 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
     String query,
     String? lastDocId,
   ) async {
-    var collectionReference = firebaseHelper
+    query = query.toLowerCase();
+
+    Query<Map<String, dynamic>> collectionReference = firebaseHelper
         .shopCollectionRef()
         .where('searchKey', arrayContains: query)
         .orderBy("searchKey");

@@ -35,6 +35,8 @@ class _RequestWithdrawalViewState extends State<RequestWithdrawalView> {
   Widget build(BuildContext context) {
     return BlocListener<WithdrawalBloc, WithdrawalState>(
       bloc: _withdrawalBloc,
+
+      
       listener: listener,
       child: ScaffoldWidget(
         body: Column(

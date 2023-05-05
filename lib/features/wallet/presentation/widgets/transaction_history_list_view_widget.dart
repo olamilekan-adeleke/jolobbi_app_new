@@ -34,12 +34,12 @@ class _TransactionHistoryListViewWidgetState
               fontSize: sp(18),
               fontWeight: FontWeight.w700,
             ),
-            TextWidget(
-              'See all',
-              fontSize: sp(16),
-              textColor: kcPrimaryColor,
-              decoration: TextDecoration.underline,
-            ),
+            // TextWidget(
+            //   'See all',
+            //   fontSize: sp(16),
+            //   textColor: kcPrimaryColor,
+            //   decoration: TextDecoration.underline,
+            // ),
           ],
         ),
         verticalSpace(),

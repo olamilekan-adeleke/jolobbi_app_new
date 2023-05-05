@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../cores/utils/app_utils.dart';
 import '../../../order/presentation/pages/order_views.dart';
 
 import '../../../../cores/components/components.dart';
@@ -40,12 +41,12 @@ class ProfileInfoDetailsWidget extends StatelessWidget {
                 onTap: () => AppRouter.instance.navigateTo(OrderView.routeName),
               ),
               verticalSpace(20),
-              actionItemsWidget(Icons.person, "Edit Profile", onTap: () {}),
-              verticalSpace(20),
-              actionItemsWidget(Icons.lock, "Change Password", onTap: () {}),
-              verticalSpace(20),
-              actionItemsWidget(Icons.help, "Help", onTap: () {}),
-              verticalSpace(20),
+              // actionItemsWidget(Icons.person, "Edit Profile", onTap: () {}),
+              // verticalSpace(20),
+              // actionItemsWidget(Icons.lock, "Change Password", onTap: () {}),
+              // verticalSpace(20),
+              // actionItemsWidget(Icons.help, "Help", onTap: () {}),
+              // verticalSpace(20),
               actionItemsWidget(
                 Icons.headphones,
                 "Contact Support",
@@ -63,7 +64,20 @@ class ProfileInfoDetailsWidget extends StatelessWidget {
           ),
         ),
         verticalSpace(40),
-        TextWidget("v 1.0.2", fontSize: sp(16), textColor: kcSoftTextColor),
+        FutureBuilder<String>(
+          future: AppUtils.getAppVersion(),
+          builder: (context, state) {
+            if (state.hasData && state.data != null) {
+              return TextWidget(
+                "${state.data}",
+                fontSize: sp(16),
+                textColor: kcSoftTextColor,
+              );
+            }
+
+            return const SizedBox();
+          },
+        ),
       ],
     );
   }
