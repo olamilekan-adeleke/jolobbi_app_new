@@ -1,9 +1,14 @@
-import 'dart:io';
+import 'dart:io' as io;
+
+import 'package:fastor_app_ui_widget/fastor_app_ui_widget.dart'
+    if (dart.library.html) 'dart:ui' as ui;
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import 'dart:html' as htlm;
 
 import '../constants/color.dart';
 
@@ -45,6 +50,21 @@ class ImageWidget extends StatelessWidget {
     }
 
     // log(imageUrl);
+    if (kIsWeb) {
+      ui.platformViewRegistry.registerViewFactory(
+        imageUrl ?? "",
+        (int _) => htlm.ImageElement()..src = imageUrl,
+      );
+      if (height == null && width == null) {
+        return Flexible(child: HtmlElementView(viewType: imageUrl ?? ""));
+      }
+
+      return SizedBox(
+        height: height,
+        width: width,
+        child: HtmlElementView(viewType: imageUrl ?? ""),
+      );
+    }
 
     switch (imageTypes) {
       case ImageTypes.network:
@@ -106,7 +126,7 @@ class ImageWidget extends StatelessWidget {
           height: height,
           width: width,
           child: Image.file(
-            File(imageUrl!),
+            io.File(imageUrl!),
             fit: fit,
             color: color,
             errorBuilder: (_, __, ___) => Container(
