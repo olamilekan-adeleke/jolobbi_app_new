@@ -13,27 +13,27 @@ class HomeAppBarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
-        GestureDetector(
-          onTap: onMenuPressed,
-          child: const Icon(CupertinoIcons.list_dash),
-        ),
+        // GestureDetector(
+        //   onTap: onMenuPressed,
+        //   child: const Icon(CupertinoIcons.list_dash),
+        // ),
         horizontalSpace(33),
         const Spacer(),
-        TextWidget("Fast Food", fontSize: sp(24)),
+        TextWidget("Jolobbi Food", fontSize: sp(24)),
         const Spacer(),
-        Row(
-          children: [
-            GestureDetector(
-              onTap: () {},
-              child: const Icon(CupertinoIcons.bell),
-            ),
-            horizontalSpace(),
-            GestureDetector(
-              onTap: () {},
-              child: const Icon(Icons.location_on_outlined),
-            ),
-          ],
-        ),
+        // Row(
+        //   children: [
+        //     GestureDetector(
+        //       onTap: () {},
+        //       child: const Icon(CupertinoIcons.bell),
+        //     ),
+        //     horizontalSpace(),
+        //     GestureDetector(
+        //       onTap: () {},
+        //       child: const Icon(Icons.location_on_outlined),
+        //     ),
+        //   ],
+        // ),
       ],
     );
   }

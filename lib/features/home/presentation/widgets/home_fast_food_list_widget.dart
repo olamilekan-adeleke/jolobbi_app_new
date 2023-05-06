@@ -157,25 +157,25 @@ class BuildFastFoodItem extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    BlocBuilder<BookmarkRestaurantBloc,
-                        BookmarkRestaurantState>(
-                      bloc: _bookmarkRestaurantBloc,
-                      builder: (context, state) {
-                        if (state is BookmarkRestaurantLoading) {
-                          return const LoadingIndicatorWidget();
-                        }
-                        return GestureDetector(
-                          onTap: () => _bookmarkRestaurantBloc.add(
-                            BookmarkRestaurantEvent(shop.id),
-                          ),
-                          child: Icon(
-                            Icons.bookmark_border,
-                            color: kcSoftTextColor.withOpacity(0.5),
-                            size: sp(20),
-                          ),
-                        );
-                      },
-                    ),
+                    // BlocBuilder<BookmarkRestaurantBloc,
+                    //     BookmarkRestaurantState>(
+                    //   bloc: _bookmarkRestaurantBloc,
+                    //   builder: (context, state) {
+                    //     if (state is BookmarkRestaurantLoading) {
+                    //       return const LoadingIndicatorWidget();
+                    //     }
+                    //     return GestureDetector(
+                    //       onTap: () => _bookmarkRestaurantBloc.add(
+                    //         BookmarkRestaurantEvent(shop.id),
+                    //       ),
+                    //       child: Icon(
+                    //         Icons.bookmark_border,
+                    //         color: kcSoftTextColor.withOpacity(0.5),
+                    //         size: sp(20),
+                    //       ),
+                    //     );
+                    //   },
+                    // ),
                   ],
                 ),
                 verticalSpace(5),
@@ -224,12 +224,16 @@ class BuildFastFoodItem extends StatelessWidget {
                           shop.coordinate.longitude,
                         ),
                         builder: (context, AsyncSnapshot<double> snaphot) {
-                          double distance = 0;
+                          // double distance = 0;
+                          // if (snaphot.hasData) distance = snaphot.data ?? 0;
 
-                          if (snaphot.hasData) distance = snaphot.data ?? 0;
-
+                          // return TextWidget(
+                          //   "30 Mins • ${distance.toStringAsFixed(2)} km",
+                          //   fontSize: sp(14),
+                          //   fontWeight: FontWeight.w400,
+                          // );
                           return TextWidget(
-                            "30 Mins • ${distance.toStringAsFixed(2)} km",
+                            "30 Mins",
                             fontSize: sp(14),
                             fontWeight: FontWeight.w400,
                           );

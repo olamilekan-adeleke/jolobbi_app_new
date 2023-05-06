@@ -21,32 +21,55 @@ class FoodCartListWidget extends StatelessWidget {
     return BlocBuilder<CartItemCubit, CartItemsList>(
       bloc: _cartItemCubit,
       builder: (context, state) {
-        return ListView.builder(
-          itemCount: state.cartItems.length,
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemBuilder: (context, index) {
-            final CartItemFormz cartItem = state.cartItems[index];
-
-            return Dismissible(
-              key: UniqueKey(),
-              direction: DismissDirection.endToStart,
-              onDismissed: (direction) => _cartItemCubit.removeFromCart(
-                cartItem,
-              ),
-              background: Container(
-                color: kcErrorColor,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    const Icon(Icons.delete, color: Colors.white),
-                    horizontalSpace(10),
-                  ],
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Icon(
+                  Icons.info_outline_rounded,
+                  color: kcSoftTextColor.withOpacity(0.7),
+                  size: sp(15),
                 ),
-              ),
-              child: FoodCartItemWidget(cartItem),
-            );
-          },
+                TextWidget(
+                  " You can swipe left to remove an item from the cart",
+                  fontSize: sp(15),
+                  fontWeight: FontWeight.w300,
+                  textColor: kcSoftTextColor.withOpacity(0.7),
+                ),
+              ],
+            ),
+            verticalSpace(),
+            ListView.builder(
+              itemCount: state.cartItems.length,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                final CartItemFormz cartItem = state.cartItems[index];
+
+                return Dismissible(
+                  key: UniqueKey(),
+                  direction: DismissDirection.endToStart,
+                  onDismissed: (direction) => _cartItemCubit.removeFromCart(
+                    cartItem,
+                  ),
+                  background: Container(
+                    color: kcErrorColor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        const Icon(Icons.delete, color: Colors.white),
+                        horizontalSpace(10),
+                      ],
+                    ),
+                  ),
+                  child: FoodCartItemWidget(cartItem),
+                );
+              },
+            ),
+          ],
         );
       },
     );
@@ -101,16 +124,26 @@ class _FoodCartItemWidgetState extends State<FoodCartItemWidget> {
               ),
             ),
             verticalSpace(10),
-            if (widget.showEdit)
-              CartItemCounterWidget(
-                count: widget.cartItem.quantity.value,
-                onIncrement: () {
-                  _cartItemCubit.increaseQuantity(widget.cartItem);
-                },
-                onDecrement: () {
-                  _cartItemCubit.decreaseQuantity(widget.cartItem);
-                },
-              ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                if (widget.showEdit)
+                  CartItemCounterWidget(
+                    count: widget.cartItem.quantity.value,
+                    onIncrement: () {
+                      _cartItemCubit.increaseQuantity(widget.cartItem);
+                    },
+                    onDecrement: () {
+                      _cartItemCubit.decreaseQuantity(widget.cartItem);
+                    },
+                  ),
+                // verticalSpace(5),
+                // GestureDetector(
+                //   onTap: () => _cartItemCubit.removeFromCart(widget.cartItem),
+                //   child: Icon(Icons.delete, size: sp(20), color: kcGrey400),
+                // ),
+              ],
+            ),
           ],
         ),
         verticalSpace(),

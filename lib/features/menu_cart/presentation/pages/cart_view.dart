@@ -42,6 +42,7 @@ class MenuCartView extends StatelessWidget {
               return Visibility(
                 visible: state.cartItems.isNotEmpty,
                 child: Button(
+                  active: state.cartItems.isNotEmpty,
                   text: "Checkout",
                   onTap: () => AppRouter.instance.navigateTo(
                     ConfirmFoodOrderView.route,

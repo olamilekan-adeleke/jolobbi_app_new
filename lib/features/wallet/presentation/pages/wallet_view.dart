@@ -50,6 +50,8 @@ class _WalletViewState extends State<WalletView> {
           body: Column(
             children: [
               verticalSpace(20),
+              const AppBarWidget("Wallet", showBackButton: false),
+              verticalSpace(20),
               const WalletBalanceWidget(),
               verticalSpace(20),
               const TransactionHistoryListViewWidget(),
